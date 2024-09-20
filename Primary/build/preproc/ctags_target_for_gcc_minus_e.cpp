@@ -8,8 +8,8 @@ void setup(){
 }
 
 void loop(){
-  digitalWrite(led, 0x1);
-  digitalWrite(buzzer, 0x1);
+  digitalWrite(led, 0x0);
+  digitalWrite(buzzer, 0x0);
   delay(500);
   digitalWrite(led, 0x0);
   digitalWrite(buzzer, 0x0);

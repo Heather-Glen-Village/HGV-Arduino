@@ -8,9 +8,9 @@ void setup(){
   
 void loop(){
   digitalWrite(led, LOW);
-  digitalWrite(buzzer, LOW);
-  delay(500);
-  digitalWrite(led, LOW);
-  digitalWrite(buzzer, LOW);
-  delay(2500);
+  // digitalWrite(buzzer, LOW);
+  // delay(500);
+  // digitalWrite(led, LOW);
+  // digitalWrite(buzzer, LOW);
+  // delay(2500);
 }
