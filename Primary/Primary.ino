@@ -7,7 +7,7 @@ void loop() {
   char getdata='m';
 
   digitalWrite(8,HIGH);//DE/RE=HIGH Transmit Enabled M1
-  Serial.print('test');//Write '9' and Fetch Data From Pro Mini
+  Serial.print('t');//Write '9' and Fetch Data From Pro Mini
    
   digitalWrite(8,LOW);//DE/RE=LOW Receive Enabled M1
   delay(1000);
