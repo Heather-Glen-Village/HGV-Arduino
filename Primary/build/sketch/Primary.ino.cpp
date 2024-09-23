@@ -9,12 +9,12 @@ void setup();
 void loop();
 #line 4 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup(){
-	pinMode(buzzer, OUTPUT);
+  pinMode(buzzer, OUTPUT);
   pinMode(led, OUTPUT);
 }
   
 void loop(){
-  digitalWrite(led, LOW);
+  digitalWrite(led, HIGH);
   // digitalWrite(buzzer, LOW);
   // delay(500);
   // digitalWrite(led, LOW);

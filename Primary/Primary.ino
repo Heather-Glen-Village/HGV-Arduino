@@ -2,7 +2,7 @@ const int buzzer = 7;
 const int led = 2;
   
 void setup(){
-	pinMode(buzzer, OUTPUT);
+  pinMode(buzzer, OUTPUT);
   pinMode(led, OUTPUT);
 }
   
