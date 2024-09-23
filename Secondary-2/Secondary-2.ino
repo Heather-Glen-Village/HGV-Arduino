@@ -11,7 +11,8 @@ void setup(){
 void loop(){
     while(Serial.available()) // if there is something to read in the serial
     {
-        if(Serial.read() == 'test')
+        Serial.println(Serial.read());
+        if(Serial.read() == 'A')
         {
             digitalWrite(LED, !digitalRead(LED));
         }

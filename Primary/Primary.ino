@@ -7,17 +7,15 @@ void setup(){
   pinMode(8, OUTPUT);
   Serial.begin(9600);
   digitalWrite(MASTER_EN, LOW);
-  pinMode(8, LOW);
+  pinMode(8, HIGH);
 }
   
 void loop(){
   digitalWrite(MASTER_EN, HIGH); // Enable Pin to Send Data
-  digitalWrite(8, HIGH);
   delay(5);
-  Serial.println('test');
+  Serial.println('A');
   Serial.flush(); // Wait for data to send
   digitalWrite(MASTER_EN, LOW);
-  pinMode(8, LOW);
   delay(1000);
 
 }
