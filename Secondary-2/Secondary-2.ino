@@ -1,21 +1,33 @@
-#define LED 2
-#define SLAVE_EN 1 // Change this to RS485 Pin
-  
-void setup(){
-  pinMode(LED, OUTPUT);
+void setup() {
+    
+  //Serial1.begin(9600);//Uncomment for Arduino Lenardo
   Serial.begin(9600);
-}
-  
-void loop(){
-    while(Serial.available()) // if there is something to read in the serial
-    {
-        digitalWrite(LED, LOW);
-        if(Serial.read() == 'A')
-        {
-            //digitalWrite(LED, !digitalRead(LED));
-            Serial.println("Message received");
+  //while(!Serial1);//Uncomment for Arduino Lenardo
+	
 
-        }
+
+  pinMode(2, OUTPUT);//Led Connected
+  pinMode(8, OUTPUT);//DE/RE Controling pin of RS-485
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  char getdata='c';
+
+  digitalWrite(2,LOW);//Led OFF
+  digitalWrite(8,LOW);//DE/RE=LOW Receive Enabled
+
+   if(Serial.available()){
+    getdata=Serial.read();
     }
-    digitalWrite(LED, HIGH);
+    
+   if(getdata='9'){
+      digitalWrite(8,HIGH);//DE/RE=HIGH Transmit Enabled 
+      Serial.print("AcruxTek");
+      Serial.print("Isld");
+    }
+    
+delay(2000);
+digitalWrite(2,HIGH);//Led ON
+delay(2000);
 }
