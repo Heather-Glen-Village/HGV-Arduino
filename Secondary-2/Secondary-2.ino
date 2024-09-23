@@ -8,7 +8,6 @@ void setup(){
     digitalWrite(SLAVE_EN, OUTPUT);
     Serial.begin(9600);
     digitalWrite(SLAVE_EN, LOW);
-    Serial.println('S');
     
 }
 
