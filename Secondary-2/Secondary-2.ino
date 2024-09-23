@@ -3,9 +3,7 @@
   
 void setup(){
   pinMode(LED, OUTPUT);
-  pinMode(SLAVE_EN, OUTPUT);
   Serial.begin(9600);
-  digitalWrite(SLAVE_EN, LOW);
 }
   
 void loop(){
@@ -14,7 +12,8 @@ void loop(){
         Serial.println(Serial.read());
         if(Serial.read() == 'A')
         {
-            digitalWrite(LED, !digitalRead(LED));
+            //digitalWrite(LED, !digitalRead(LED));
+            Serial.println("Message received");
         }
     }
 }

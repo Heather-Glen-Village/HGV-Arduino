@@ -9,9 +9,7 @@ void setup(){
 }
   
 void loop(){
-  delay(5);
   Serial.println('A');
   Serial.flush(); // Wait for data to send
-  delay(1000);
-
+  delay(2000);
 }
