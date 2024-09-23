@@ -13,7 +13,7 @@ void setup() {
 void loop(){
     digitalWrite(MASTER_EN, HIGH);
     delay(10);
-    Serial.println("A");
+    Serial.write("A");
     Serial.flush();
     digitalWrite(MASTER_EN, LOW);
     delay(1000);
