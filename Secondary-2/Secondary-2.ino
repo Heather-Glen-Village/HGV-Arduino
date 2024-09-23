@@ -8,15 +8,17 @@ void setup(){
     digitalWrite(SLAVE_EN, OUTPUT);
     Serial.begin(9600);
     digitalWrite(SLAVE_EN, LOW);
-    Serial.println('Start');
+    Serial.println('S');
     
 }
 
 void loop(){
     while(Serial.available())
     {
+        Serial.println('N');
         if(Serial.read() == 'A')
         {
+            Serial.println('E');
             digitalWrite(LED, !digitalRead(LED));
         }
     }
