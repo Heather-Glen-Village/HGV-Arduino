@@ -7,10 +7,10 @@ void setup()
 
 void loop()
 {
- digitalWrite(14, 0x1);
+ digitalWrite(2, 0x1);
     Serial.println("High");
     delay(1000);
-    digitalWrite(14, 0x0);
+    digitalWrite(2, 0x0);
     Serial.println("Low");
     delay(1000);
 }
