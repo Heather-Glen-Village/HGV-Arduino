@@ -1,5 +1,5 @@
 #define LED 2
-#define MASTER_EN 8 // Change this to RS485 Pin
+#define MASTER_EN 0 // Change this to RS485 Pin
   
 void setup(){
   pinMode(LED, OUTPUT);

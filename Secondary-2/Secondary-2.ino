@@ -1,5 +1,5 @@
 #define LED 2
-#define SLAVE_EN 8 // Change this to RS485 Pin
+#define SLAVE_EN 0 // Change this to RS485 Pin
   
 void setup(){
   pinMode(LED, OUTPUT);
