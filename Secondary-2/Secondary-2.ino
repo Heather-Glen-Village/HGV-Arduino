@@ -8,14 +8,14 @@ void setup(){
     digitalWrite(SLAVE_EN, OUTPUT);
     Serial.begin(9600);
     digitalWrite(SLAVE_EN, LOW);
+    Serial.println('Start');
+    
 }
 
 void loop(){
     while(Serial.available())
     {
-        char Message = Serial.read(); 
-        Serial.println(Message);
-        if(Message == 'A')
+        if(Serial.read() == 'A')
         {
             digitalWrite(LED, !digitalRead(LED));
         }
