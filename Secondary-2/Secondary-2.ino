@@ -12,7 +12,7 @@ void setup(){
 }
 
 void loop(){
-    while(Serial.available())
+    while(Serial.available() > 0)
     {
         Serial.println('N');
         if(Serial.read() == 'A')
