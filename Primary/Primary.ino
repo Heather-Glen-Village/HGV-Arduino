@@ -1,25 +1,21 @@
+#define DI 0
+#define RO 1
+#define LED 2
+#define MASTER_EN 8
+
 void setup() {
-  Serial.begin(9600);
-  pinMode(8, OUTPUT);//DE/RE Controling pin of RS-485
+    pinMode(LED, OUTPUT);
+    pinMode(MASTER_EN, OUTPUT);
+    Serial.begin(9600);
+    digitalWrite(MASTER_EN, LOW);
 }
 
-void loop() {
-  char getdata='m';
+void loop(){
+    digitalWrite(MASTER_EN, HIGH);
+    delay(5);
+    Serial.println("A");
+    Serial.flush();
+    digitalWrite(MASTER_EN, LOW);
+    delay(1000);
 
-  digitalWrite(8,HIGH);//DE/RE=HIGH Transmit Enabled M1
-  Serial.println('t');//Write '9' and Fetch Data From Pro Mini
-   
-  digitalWrite(8,LOW);//DE/RE=LOW Receive Enabled M1
-  delay(1000);
-  
-  if(Serial.available()){ //If Serial Data is available
-    
-    while(Serial.available() && getdata!='d')
-    { 
-    getdata=Serial.read();
-    Serial.print(getdata);
-    }
-    
-    Serial.println("");
-    }
 }
