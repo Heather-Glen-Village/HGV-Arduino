@@ -19,6 +19,7 @@ void loop() {
 
    if(Serial.available()){
     getdata=Serial.read();
+    Serial.println(getdata);
     }
     
    if(getdata='9'){
