@@ -17,4 +17,6 @@ void loop(){
             digitalWrite(LED, !digitalRead(LED));
         }
     }
+    Serial.println('Not working :<');
+    delay(1);
 }
