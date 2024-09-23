@@ -5,23 +5,24 @@
   
 #line 4 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup();
-#line 11 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 9 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void loop();
 #line 4 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup(){
   pinMode(LED, OUTPUT);
-  pinMode(SLAVE_EN, OUTPUT);
   Serial.begin(9600);
-  digitalWrite(SLAVE_EN, LOW);
 }
   
 void loop(){
     while(Serial.available()) // if there is something to read in the serial
     {
-        Serial.println(Serial.read());
+        digitalWrite(LED, LOW);
         if(Serial.read() == 'A')
         {
-            digitalWrite(LED, !digitalRead(LED));
+            //digitalWrite(LED, !digitalRead(LED));
+            Serial.println("Message received");
+
         }
     }
+    digitalWrite(LED, HIGH);
 }

@@ -4,18 +4,19 @@
 
 void setup(){
   pinMode(2, 0x1);
-  pinMode(1 /* Change this to RS485 Pin*/, 0x1);
   Serial.begin(9600);
-  digitalWrite(1 /* Change this to RS485 Pin*/, 0x0);
 }
 
 void loop(){
     while(Serial.available()) // if there is something to read in the serial
     {
-        Serial.println(Serial.read());
+        digitalWrite(2, 0x0);
         if(Serial.read() == 'A')
         {
-            digitalWrite(2, !digitalRead(2));
+            //digitalWrite(LED, !digitalRead(LED));
+            Serial.println("Message received");
+
         }
     }
+    digitalWrite(2, 0x1);
 }

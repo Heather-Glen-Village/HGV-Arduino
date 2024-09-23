@@ -9,11 +9,13 @@ void setup(){
 void loop(){
     while(Serial.available()) // if there is something to read in the serial
     {
-        Serial.println(Serial.read());
+        digitalWrite(LED, LOW);
         if(Serial.read() == 'A')
         {
             //digitalWrite(LED, !digitalRead(LED));
             Serial.println("Message received");
+
         }
     }
+    digitalWrite(LED, HIGH);
 }
