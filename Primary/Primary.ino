@@ -5,7 +5,7 @@ void setup(){
   pinMode(LED, OUTPUT);
   pinMode(MASTER_EN, OUTPUT);
   pinMode(8, OUTPUT);
-  //Serial.begin(9600);
+  Serial.begin(9600);
   digitalWrite(MASTER_EN, LOW);
   pinMode(8, LOW);
 }
