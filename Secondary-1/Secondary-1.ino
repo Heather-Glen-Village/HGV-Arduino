@@ -1,14 +1,22 @@
-#define led 2
-  
-void setup(){
-  pinMode(led, OUTPUT);
-  Serial.begin(9600);
+#define DI 0
+#define RO 1
+#define LED 2
+#define MASTER_EN 8
+
+void setup() {
+    pinMode(LED, OUTPUT);
+    pinMode(MASTER_EN, OUTPUT);
+    Serial.begin(9600);
+    digitalWrite(MASTER_EN, LOW);
 }
-  
+
 void loop(){
-  digitalWrite(led, HIGH);
-  Serial.println(digitalRead(led));
-  // delay(500);
-  // digitalWrite(led, LOW);
-  // delay(2500);
+    digitalWrite(MASTER_EN, HIGH);
+    delay(10);
+    Serial.write("A");
+    Serial.flush();
+    digitalWrite(MASTER_EN, LOW);
+    delay(1000);
+    
+
 }

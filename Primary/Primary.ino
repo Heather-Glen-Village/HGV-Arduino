@@ -1,22 +1,24 @@
+#define LED 2
 #define DI 0
 #define RO 1
-#define LED 2
-#define MASTER_EN 8
+#define SLAVE_EN 8
 
-void setup() {
-    pinMode(LED, OUTPUT);
-    pinMode(MASTER_EN, OUTPUT);
+void setup(){
+    digitalWrite(LED, OUTPUT);
+    digitalWrite(SLAVE_EN, OUTPUT);
     Serial.begin(9600);
-    digitalWrite(MASTER_EN, LOW);
+    digitalWrite(SLAVE_EN, LOW);
+    
 }
 
 void loop(){
-    digitalWrite(MASTER_EN, HIGH);
-    delay(10);
-    Serial.write("A");
-    Serial.flush();
-    digitalWrite(MASTER_EN, LOW);
-    delay(1000);
-    
-
+    while(Serial.available() > 0)
+    {
+        Serial.println('N');
+        if(Serial.read() == 'A')
+        {
+            Serial.println('E');
+            digitalWrite(LED, !digitalRead(LED));
+        }
+    }
 }
