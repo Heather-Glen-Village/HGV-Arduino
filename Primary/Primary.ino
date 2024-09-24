@@ -1,29 +1,27 @@
-#define LED 2
 #define DI 0
 #define RO 1
-#define SLAVE_EN 8
+#define LED 2
+#define RsPower 8
 
-void setup(){
-    digitalWrite(LED, OUTPUT);
-    digitalWrite(SLAVE_EN, OUTPUT);
+void setup() {
+    pinMode(LED, OUTPUT);
+    pinMode(RsPower, OUTPUT);
     Serial.begin(9600);
-    digitalWrite(SLAVE_EN, LOW);
-    digitalWrite(RO, INPUT);
+    digitalWrite(RsPower, LOW);
 }
 
 void loop(){
-    Serial.readString()
+  Serial.println("----------------------------------------------------------------");
+  Serial.println("Power Check");
+  Serial.print("RsPower: ");
+  Serial.println(digitalRead(RsPower));
+  Serial.print("LED: ");
+  Serial.println(digitalRead(LED));
+  Serial.print("DI: ");
+  Serial.println(1);
+  Serial.print("RO: ");
+  Serial.println(0);
+  delay(5000);
     
 
-   /* delay(1000);
-    while(Serial.available() > 0)
-    {
-        Serial.println('N');
-        if(Serial.read() == 'A')
-        {
-            Serial.println('E');
-            digitalWrite(LED, !digitalRead(LED));
-        }
-    }
-    */
 }
