@@ -7,22 +7,14 @@ void setup() {
     pinMode(LED, OUTPUT);
     pinMode(RsPower, OUTPUT);
     Serial.begin(9600);
-    digitalWrite(RsPower, HIGH);
+    digitalWrite(RsPower, LOW);
 }
 
 void loop(){
-  Serial.println("----------------------------------------------------------------");
-  Serial.println("Power Check");
-  Serial.print("RsPower: ");
-  Serial.println(digitalRead(RsPower));
-  Serial.print("LED: ");
-  Serial.println(digitalRead(LED));
-  Serial.print("DI: ");
-  Serial.println(1);
-  Serial.print("RO: ");
-  Serial.println(0);
-  delay(5000);
-  
-    
-
+    if(Serial.available() > 0){
+        String IncomingMessage = Serial.readString();
+        if(IncomingMessage == "T") {
+            digitalWrite(LED, !digitalRead(LED));
+        }
+    }
 }
