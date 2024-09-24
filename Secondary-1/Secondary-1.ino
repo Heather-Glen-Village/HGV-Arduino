@@ -11,7 +11,7 @@ void setup() {
 }
 
 void loop(){
-  Serial.println("T"); // send a message 
+  Serial.print("Test"); // send a message 
   Serial.flush(); // wait till Primary get the message
   delay(5000);
   
