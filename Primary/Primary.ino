@@ -11,17 +11,8 @@ void setup() {
 }
 
 void loop(){
-  Serial.println("----------------------------------------------------------------");
-  Serial.println("Power Check");
-  Serial.print("RsPower: ");
-  Serial.println(digitalRead(RsPower));
-  Serial.print("LED: ");
-  Serial.println(digitalRead(LED));
-  Serial.print("DI: ");
-  Serial.println(1);
-  Serial.print("RO: ");
-  Serial.println(0);
-  delay(5000);
-    
-
+    if(Serial.available() > 0){
+        String IncomingMessage = Serial.readString();
+        Serial.println(IncomingMessage);
+    }
 }
