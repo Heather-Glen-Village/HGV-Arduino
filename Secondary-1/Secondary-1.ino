@@ -7,7 +7,7 @@ void setup(){
   
 void loop(){
   digitalWrite(led, HIGH);
-  Serial.println(digitalRead(led))
+  Serial.println(digitalRead(led));
   // delay(500);
   // digitalWrite(led, LOW);
   // delay(2500);
