@@ -13,6 +13,6 @@ void setup() {
 void loop(){
     if(Serial.available() > 0){
         String IncomingMessage = Serial.readString();
-        Serial.println(IncomingMessage);
+        Serial.print(IncomingMessage);
     }
 }
