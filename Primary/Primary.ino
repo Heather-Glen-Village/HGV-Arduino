@@ -12,6 +12,10 @@ void setup(){
 }
 
 void loop(){
+    Serial.println(digitalRead(1));
+    Serial.println(digitalRead(SLAVE_EN));
+
+    delay(1000);
     while(Serial.available() > 0)
     {
         Serial.println('N');
