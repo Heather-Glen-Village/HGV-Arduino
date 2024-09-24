@@ -8,12 +8,13 @@ void setup(){
     digitalWrite(SLAVE_EN, OUTPUT);
     Serial.begin(9600);
     digitalWrite(SLAVE_EN, LOW);
-    
+    digitalWrite(RO, INPUT);
 }
 
 void loop(){
     Serial.println(digitalRead(1));
     Serial.println(digitalRead(SLAVE_EN));
+    Serial.println();
 
     delay(1000);
     while(Serial.available() > 0)
