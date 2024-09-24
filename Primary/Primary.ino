@@ -13,6 +13,8 @@ void setup() {
 void loop(){
     if(Serial.available() > 0){
         String IncomingMessage = Serial.readString();
-        Serial.print(IncomingMessage);
+        if(IncomingMessage == "T") {
+            digitalWrite(LED, !digitalRead(LED));
+        }
     }
 }
