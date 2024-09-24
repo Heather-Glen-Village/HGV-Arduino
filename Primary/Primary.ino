@@ -12,11 +12,10 @@ void setup(){
 }
 
 void loop(){
-    Serial.println(digitalRead(1));
-    Serial.println(digitalRead(SLAVE_EN));
-    Serial.println();
+    Serial.readString()
+    
 
-    delay(1000);
+   /* delay(1000);
     while(Serial.available() > 0)
     {
         Serial.println('N');
@@ -26,4 +25,5 @@ void loop(){
             digitalWrite(LED, !digitalRead(LED));
         }
     }
+    */
 }

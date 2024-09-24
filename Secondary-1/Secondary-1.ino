@@ -1,22 +1,25 @@
 #define DI 0
 #define RO 1
 #define LED 2
-#define MASTER_EN 8
+#define RsPower 8
 
 void setup() {
     pinMode(LED, OUTPUT);
-    pinMode(MASTER_EN, OUTPUT);
+    pinMode(RsPower, OUTPUT);
     Serial.begin(9600);
-    digitalWrite(MASTER_EN, LOW);
+    digitalWrite(RsPower, HIGH);
 }
 
 void loop(){
-    digitalWrite(MASTER_EN, HIGH);
-    delay(10);
-    Serial.write("A");
-    Serial.flush();
-    digitalWrite(MASTER_EN, LOW);
-    delay(1000);
+  Serial.println("----------------------------------------------------------------");
+  Serial.println("Power Check");
+  Serial.println(digitalRead(RsPower));
+  Serial.println(digitalRead(LED));
+  Serial.print("DI: ");
+  Serial.println(1);
+  Serial.print("RO: ");
+  Serial.println(0);
+  
     
 
 }

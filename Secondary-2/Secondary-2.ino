@@ -12,13 +12,5 @@ void setup(){
 }
 
 void loop(){
-    while(Serial.available() > 0)
-    {
-        Serial.println('N');
-        if(Serial.read() == 'A')
-        {
-            Serial.println('E');
-            digitalWrite(LED, !digitalRead(LED));
-        }
-    }
+    
 }
