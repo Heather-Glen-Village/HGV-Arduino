@@ -1,17 +1,22 @@
 # 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-const int buzzer = 7;
-const int led = 2;
 
-void setup(){
-  pinMode(buzzer, 0x1);
-  pinMode(led, 0x1);
+
+
+
+
+void setup() {
+    pinMode(2, 0x1);
+    pinMode(8, 0x1);
+    Serial.begin(9600);
+    digitalWrite(8, 0x0);
 }
 
 void loop(){
-  digitalWrite(led, 0x1);
-  // digitalWrite(buzzer, LOW);
-  // delay(500);
-  // digitalWrite(led, LOW);
-  // digitalWrite(buzzer, LOW);
-  // delay(2500);
+    digitalWrite(8, 0x1);
+    delay(10);
+    Serial.write("A");
+    Serial.flush();
+    digitalWrite(8, 0x0);
+    delay(1000);
+
 }
