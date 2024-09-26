@@ -1,6 +1,0 @@
-#line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\test\\.vscode\\arduino.json"
-{
-    "sketch": "test.ino",
-    "output": "build",
-    "board": "arduino:avr:uno"
-}
