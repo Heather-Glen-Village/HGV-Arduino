@@ -8,6 +8,7 @@ void setup() {
     pinMode(RsPower, OUTPUT);
     Serial.begin(9600);
     digitalWrite(RsPower, HIGH);
+    digitalWrite(LED, HIGH);
 }
 
 void loop(){
