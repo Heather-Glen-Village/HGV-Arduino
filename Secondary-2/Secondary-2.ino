@@ -7,10 +7,11 @@ void setup() {
     pinMode(LED, OUTPUT);
     pinMode(RsPower, OUTPUT);
     Serial.begin(9600);
+    digitalWrite(RsPower, HIGH);
 }
 
 void loop(){
-    digitalWrite(LED, HIGH);
-    delay(1000);
-    digitalWrite(LED, LOW);
+  Serial.print("S2"); // send a message 
+  Serial.flush(); // wait till Primary get the message
+  delay(5000);
 }
