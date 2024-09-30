@@ -27,7 +27,7 @@ void loop(){
         Count = Serial.parseInt();
         Serial.print("Got: ");
         Serial.println(Count);
-        Serial.println('Sending: ');
+        Serial.println("Sending: ");
         Count++;
         DERE_POWER = 1;
     }
