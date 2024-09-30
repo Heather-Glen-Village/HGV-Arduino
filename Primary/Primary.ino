@@ -32,5 +32,5 @@ void loop(){
         Serial.print(Count);
         DERE_POWER = 1;
     }
-    
+    Serial.println(Serial.available());
 }
