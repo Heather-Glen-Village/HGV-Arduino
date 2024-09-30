@@ -4,11 +4,11 @@
 //#define RO 1
 #define LED 2
 #define DERE 8
-const int DERE_POWER = 0;
+const int DERE_POWER = 1;
 
 #line 7 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 15 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
 #line 7 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
@@ -16,6 +16,7 @@ void setup() {
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
     digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, DERE_POWER);
 }
 
 void loop(){
