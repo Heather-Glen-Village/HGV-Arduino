@@ -16,17 +16,20 @@ void setup() {
 }
 
 void loop(){
-    while(Serial.available() == 0){
-        digitalWrite(DERE, LOW);
-        digitalWrite(LED, LOW);
+    digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, DERE_POWER);
+    if (DERE_POWER == 1){
+        delay(3000);
+        Serial.print(Count);
+        DERE_POWER = 0;
     }
-    Count = Serial.read();
-    Serial.print("Received: ");
-    Serial.println(Count);
-    Count++;
-    digitalWrite(LED, HIGH);
-    delay(5000);
-    Serial.print("Sending: ");
-    digitalWrite(DERE, HIGH);
-    Serial.println(Count);
+    else if(Serial.available() != 0){
+        Count = Serial.read();
+        Serial.print("Got: ");
+        Serial.println(Count);
+        Serial.println('Sending: ');
+        Count++;
+        DERE_POWER = 1;
+    }
+    
 }
