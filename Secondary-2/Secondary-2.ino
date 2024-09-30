@@ -21,6 +21,7 @@ void loop(){
     if (DERE_POWER == 1){
         delay(1000);
         Serial.println(Count);
+        Serial.flush();
         DERE_POWER = 0;
     }
     else if(Serial.available() != 0){
@@ -32,6 +33,4 @@ void loop(){
         Serial.print(Count);
         DERE_POWER = 1;
     }
-    Serial.println(Serial.available());
-    delay(100);
 }
