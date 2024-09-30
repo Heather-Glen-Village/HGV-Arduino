@@ -20,15 +20,16 @@ void loop(){
     digitalWrite(LED, DERE_POWER);
     if (DERE_POWER == 1){
         delay(1000);
-        Serial.print(Count);
+        Serial.println(Count);
         DERE_POWER = 0;
     }
     else if(Serial.available() != 0){
         Count = Serial.parseInt();
         Serial.print("Got: ");
         Serial.println(Count);
-        Serial.println("Sending: ");
+        Serial.print("Sending: ");
         Count++;
+        Serial.print(Count);
         DERE_POWER = 1;
     }
     
