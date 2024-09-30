@@ -3,15 +3,17 @@
 //#define RO 1
 
 
+const int DERE_POWER = 0;
 
 void setup() {
     pinMode(2, 0x1);
     pinMode(8, 0x1);
     Serial.begin(9600);
-    digitalWrite(8, 0x0);
+    digitalWrite(8, DERE_POWER);
 }
 
 void loop(){
+
     if(Serial.available() > 0){
         String IncomingMessage = Serial.readString();
         Serial.print("Received: ");

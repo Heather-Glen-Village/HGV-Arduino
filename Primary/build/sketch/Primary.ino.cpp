@@ -3,21 +3,23 @@
 //#define DI 0
 //#define RO 1
 #define LED 2
-#define RsPower 8
+#define DERE 8
+const int DERE_POWER = 0;
 
-#line 6 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 7 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 13 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 6 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 7 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
     pinMode(LED, OUTPUT);
-    pinMode(RsPower, OUTPUT);
+    pinMode(DERE, OUTPUT);
     Serial.begin(9600);
-    digitalWrite(RsPower, LOW);
+    digitalWrite(DERE, DERE_POWER);
 }
 
 void loop(){
+    
     if(Serial.available() > 0){
         String IncomingMessage = Serial.readString();
         Serial.print("Received: ");

@@ -1,18 +1,24 @@
 //#define DI 0
 //#define RO 1
 #define LED 2
-#define RsPower 8
+#define DERE 8
+const int DERE_POWER = 1;
 
 void setup() {
-    pinMode(LED, OUTPUT);
-    pinMode(RsPower, OUTPUT);
+    pinMode(LED, DERE_POWER);
+    pinMode(DERE, OUTPUT);
     Serial.begin(9600);
-    digitalWrite(RsPower, HIGH);
-    digitalWrite(LED, HIGH);
+    digitalWrite(DERE, DERE_POWER);
 }
 
 void loop(){
-  Serial.print("Test"); // send a message 
-  Serial.flush(); // wait till Primary get the message
-  delay(5000);
+    
+    if(Serial.available() > 0){
+        String IncomingMessage = Serial.readString();
+        Serial.print("Received: ");
+        Serial.println(IncomingMessage);
+        if(IncomingMessage == "Test") {
+            digitalWrite(LED, !digitalRead(LED));
+        }
+    }
 }

@@ -5,7 +5,7 @@
 
 void setup() {
     pinMode(LED, OUTPUT);
-    pinMode(RsPower, OUTPUT);
+    pinMode(DERE, OUTPUT);
     Serial.begin(9600);
 }
 
