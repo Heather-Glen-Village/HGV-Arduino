@@ -29,5 +29,4 @@ void loop(){
     Serial.print("Sending: ");
     digitalWrite(DERE, HIGH);
     Serial.println(Count);
-    Serial.flush();
 }
