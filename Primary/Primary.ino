@@ -33,4 +33,5 @@ void loop(){
         DERE_POWER = 1;
     }
     Serial.println(Serial.available());
+    delay(100);
 }
