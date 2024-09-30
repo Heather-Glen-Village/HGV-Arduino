@@ -25,7 +25,7 @@ void loop(){
     Serial.println(Count);
     Count++;
     digitalWrite(LED, HIGH);
-    delay(1000);
+    delay(5000);
     Serial.print("Sending: ");
     digitalWrite(DERE, HIGH);
     Serial.println(Count);
