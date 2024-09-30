@@ -16,12 +16,18 @@ void setup() {
 }
 
 void loop(){
-    if(Serial.available() > 0){
-        String IncomingMessage = Serial.readString();
-        Serial.print("Received: ");
-        Serial.println(IncomingMessage);
-        if(IncomingMessage == "Test") {
-            digitalWrite(LED, !digitalRead(LED));
-        }
+    digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, DERE_POWER);
+
+    if(Serial.available() > 0){ // Receiver Code
+        Count = Serial.parseInt();
+        DERE_POWER = 1;
+        delay(1000);
     }
+    else if (DERE_POWER == 1){  // Sender Code
+        Serial.println(Count++); // send a message 
+        Serial.flush(); // wait till other board get the message
+        DERE_POWER = 0;
+    }
+    
 }
