@@ -5,7 +5,7 @@
 #define DERE_POWER HIGH
 
 void setup() {
-    pinMode(LED, 1);
+    pinMode(LED, HIGH);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
     digitalWrite(DERE, LOW);
