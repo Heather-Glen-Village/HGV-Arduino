@@ -22,7 +22,7 @@ void loop(){
     if(Serial.available() > 0){ // Receiver Code
         int OtherCount = Serial.parseInt();
         Serial.print("Received: ");
-        Serial.println(OtherCount);
+        Serial.println(Serial.readString());
         DERE_POWER = 1;
         delay(1000);
     }
