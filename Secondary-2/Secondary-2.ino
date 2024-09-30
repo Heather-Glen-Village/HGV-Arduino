@@ -4,7 +4,7 @@
 #define DERE 8
 
 int DERE_POWER = 1; // Start Sending
-int Count = 0;
+int Count = 1000;
 
 void setup() {
     pinMode(LED, OUTPUT);
