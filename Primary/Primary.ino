@@ -3,7 +3,7 @@
 #define LED 2
 #define DERE 8
 
-int DERE_POWER = 0; // Start Sending
+int DERE_POWER = 0; // Start Receiving
 int Count = 0;
 
 void setup() {
@@ -16,20 +16,18 @@ void setup() {
 }
 
 void loop(){
-    digitalWrite(DERE, DERE_POWER);
-    digitalWrite(LED, DERE_POWER);
-
-    if(Serial.available() > 0){ // Receiver Code
-        int OtherCount = Serial.parseInt();
-        Serial.print("Received: ");
-        Serial.println(Serial.readString());
-        DERE_POWER = 1;
-        delay(1000);
+    while(Serial.available() == 0){
+        digitalWrite(DERE, LOW);
+        digitalWrite(LED, LOW);
     }
-    else if (DERE_POWER == 1){  // Sender Code
-        Serial.println(Count+1); // send a message 
-        Serial.flush(); // wait till other board get the message
-        DERE_POWER = 0;
-    }
-    
+    Count = Serial.read();
+    Serial.print("Received: ");
+    Serial.println(Count);
+    Count++;
+    digitalWrite(LED, HIGH);
+    delay(1000);
+    Serial.print("Sending: ");
+    digitalWrite(DERE, HIGH);
+    Serial.println(Count);
+    Serial.flush();
 }
