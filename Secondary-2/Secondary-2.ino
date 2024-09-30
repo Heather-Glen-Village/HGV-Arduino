@@ -4,7 +4,7 @@
 #define DERE 8
 
 int DERE_POWER = 1; // Start Sending
-int Count = 2;
+int Count = 0;
 
 void setup() {
     pinMode(LED, OUTPUT);
@@ -20,12 +20,12 @@ void loop(){
     digitalWrite(LED, DERE_POWER);
 
     if(Serial.available() > 0){ // Receiver Code
-        Count = Serial.parseInt();
+        Count = Serial.parseInt() + 1;
         DERE_POWER = 1;
         delay(1000);
     }
     else if (DERE_POWER == 1){  // Sender Code
-        Serial.println(Count++); // send a message 
+        Serial.println(Count); // send a message 
         Serial.flush(); // wait till other board get the message
         DERE_POWER = 0;
     }
