@@ -2,32 +2,23 @@
 //#define RO 1
 #define LED 2
 #define DERE 8
-
-int DERE_POWER = 1; // Start Sending
-int Count = 2;
+#define DERE_POWER LOW
 
 void setup() {
     pinMode(LED, OUTPUT);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
-
     digitalWrite(DERE, DERE_POWER);
-    digitalWrite(LED, DERE_POWER);
 }
 
 void loop(){
-    digitalWrite(DERE, DERE_POWER);
-    digitalWrite(LED, DERE_POWER);
-
-    if(Serial.available() > 0){ // Receiver Code
-        Count = Serial.parseInt();
-        DERE_POWER = 1;
-        delay(1000);
+    if(Serial.available() > 0){
+        int IncomingMessage = Serial.parseInt();
+        Serial.print("Received: ");
+        Serial.println(IncomingMessage);
+      	Serial.println(IncomingMessage+1);
+        if(IncomingMessage == 2) {
+            digitalWrite(LED, !digitalRead(LED));
+        }
     }
-    else if (DERE_POWER == 1){  // Sender Code
-        Serial.println(Count+1); // send a message 
-        Serial.flush(); // wait till other board get the message
-        DERE_POWER = 0;
-    }
-    
 }
