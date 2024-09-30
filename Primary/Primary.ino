@@ -18,7 +18,7 @@ void setup() {
 void loop(){
     digitalWrite(DERE, DERE_POWER);
     digitalWrite(LED, DERE_POWER);
-    delay(100);
+    delay(1000);
     if (DERE_POWER == 1){
         Serial.println(Count);
         Serial.flush();
