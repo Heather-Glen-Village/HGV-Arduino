@@ -5,10 +5,11 @@
 const int DERE_POWER = 1;
 
 void setup() {
-    pinMode(LED, DERE_POWER);
+    pinMode(LED, OUTPUT);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
     digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, DERE_POWER);
 }
 
 void loop(){
