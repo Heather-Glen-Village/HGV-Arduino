@@ -19,7 +19,7 @@ void loop(){
     digitalWrite(DERE, DERE_POWER);
     digitalWrite(LED, DERE_POWER);
     if (DERE_POWER == 1){
-        delay(3000);
+        delay(1000);
         Serial.print(Count);
         DERE_POWER = 0;
     }
