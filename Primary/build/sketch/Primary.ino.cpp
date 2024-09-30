@@ -4,29 +4,36 @@
 //#define RO 1
 #define LED 2
 #define DERE 8
-const int DERE_POWER = 1;
 
-#line 7 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+int DERE_POWER = 0; // Start Recieving
+int Count = 0;
+
+#line 9 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 15 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 18 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 7 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 9 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
     pinMode(LED, OUTPUT);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
+
     digitalWrite(DERE, DERE_POWER);
     digitalWrite(LED, DERE_POWER);
 }
 
 void loop(){
-    
-    if(Serial.available() > 0){
-        String IncomingMessage = Serial.readString();
-        Serial.print("Received: ");
-        Serial.println(IncomingMessage);
-        if(IncomingMessage == "Test") {
-            digitalWrite(LED, !digitalRead(LED));
-        }
+    digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, DERE_POWER);
+
+    if(Serial.available() > 0){ // Receiver Code
+        Count = Serial.parseInt();
+        DERE_POWER = 1;
+        delay(1000);
+    }
+    else if (DERE_POWER == 1){ // Sender Code
+        Serial.println(Count++); // send a message 
+        Serial.flush(); // wait till other board get the message
+        DERE_POWER = 0;
     }
 }
