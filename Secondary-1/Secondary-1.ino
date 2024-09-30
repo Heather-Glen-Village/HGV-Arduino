@@ -2,13 +2,15 @@
 //#define RO 1
 #define LED 2
 #define DERE 8
-#define DERE_POWER HIGH
+const int DERE_POWER = 1;
 
 void setup() {
-    pinMode(LED, HIGH);
+    pinMode(LED, OUTPUT);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
     digitalWrite(DERE, LOW);
+    digitalWrite(LED, DERE_POWER);
+
 }
 
 void loop(){
