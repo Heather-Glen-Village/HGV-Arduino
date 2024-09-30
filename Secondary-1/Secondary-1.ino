@@ -2,7 +2,7 @@
 //#define RO 1
 #define LED 2
 #define DERE 8
-const int DERE_POWER = 1;
+const int DERE_POWER = 255;
 
 void setup() {
     pinMode(LED, DERE_POWER);
