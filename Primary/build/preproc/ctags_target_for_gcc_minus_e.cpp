@@ -4,7 +4,7 @@
 
 
 
-int DERE_POWER = 0; // Start Recieving
+int DERE_POWER = 0; // Start Receiving
 int Count = 0;
 
 void setup() {
@@ -19,15 +19,18 @@ void setup() {
 void loop(){
     digitalWrite(8, DERE_POWER);
     digitalWrite(2, DERE_POWER);
-
-    if(Serial.available() > 0){ // Receiver Code
-        Count = Serial.parseInt();
-        DERE_POWER = 1;
-        delay(1000);
-    }
-    else if (DERE_POWER == 1){ // Sender Code
-        Serial.println(Count++); // send a message 
-        Serial.flush(); // wait till other board get the message
+    delay(1000);
+    if (DERE_POWER == 1){
+        Serial.println(Count);
+        Serial.flush();
         DERE_POWER = 0;
+    }
+    else if(Serial.available() != 0){
+        Count = Serial.parseInt();
+        Serial.print("Got: ");
+        Serial.println(Count);
+        Serial.print("Sending: ");
+        Count++;
+        DERE_POWER = 1;
     }
 }
