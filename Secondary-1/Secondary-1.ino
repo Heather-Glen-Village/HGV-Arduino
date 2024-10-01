@@ -12,12 +12,12 @@ void setup() {
     Serial.begin(9600);
 
     digitalWrite(DERE, DERE_POWER);
-    digitalWrite(LED, LOW);
+    digitalWrite(LED, DERE_POWER);
 }
 
 void loop(){
     digitalWrite(DERE, DERE_POWER);
-    //digitalWrite(LED, DERE_POWER);
+    digitalWrite(LED, DERE_POWER);
     delay(1000);
     if (DERE_POWER == 1){
         Serial.println(Count);
