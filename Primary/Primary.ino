@@ -1,31 +1,26 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
-// Enter a MAC address for your controller below.
-// Newer Ethernet shields have a MAC address printed on a sticker on the shield
-byte mac[] = {  
-  0x07, 0x9A, 0x32, 0x92, 0xFE, 0xAD };
-//07:9A:32:92:FE:AD
-// Initialize the Ethernet client library
-// with the IP address and port of the server
-// that you want to connect to (port 80 is default for HTTP):
+// Use a random, unique MAC address
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+
+// Set a static IP address (ensure it's within your network's range)
+IPAddress ip(192, 168, 3, 177); // Adjust to match your network
+
 EthernetClient client;
 
 void setup() {
   // start the serial library:
   Serial.begin(9600);
-  // start the Ethernet connection:
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
-    // no point in carrying on, so do nothing forevermore:
-    for(;;)
-      ;
-  }
-  // print your local IP address:
-  Serial.println(Ethernet.localIP());
 
+  // start the Ethernet connection with a static IP:
+  Ethernet.begin(mac, ip);
+
+  // print your local IP address:
+  Serial.print("Static IP Address: ");
+  Serial.println(Ethernet.localIP());
 }
 
 void loop() {
-
+  // Add code for your Ethernet logic here
 }
