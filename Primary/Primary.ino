@@ -1,19 +1,31 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
-byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
-IPAddress ip(10, 0, 0, 177);
+// Enter a MAC address for your controller below.
+// Newer Ethernet shields have a MAC address printed on a sticker on the shield
+byte mac[] = {  
+  0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02 };
+
+// Initialize the Ethernet client library
+// with the IP address and port of the server
+// that you want to connect to (port 80 is default for HTTP):
+EthernetClient client;
 
 void setup() {
+  // start the serial library:
   Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
+  // start the Ethernet connection:
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // no point in carrying on, so do nothing forevermore:
+    for(;;)
+      ;
   }
+  // print your local IP address:
+  Serial.println(Ethernet.localIP());
 
-  Ethernet.begin(mac, ip);
-
-  Serial.print("The gateway IP address is: ");
-  Serial.println(Ethernet.gatewayIP());
 }
 
-void loop () {}
+void loop() {
+
+}
