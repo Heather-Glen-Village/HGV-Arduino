@@ -11,6 +11,16 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
+    "Include": "ArduinoRS485.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoRS485\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoRS485\\src\\RS485.cpp",
     "Include": "",
     "Includepath": null
   }
