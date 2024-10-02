@@ -1,30 +1,19 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
-// MAC address for the Ethernet shield
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-
-// Start Ethernet client
-EthernetClient client;
+byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+IPAddress ip(10, 0, 0, 177);
 
 void setup() {
-  // Start Serial communication for debugging
   Serial.begin(9600);
-
-  // Start the Ethernet connection and check for DHCP assignment
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
-    // You can assign a static IP if DHCP fails
-    Ethernet.begin(mac, IPAddress(192, 168, 1, 177));
-  } else {
-    Serial.println("Ethernet configured via DHCP");
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
   }
 
-  // Print the assigned IP address
-  Serial.print("Assigned IP: ");
-  Serial.println(Ethernet.localIP());
+  Ethernet.begin(mac, ip);
+
+  Serial.print("The gateway IP address is: ");
+  Serial.println(Ethernet.gatewayIP());
 }
 
-void loop() {
-  // Your loop code here
-}
+void loop () {}
