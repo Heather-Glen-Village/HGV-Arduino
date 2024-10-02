@@ -4,8 +4,8 @@
 // Enter a MAC address for your controller below.
 // Newer Ethernet shields have a MAC address printed on a sticker on the shield
 byte mac[] = {  
-  0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02 };
-
+  0x07, 0x9A, 0x32, 0x92, 0xFE, 0xAD };
+//07:9A:32:92:FE:AD
 // Initialize the Ethernet client library
 // with the IP address and port of the server
 // that you want to connect to (port 80 is default for HTTP):
