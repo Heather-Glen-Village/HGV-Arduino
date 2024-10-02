@@ -1,25 +1,38 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-#include <ArduinoRS485.h>
-#include <RS485.h>
+#include <SPI.h>
+#include <Ethernet.h>
 
+// MAC address for the Ethernet shield
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 
-//#define DI 0
-//#define RO 1
-#define LED 2
-#define DERE 8
+// Start Ethernet client
+EthernetClient client;
 
 #line 10 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 16 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 28 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
 #line 10 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
-    pinMode(LED, OUTPUT);
-    pinMode(DERE, OUTPUT);
-    Serial.begin(9600);
+  // Start Serial communication for debugging
+  Serial.begin(9600);
+
+  // Start the Ethernet connection and check for DHCP assignment
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // You can assign a static IP if DHCP fails
+    Ethernet.begin(mac, IPAddress(192, 168, 1, 177));
+  } else {
+    Serial.println("Ethernet configured via DHCP");
+  }
+
+  // Print the assigned IP address
+  Serial.print("Assigned IP: ");
+  Serial.println(Ethernet.localIP());
 }
 
-void loop(){
-
+void loop() {
+  // Your loop code here
 }
+
