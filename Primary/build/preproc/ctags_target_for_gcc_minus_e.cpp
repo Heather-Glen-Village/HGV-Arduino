@@ -11,5 +11,7 @@ void setup() {
 }
 
 void loop(){
-    digitalWrite(2, 0x1);
+    digitalWrite(2, 0x0);
+    Serial.println("Primary Board Code");
+    delay(1000);
 }

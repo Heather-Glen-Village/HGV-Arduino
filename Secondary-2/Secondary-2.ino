@@ -2,18 +2,22 @@
 //#define RO 1
 #define LED 2
 #define DERE 9
+#define DERE_POWER LOW
 
 void setup() {
     pinMode(LED, OUTPUT);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
+    digitalWrite(DERE, DERE_POWER);
 }
 
 void loop(){
-    digitalWrite(LED, HIGH);
-    Serial.println("Secondary-2 Board Code");
-    delay(1000);
-    digitalWrite(LED, LOW);
-    delay(1000);
-    Serial.println("Secondary-2 Board Code");
+    if(Serial.available() > 0){
+        String IncomingMessage = Serial.readString();
+        Serial.print("Received: ");
+        Serial.println(IncomingMessage);
+        if(IncomingMessage == "Test") {
+            digitalWrite(LED, !digitalRead(LED));
+        }
+    }
 }
