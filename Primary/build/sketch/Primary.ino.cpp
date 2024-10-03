@@ -1,23 +1,31 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-//#define DI 0
-//#define RO 1
-#define LED 2
-#define DERE 9
+#include <ArduinoModbus.h>
+#include <ModbusClient.h>
+#include <ModbusRTUClient.h>
+#include <ModbusRTUServer.h>
+#include <ModbusServer.h>
+#include <ModbusTCPClient.h>
+#include <ModbusTCPServer.h>
 
-#line 6 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#include <ArduinoRS485.h>
+#include <RS485.h>
+
+
+
+
+#line 15 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 12 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 20 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 6 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-void setup() {
-    pinMode(LED, OUTPUT);
-    pinMode(DERE, OUTPUT);
-    Serial.begin(9600);
+#line 15 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+void setup()
+{
+	
 }
 
-void loop(){
-    digitalWrite(LED, LOW);
-    Serial.println("Primary Board Code");
-    delay(1000);
+void loop()
+{
+	
 }
+
