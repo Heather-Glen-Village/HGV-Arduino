@@ -1,7 +1,7 @@
 //#define DI 0
 //#define RO 1
 #define LED 2
-#define DERE 8
+#define DERE 9
 
 int DERE_POWER = 0; // Start Receiving
 int Count = 0;

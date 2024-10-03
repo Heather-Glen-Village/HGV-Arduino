@@ -1,7 +1,8 @@
 //#define DI 0
 //#define RO 1
 #define LED 2
-#define DERE 8
+#define DERE 9
+
 #define DERE_POWER HIGH
 void setup() {
     pinMode(LED, OUTPUT);
