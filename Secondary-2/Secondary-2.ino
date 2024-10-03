@@ -1,13 +1,20 @@
-const int buzzerPin = 2;  // Buzzer connected to Pin 3
+//#define DI 0
+//#define RO 1
+#define LED 2
+#define DERE 9
 
+#define DERE_POWER HIGH
 void setup() {
-  pinMode(buzzerPin, OUTPUT);  // Set buzzer pin as output
+    pinMode(LED, OUTPUT);
+    pinMode(DERE, OUTPUT);
+    Serial.begin(9600);
+    
+    digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, HIGH);
 }
 
-void loop() {
-  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
-  delay(1000);                    // Wait for 1 second (1000 ms)
-
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(1000);                    // Wait for 1 second (1000 ms)
+void loop(){
+  Serial.print("Test"); // send a message 
+  Serial.flush(); // wait till Primary get the message
+  delay(5000);
 }
