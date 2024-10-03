@@ -11,9 +11,9 @@ void setup() {
 
 void loop(){
     digitalWrite(LED, HIGH);
-    Serial.println("Secondary-1 Board Code");
+    Serial.println("Secondary-2 Board Code");
     delay(1000);
     digitalWrite(LED, LOW);
     delay(1000);
-    Serial.println("Secondary-1 Board Code");
+    Serial.println("Secondary-2 Board Code");
 }
