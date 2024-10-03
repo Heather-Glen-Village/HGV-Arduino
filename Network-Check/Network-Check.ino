@@ -1,6 +1,5 @@
-# 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-# 2 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-# 3 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+#include <SPI.h>
+#include <Ethernet.h>
 
 // Use a random, unique MAC address C2:A2:DF:70:D8:44
 byte mac[] = { 0xC2, 0xA2, 0xDF, 0x70, 0xD8, 0x44 };
