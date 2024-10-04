@@ -24,9 +24,14 @@ void setup() {
 
 void loop() {
   if (modbus.writeSingleCoil(1, 0, SlaveLED) == 0) {
-    SlaveLED = !SlaveLED;
-    Serial.print("LED: ");
-    Serial.println(SlaveLED); 
+    if (SlaveLED == 1) {
+      SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    } 
+    else {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
+    }
   }
   else{
     Serial.println(modbus.getExceptionResponse());
