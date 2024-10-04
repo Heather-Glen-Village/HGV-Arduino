@@ -15,7 +15,7 @@ void setup() {
   pinMode(LED, OUTPUT);
 
   modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
-  modbus.begin(0, 9600); // ID | Baud Rate  | Config?
+  modbus.begin(2, 9600); // ID | Baud Rate  | Config?
   
 }
 
