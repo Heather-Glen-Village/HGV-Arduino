@@ -21,7 +21,6 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
   modbus.poll(); // Check if there was a request
 
   digitalWrite(LED, coils[0]);

@@ -1,4 +1,4 @@
-#include <ModbusRTUSlave.h>
+/*#include <ModbusRTUSlave.h>
 
 // Pins List
 
@@ -24,4 +24,4 @@ void loop() {
 
   digitalWrite(LED, coils[0]);
   
-}
+} */
