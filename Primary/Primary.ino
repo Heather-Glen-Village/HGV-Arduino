@@ -13,12 +13,12 @@
 
 // Pins
 
-#define TX 0
-// RX 1
-#define DE 9
-#define RE 9
+#define TX    0
+//      RX    1
+#define DE    9
+#define RE    9
 
-#define LED 2
+#define LED   2
 
 void setup()
 {

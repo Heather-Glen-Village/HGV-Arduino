@@ -1,43 +1,28 @@
+#include <ModbusRTUSlave.h>
 
-// Rs485 Library
-#include <ArduinoRS485.h>
-#include <RS485.h>
-//Modbus Library
-#include <ArduinoModbus.h>
-#include <ModbusClient.h>
-#include <ModbusRTUClient.h>
-#include <ModbusRTUServer.h>
-#include <ModbusServer.h>
-#include <ModbusTCPClient.h>
-#include <ModbusTCPServer.h>
+// Pins List
 
-// Pins
+//#define TX  0
+//#define RX  1
+#define DERE  9
+#define LED   2
 
-#define TX 0
-// RX 1
-#define DE 9
-#define RE 9
+ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
-#define LED 2
+bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
 
-void setup()
-{
-    RS485.setPins(TX, DE, RE);
-    RS485.begin(9600);
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-	
+void setup() {
+  pinMode(LED, OUTPUT);
+
+  modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
+  modbus.begin(1, 9600); // ID | Baud Rate  | Config?
 }
 
-void loop()
-{
-    Serial.println(RS485.available());
-    if(RS485.available() > 0){
-        String IncomingMessage = RS485.readString();
-        Serial.print("Received: ");
-        Serial.println(IncomingMessage);
-        if(IncomingMessage == "Test") {
-            digitalWrite(LED, !digitalRead(LED));
-        }
-    }
+void loop() {
+    //modbus.setResponseDelay(responseDelay) | used to make delay from the resonds
+
+  modbus.poll(); // Check if there was a request
+
+  digitalWrite(LED, coils[0]);
+  delay(100);
 }
