@@ -11,13 +11,13 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "ArduinoRS485.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoRS485\\src"
+    "Include": "ModbusRTUMaster.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "ArduinoModbus.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src"
+    "Include": "SoftwareSerial.h",
+    "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
@@ -25,57 +25,12 @@
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoRS485\\src\\RS485.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src\\ModbusRTUMaster.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\ModbusClient.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\ModbusRTUClient.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\ModbusRTUServer.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\ModbusServer.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\ModbusTCPClient.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\ModbusTCPServer.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\libmodbus\\modbus-data.c",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\libmodbus\\modbus-rtu.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\libmodbus\\modbus-tcp.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ArduinoModbus\\src\\libmodbus\\modbus.c",
+    "Sourcefile": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src\\SoftwareSerial.cpp",
     "Include": "",
     "Includepath": null
   }

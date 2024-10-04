@@ -1,37 +1,31 @@
+#include <ModbusRTUMaster.h>
 
-// Rs485 Library
-#include <ArduinoRS485.h>
-#include <RS485.h>
-//Modbus Library
-#include <ArduinoModbus.h>
-#include <ModbusClient.h>
-#include <ModbusRTUClient.h>
-#include <ModbusRTUServer.h>
-#include <ModbusServer.h>
-#include <ModbusTCPClient.h>
-#include <ModbusTCPServer.h>
+// Pins List
 
-// Pins
-
-#define TX    0
-//      RX    1
-#define DE    9
-#define RE    9
-
+//#define TX  0
+//#define RX  1
+#define DERE  9
 #define LED   2
 
-void setup()
-{
-    RS485.setPins(TX, DE, RE);
-    RS485.begin(9600);
-    pinMode(LED, OUTPUT);
-	
+ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
+
+bool SlaveLED = 1; // Enable
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, HIGH);
+  //modbus.setTimeout(500);
+  modbus.begin(9600); // Baud Rate  | Config?
+  Serial.begin(9600);
 }
 
-void loop()
-{
-	RS485.beginTransmission();
-    RS485.println("Test");
-    RS485.endTransmission();
-    delay(1000);
+void loop() {
+  if (modbus.writeSingleCoil(1, 0, SlaveLED) == 0) {
+    SlaveLED = !SlaveLED;
+  }
+  else{
+    Serial.println(modbus.getExceptionResponse());
+  }
+  
+  delay(100);
 }
