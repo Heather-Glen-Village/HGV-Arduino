@@ -24,15 +24,15 @@ void setup() {
 
 void loop() {
   uint8_t returncode1 = modbus.writeSingleCoil(1, 0, SlaveLED);
-  delay(1000);
+  delay(5000);
   uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
   if (returncode1 and returncode2 == 0) {
     if (SlaveLED == 1) {
-      SlaveLED = 0;
+      SlaveLED = 1;
       Serial.println("SlaveLED Enabled");
     } 
     else {
-      SlaveLED = 1;
+      SlaveLED = 0;
       Serial.println("SlaveLED Disabled");
     }
   }
