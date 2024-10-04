@@ -25,7 +25,7 @@ void setup() {
 void loop() {
   digitalWrite(LED, SlaveLED);
   uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED);
-  delay(100);
+  delay(1000);
   uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
   if (returncode == 0 && returncode2 == 0) {
     if (SlaveLED == 1) {
