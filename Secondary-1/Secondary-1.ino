@@ -22,6 +22,7 @@ void setup() {
 
 void loop() {
   if (Serial.available() != 0){
+    Serial.println("LED Change")
     modbus.poll(); // Check if there was a request
 
     digitalWrite(LED, coils[0]);
