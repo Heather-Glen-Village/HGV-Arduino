@@ -27,5 +27,5 @@ void loop() {
     Serial.println(modbus.getExceptionResponse());
   }
   
-  delay(100);
+  delay(2000);
 }
