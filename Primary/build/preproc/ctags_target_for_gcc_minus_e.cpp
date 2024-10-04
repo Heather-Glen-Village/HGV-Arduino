@@ -8,22 +8,25 @@
 
 
 
-ModbusRTUSlave modbus(Serial, 9); // Create Modbus Object
+ModbusRTUMaster modbus(Serial, 9); // Create Modbus Object with port for RS485
 
-bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
+bool SlaveLED = 1; // Enable
 
 void setup() {
   pinMode(2, 0x1);
-
-  modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
-  modbus.begin(1, 9600); // ID | Baud Rate  | Config?
+  digitalWrite(2, 0x1);
+  //modbus.setTimeout(500);
+  modbus.begin(9600); // Baud Rate  | Config?
+  Serial.begin(9600);
 }
 
 void loop() {
-    //modbus.setResponseDelay(responseDelay) | used to make delay from the resonds
+  if (modbus.writeSingleCoil(1, 0, SlaveLED) == 0) {
+    SlaveLED = !SlaveLED;
+  }
+  else{
+    Serial.println(modbus.getExceptionResponse());
+  }
 
-  modbus.poll(); // Check if there was a request
-
-  digitalWrite(2, coils[0]);
-  delay(100);
+  delay(2000);
 }

@@ -1,6 +1,6 @@
-C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\ModbusRTUSlave\ModbusRTUSlave.cpp.o: \
- C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUSlave\src\ModbusRTUSlave.cpp \
- C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUSlave\src\ModbusRTUSlave.h \
+C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\ModbusRTUMaster\ModbusRTUMaster.cpp.o: \
+ C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUMaster\src\ModbusRTUMaster.cpp \
+ C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUMaster\src\ModbusRTUMaster.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \

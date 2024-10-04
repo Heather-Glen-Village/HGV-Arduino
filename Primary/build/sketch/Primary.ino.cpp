@@ -9,27 +9,30 @@
 #define DERE  9
 #define LED   2
 
-ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
+ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
+bool SlaveLED = 1; // Enable
 
 #line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 21 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 22 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
 #line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
   pinMode(LED, OUTPUT);
-
-  modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
-  modbus.begin(1, 9600); // ID | Baud Rate  | Config?
+  digitalWrite(LED, HIGH);
+  //modbus.setTimeout(500);
+  modbus.begin(9600); // Baud Rate  | Config?
+  Serial.begin(9600);
 }
 
 void loop() {
-    //modbus.setResponseDelay(responseDelay) | used to make delay from the resonds
-
-  modbus.poll(); // Check if there was a request
-
-  digitalWrite(LED, coils[0]);
-  delay(100);
+  if (modbus.writeSingleCoil(1, 0, SlaveLED) == 0) {
+    SlaveLED = !SlaveLED;
+  }
+  else{
+    Serial.println(modbus.getExceptionResponse());
+  }
+  
+  delay(2000);
 }

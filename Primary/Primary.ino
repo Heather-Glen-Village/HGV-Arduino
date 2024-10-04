@@ -13,7 +13,7 @@ bool SlaveLED = 1; // Enable
 
 void setup() {
   pinMode(LED, OUTPUT);
-  digitalWrite(LED, HIGH);
+  digitalWrite(LED, SlaveLED);
   //modbus.setTimeout(500);
   modbus.begin(9600); // Baud Rate  | Config?
   Serial.begin(9600);
@@ -26,6 +26,6 @@ void loop() {
   else{
     Serial.println(modbus.getExceptionResponse());
   }
-  
+  digitalWrite(LED, SlaveLED);
   delay(2000);
 }
