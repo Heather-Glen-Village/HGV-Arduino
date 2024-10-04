@@ -24,7 +24,18 @@ void setup() {
 
 void loop() {
   digitalWrite(LED, SlaveLED);
-  uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED);
+  modbus.writeSingleCoil(0,0,SlaveLED);
+  if (SlaveLED == 1) {
+      SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    } 
+    else {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
+    }
+
+
+  /*uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED);
   delay(1000);
   uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
   if (returncode == 0 && returncode2 == 0) {
@@ -42,7 +53,7 @@ void loop() {
     Serial.println(returncode);
     Serial.print("S2 Code: ");
     Serial.println(returncode2);
-  }
+  }*/
 
   delay(5000);
 }
