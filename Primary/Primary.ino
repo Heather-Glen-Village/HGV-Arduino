@@ -1,9 +1,11 @@
+#include <NeoSWSerial.h>
+
 #include <ModbusRTUMaster.h>
 
 // Pins List
 
-//#define TX  0
-//#define RX  1
+#define TX    14 //Phyical TX 0
+#define RX    15 //Phyical RX 1
 #define DERE  9
 #define LED   2
 

@@ -11,6 +11,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
+    "Include": "NeoSWSerial.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\NeoSWSerial\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
     "Include": "ModbusRTUMaster.h",
     "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src"
   },
@@ -21,6 +26,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\NeoSWSerial\\src\\NeoSWSerial.cpp",
     "Include": "",
     "Includepath": null
   },

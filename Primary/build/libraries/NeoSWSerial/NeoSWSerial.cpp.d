@@ -1,5 +1,6 @@
-C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\sketch\Primary.ino.cpp.o: \
- C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\sketch\Primary.ino.cpp \
+C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\NeoSWSerial\NeoSWSerial.cpp.o: \
+ C:\Users\Zach_\Documents\Arduino\libraries\NeoSWSerial\src\NeoSWSerial.cpp \
+ C:\Users\Zach_\Documents\Arduino\libraries\NeoSWSerial\src/NeoSWSerial.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \
@@ -11,8 +12,4 @@ C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\sketch\Primary.ino.
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/USBAPI.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs/pins_arduino.h \
- c:\users\zach_\appdata\local\arduino15\packages\arduino\hardware\avr\1.8.6\variants\standard\pins_arduino.h \
- C:\Users\Zach_\Documents\Arduino\libraries\NeoSWSerial\src/NeoSWSerial.h \
- C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUMaster\src/ModbusRTUMaster.h \
- C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SoftwareSerial\src/SoftwareSerial.h \
- C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Stream.h
+ c:\users\zach_\appdata\local\arduino15\packages\arduino\hardware\avr\1.8.6\variants\standard\pins_arduino.h
