@@ -23,6 +23,7 @@ void setup() {
 }
 
 void loop() {
+  digitalWrite(LED, SlaveLED);
   uint8_t returncode = modbus.writeSingleCoil(2, 0, SlaveLED);
   // delay(5000);
   // uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
@@ -42,6 +43,6 @@ void loop() {
     // Serial.print("S2 Code: ");
     // Serial.println(returncode2);
   }
-  digitalWrite(LED, SlaveLED);
+
   delay(5000);
 }
