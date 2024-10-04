@@ -16,8 +16,7 @@ void setup() {
 
   modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
   modbus.begin(1, 9600); // ID | Baud Rate  | Config?
-   
-
+  
 }
 
 void loop() {

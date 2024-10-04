@@ -16,16 +16,13 @@ void setup() {
   pinMode(2, 0x1);
 
   modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
-  //odbus.setResponseDelay(1500); //| used to make delay from the resonds
   modbus.begin(1, 9600); // ID | Baud Rate  | Config?
-
 
 }
 
 void loop() {
-
   modbus.poll(); // Check if there was a request
 
   digitalWrite(2, coils[0]);
- // delay(100);
+ // 
 }
