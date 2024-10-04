@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-#include <NeoSWSerial.h>
-
+#include <SoftwareSerial.h>
+//#include <NeoSWSerial.h>
 #include <ModbusRTUMaster.h>
 
 // Pins List
@@ -10,27 +10,44 @@
 #define RX    15 //Phyical RX 1
 #define DERE  9
 #define LED   2
+SoftwareSerial modbusSerial(RX, TX);
+ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object with port for RS485
 
-ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
 bool SlaveLED = 1; // Enable
 
-#line 16 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 23 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 25 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 16 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
   pinMode(LED, OUTPUT);
   digitalWrite(LED, SlaveLED);
   //modbus.setTimeout(500);
   modbus.begin(9600); // Baud Rate  | Config?
+  Serial.begin(9600);
 }
 
 void loop() {
-  if (modbus.writeSingleCoil(1, 0, SlaveLED) == 0) {
-    SlaveLED = !SlaveLED;
+  uint8_t returncode1 = modbus.writeSingleCoil(1, 0, SlaveLED);
+  uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
+  if (returncode1 and returncode2 == 0) {
+    if (SlaveLED == 1) {
+      SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    } 
+    else {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
+    }
+  }
+  else{
+    Serial.print("S1 Code: ");
+    Serial.println(returncode1);
+    Serial.print("S2 Code: ");
+    Serial.println(returncode2);
   }
   digitalWrite(LED, SlaveLED);
-  delay(2000);
+  delay(5000);
 }

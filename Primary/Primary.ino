@@ -42,5 +42,5 @@ void loop() {
     Serial.println(returncode2);
   }
   digitalWrite(LED, SlaveLED);
-  delay(2000);
+  delay(5000);
 }

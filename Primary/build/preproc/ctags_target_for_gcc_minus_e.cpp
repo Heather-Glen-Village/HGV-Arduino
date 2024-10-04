@@ -1,6 +1,6 @@
 # 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 # 2 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-
+//#include <NeoSWSerial.h>
 # 4 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 
 // Pins List
@@ -9,8 +9,9 @@
 
 
 
+SoftwareSerial modbusSerial(15 /*Phyical RX 1*/, 14 /*Phyical TX 0*/);
+ModbusRTUMaster modbus(modbusSerial, 9); // Create Modbus Object with port for RS485
 
-ModbusRTUMaster modbus(Serial, 9); // Create Modbus Object with port for RS485
 
 bool SlaveLED = 1; // Enable
 
@@ -19,12 +20,28 @@ void setup() {
   digitalWrite(2, SlaveLED);
   //modbus.setTimeout(500);
   modbus.begin(9600); // Baud Rate  | Config?
+  Serial.begin(9600);
 }
 
 void loop() {
-  if (modbus.writeSingleCoil(1, 0, SlaveLED) == 0) {
-    SlaveLED = !SlaveLED;
+  uint8_t returncode1 = modbus.writeSingleCoil(1, 0, SlaveLED);
+  uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
+  if (returncode1 and returncode2 == 0) {
+    if (SlaveLED == 1) {
+      SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    }
+    else {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
+    }
+  }
+  else{
+    Serial.print("S1 Code: ");
+    Serial.println(returncode1);
+    Serial.print("S2 Code: ");
+    Serial.println(returncode2);
   }
   digitalWrite(2, SlaveLED);
-  delay(2000);
+  delay(5000);
 }
