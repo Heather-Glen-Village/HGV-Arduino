@@ -22,7 +22,7 @@ void setup() {
 
 void loop() {
   
-  Serial.println(Serial.available);
+  Serial.println(Serial.available());
   modbus.poll(); // Check if there was a request
 
   digitalWrite(LED, coils[0]);
