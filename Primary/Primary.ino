@@ -27,7 +27,7 @@ void loop() {
   uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED);
   delay(5000);
   uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
-  if (returncode and returncode2 == 0) {
+  if (returncode == 0 && returncode2 == 0) {
     if (SlaveLED == 1) {
       SlaveLED = 0;
       Serial.println("SlaveLED Enabled");
