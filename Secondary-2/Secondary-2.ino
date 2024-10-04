@@ -21,10 +21,11 @@ void setup() {
 }
 
 void loop() {
-  
-  Serial.println(Serial.available());
-  modbus.poll(); // Check if there was a request
+  if (Serial.available() != 0){
+    modbus.poll(); // Check if there was a request
 
-  digitalWrite(LED, coils[0]);
+    digitalWrite(LED, coils[0]);
+  }
+
   delay(500);
 }
