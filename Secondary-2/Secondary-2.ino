@@ -7,7 +7,7 @@
 #define DERE  9
 #define LED   2
 
-ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
+ModbusRTUSlave modbus(Serial); // Create Modbus Object
 
 bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
 
