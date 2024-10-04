@@ -37,7 +37,7 @@ void loop() {
     }
   }
   else{
-    Serial.print("S1 Code: ");
+    Serial.print("Error Code: ");
     Serial.println(returncode);
     // Serial.print("S2 Code: ");
     // Serial.println(returncode2);
