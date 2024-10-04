@@ -28,11 +28,11 @@ void loop() {
   // uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
   if (returncode == 0) {
     if (SlaveLED == 1) {
-      SlaveLED = 1;
+      SlaveLED = 0;
       Serial.println("SlaveLED Enabled");
     } 
     else {
-      SlaveLED = 0;
+      SlaveLED = 1;
       Serial.println("SlaveLED Disabled");
     }
   }
