@@ -16,15 +16,11 @@ void setup() {
   digitalWrite(LED, SlaveLED);
   //modbus.setTimeout(500);
   modbus.begin(9600); // Baud Rate  | Config?
-  Serial.begin(9600);
 }
 
 void loop() {
   if (modbus.writeSingleCoil(1, 0, SlaveLED) == 0) {
     SlaveLED = !SlaveLED;
-  }
-  else{
-    Serial.println(modbus.getExceptionResponse());
   }
   digitalWrite(LED, SlaveLED);
   delay(2000);
