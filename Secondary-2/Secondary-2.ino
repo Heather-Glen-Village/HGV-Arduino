@@ -7,7 +7,7 @@
 #define DERE  9
 #define LED   2
 
-ModbusRTUSlave modbus(Serial); // Create Modbus Object
+ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
 bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
 
@@ -16,10 +16,13 @@ void setup() {
 
   modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
   modbus.begin(2, 9600); // ID | Baud Rate  | Config?
+  Serial.begin(9600);
   
 }
 
 void loop() {
+  
+  Serial.println(Serial.available);
   modbus.poll(); // Check if there was a request
 
   digitalWrite(LED, coils[0]);
