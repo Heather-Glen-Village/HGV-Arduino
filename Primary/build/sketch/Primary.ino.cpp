@@ -30,25 +30,37 @@ void setup() {
 }
 
 void loop() {
-  uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED);
-  // delay(5000);
-  // uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
-  if (returncode == 0) {
-    if (SlaveLED == 1) {
-      SlaveLED = 1;
+  digitalWrite(LED, SlaveLED);
+  modbus.writeSingleCoil(0,0,SlaveLED);
+  if (SlaveLED == 1) {
+      SlaveLED = 0;
       Serial.println("SlaveLED Enabled");
     } 
     else {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
+    }
+
+
+  /*uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED);
+  delay(1000);
+  uint8_t returncode2 = modbus.writeSingleCoil(2, 0, SlaveLED);
+  if (returncode == 0 && returncode2 == 0) {
+    if (SlaveLED == 1) {
       SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    } 
+    else {
+      SlaveLED = 1;
       Serial.println("SlaveLED Disabled");
     }
   }
   else{
-    Serial.print("Error Code: ");
+    Serial.print("S1 Code: ");
     Serial.println(returncode);
-    // Serial.print("S2 Code: ");
-    // Serial.println(returncode2);
-  }
-  digitalWrite(LED, SlaveLED);
+    Serial.print("S2 Code: ");
+    Serial.println(returncode2);
+  }*/
+
   delay(5000);
 }
