@@ -1,0 +1,7 @@
+#line 1 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\.vscode\\arduino.json"
+{
+    "sketch": "Primary.ino",
+    "output": "build",
+    "configuration": "cpu=atmega328",
+    "board": "arduino:avr:nano"
+}

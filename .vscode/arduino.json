@@ -1,4 +1,6 @@
 {
+    "sketch": "Primary\\Primary.ino",
+    "configuration": "cpu=atmega328",
     "board": "arduino:avr:nano",
-    "sketch": "Basic-Receiver\\Basic-Receiver.ino"
+    "output": "build"
 }

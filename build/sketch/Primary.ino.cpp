@@ -1,5 +1,8 @@
+#include <Arduino.h>
+#line 1 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 #include <SoftwareSerial.h>
 #include <ModbusRTUMaster.h>
+#include <ModbusRTUSlave.h>
 
 // Pins List
 #define SoftTX 14 // Phyical TX 0
@@ -13,6 +16,11 @@ ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object with port fo
 
 bool SlaveLED = 1; // Enable Slave LED by default
 
+#line 17 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+void setup();
+#line 25 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+void loop();
+#line 17 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 void setup()
 {
   pinMode(LED, OUTPUT);
