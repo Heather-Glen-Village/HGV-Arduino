@@ -10,22 +10,17 @@
     "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs"
   },
   {
-    "Sourcefile": "D:\\Github\\HGV\\rems006-Arduino\\build\\sketch\\Primary.ino.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\build\\sketch\\Primary.ino.cpp",
     "Include": "SoftwareSerial.h",
     "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src"
   },
   {
-    "Sourcefile": "D:\\Github\\HGV\\rems006-Arduino\\build\\sketch\\Primary.ino.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\build\\sketch\\Primary.ino.cpp",
     "Include": "ModbusRTUMaster.h",
     "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src"
   },
   {
-    "Sourcefile": "D:\\Github\\HGV\\rems006-Arduino\\build\\sketch\\Primary.ino.cpp",
-    "Include": "ModbusRTUSlave.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src"
-  },
-  {
-    "Sourcefile": "D:\\Github\\HGV\\rems006-Arduino\\build\\sketch\\Primary.ino.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\build\\sketch\\Primary.ino.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -36,11 +31,6 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src\\ModbusRTUMaster.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src\\ModbusRTUSlave.cpp",
     "Include": "",
     "Includepath": null
   }

@@ -1,8 +1,7 @@
 #include <Arduino.h>
-#line 1 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 #include <SoftwareSerial.h>
 #include <ModbusRTUMaster.h>
-#include <ModbusRTUSlave.h>
 
 // Pins List
 #define SoftTX 14 // Phyical TX 0
@@ -16,11 +15,11 @@ ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object with port fo
 
 bool SlaveLED = 1; // Enable Slave LED by default
 
-#line 17 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 16 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 25 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 17 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 16 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup()
 {
   pinMode(LED, OUTPUT);
@@ -33,16 +32,24 @@ void loop()
 {
   digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
 
-  modbus.writeSingleCoil(0, 0, SlaveLED); // 0 sends to all boards
-  if (SlaveLED == 1)
-  { // Turns LED off if on and vice versa
-    SlaveLED = 0;
-    Serial.println("SlaveLED Enabled");
+  uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED); // Write to Coil of Board id=1
+  if (returncode == 0)
+  {
+    if (SlaveLED == 1)
+    {
+      SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    }
+    else
+    {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
+    }
   }
   else
   {
-    SlaveLED = 1;
-    Serial.println("SlaveLED Disabled");
+    // Shows error Message in Debug Terminal
+    Serial.print("S1 Code: ");
+    Serial.println(returncode);
   }
-  delay(5000);
 }

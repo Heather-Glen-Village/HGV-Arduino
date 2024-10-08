@@ -1,7 +1,6 @@
-# 1 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
-# 2 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
-# 3 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
-# 4 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
+# 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+# 2 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 3 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 
 // Pins List
 
@@ -27,16 +26,24 @@ void loop()
 {
   digitalWrite(2, SlaveLED); // Matches Slave LED With Board LED
 
-  modbus.writeSingleCoil(0, 0, SlaveLED); // 0 sends to all boards
-  if (SlaveLED == 1)
-  { // Turns LED off if on and vice versa
-    SlaveLED = 0;
-    Serial.println("SlaveLED Enabled");
+  uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED); // Write to Coil of Board id=1
+  if (returncode == 0)
+  {
+    if (SlaveLED == 1)
+    {
+      SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    }
+    else
+    {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
+    }
   }
   else
   {
-    SlaveLED = 1;
-    Serial.println("SlaveLED Disabled");
+    // Shows error Message in Debug Terminal
+    Serial.print("S1 Code: ");
+    Serial.println(returncode);
   }
-  delay(5000);
 }
