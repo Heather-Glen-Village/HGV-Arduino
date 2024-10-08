@@ -45,4 +45,5 @@ void loop()
     Serial.print("S1 Code: ");
     Serial.println(returncode);
   }
+  delay(2000);
 }

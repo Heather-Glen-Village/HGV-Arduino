@@ -36,5 +36,5 @@ void loop()
     SlaveLED = 1;
     Serial.println("SlaveLED Disabled");
   }
-  delay(5000);
+  delay(2000);
 }
