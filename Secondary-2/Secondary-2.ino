@@ -1,37 +1,35 @@
-#include <ModbusRTUSlave.h>
+#include <SimpleDHT.h>
 
-// Pins List
-// #define SoftTX 14 // Phyical TX 0
-// #define SoftRX 15 // Phyical RX 1
-#define DERE 9
-#define LED 2
+// for DHT11, 
+//      VCC: 5V or 3V
+//      GND: GND
+//      DATA: 2
+int pinDHT11 = 2;
+SimpleDHT11 dht11(pinDHT11);
 
-// Defines the ID for the Secondary Board from 1-246
-#define ID 2
-
-// Initialize Library
-ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
-
-bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
-
-void setup()
-{
-  pinMode(LED, OUTPUT);
-
-  modbus.configureCoils(coils, 1); // Says where The Coils can go and how many Value is allowed
-  modbus.begin(ID, 9600);          // ID | Baud Rate
-  Serial.begin(9600);              // For Debuging
+void setup() {
+  Serial.begin(115200);
 }
 
-void loop()
-{
-  if (Serial.available() != 0) // Check if There been any Request
-  {
-    Serial.println("LED Change"); // Debugging Line
-    modbus.poll();                // Check and act on the request from the Master
-
-    digitalWrite(LED, coils[0]); // Changes LED to Match with new Message
+void loop() {
+  // start working...
+  Serial.println("=================================");
+  Serial.println("Sample DHT11...");
+  
+  // read without samples.
+  byte temperature = 0;
+  byte humidity = 0;
+  int err = SimpleDHTErrSuccess;
+  if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
+    Serial.print("Read DHT11 failed, err="); Serial.print(SimpleDHTErrCode(err));
+    Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(1000);
+    return;
   }
-
-  delay(500);
+  
+  Serial.print("Sample OK: ");
+  Serial.print((int)temperature); Serial.print(" *C, "); 
+  Serial.print((int)humidity); Serial.println(" H");
+  
+  // DHT11 sampling rate is 1HZ.
+  delay(1500);
 }
