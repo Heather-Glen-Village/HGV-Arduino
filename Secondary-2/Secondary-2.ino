@@ -4,7 +4,7 @@
 //      VCC: 5V or 3V
 //      GND: GND
 //      DATA: 2
-int pinDHT22 = 4;
+int pinDHT22 = 6;
 SimpleDHT22 dht22(pinDHT22);
 
 void setup() {
