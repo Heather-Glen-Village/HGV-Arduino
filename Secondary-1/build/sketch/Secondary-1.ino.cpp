@@ -3,32 +3,42 @@
 #include <ModbusRTUSlave.h>
 
 // Pins List
+// #define SoftTX 14 // Phyical TX 0
+// #define SoftRX 15 // Phyical RX 1
+#define DERE 9
+#define LED 2
 
-//#define TX  0
-//#define RX  1
-#define DERE  9
-#define LED   2
+// Defines the ID for the Secondary Board from 1-246
+#define ID 1
 
+// Initialize Library
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
 bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
 
-#line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 22 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
-void setup() {
+#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+void setup()
+{
   pinMode(LED, OUTPUT);
 
-  modbus.configureCoils(coils, 1); // Says where The Coils can go and How many there are?
-  modbus.begin(1, 9600); // ID | Baud Rate  | Config?
-  
+  modbus.configureCoils(coils, 1); // Says where The Coils can go and how many Value is allowed
+  modbus.begin(ID, 9600);          // ID | Baud Rate
+  Serial.begin(9600);              // For Debuging
 }
 
-void loop() {
-  modbus.poll(); // Check if there was a request
+void loop()
+{
+  if (modbus != 0) // Check if There been any Request
+  {
+    Serial.println("LED Change"); // Debugging Line
+    modbus.poll();                // Check and act on the request from the Master
 
-  digitalWrite(LED, coils[0]);
- // 
+    digitalWrite(LED, coils[0]); // Changes LED to Match with new Message
+  }
+
+  delay(500);
 }

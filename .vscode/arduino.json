@@ -1,6 +1,5 @@
 {
-    "sketch": "Primary\\Primary.ino",
+    "sketch": "Secondary-2\\Secondary-2.ino",
     "configuration": "cpu=atmega328",
-    "board": "arduino:avr:nano",
-    "output": "build"
+    "board": "arduino:avr:nano"
 }
