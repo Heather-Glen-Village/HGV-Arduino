@@ -24,7 +24,9 @@ void setup()
 void loop()
 {
   Serial.println(modbus.readInputRegisters(1, 0, buffer, 1));
+  Serial.println("");
   Serial.println(buffer[0]);
+  Serial.println("");
 
   delay(2000);
 }
