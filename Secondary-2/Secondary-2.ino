@@ -8,7 +8,7 @@ int pinDHT22 = 4;
 SimpleDHT22 dht22(pinDHT22);
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
 }
 
 void loop() {
