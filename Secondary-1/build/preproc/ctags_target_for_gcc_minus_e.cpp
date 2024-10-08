@@ -26,7 +26,7 @@ void setup()
 
 void loop()
 {
-  if (modbus != 0) // Check if There been any Request
+  if (Serial.available() != 0) // Check if There been any Request
   {
     Serial.println("LED Change"); // Debugging Line
     modbus.poll(); // Check and act on the request from the Master

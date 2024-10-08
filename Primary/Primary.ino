@@ -11,7 +11,7 @@
 //SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-bool SlaveLED = 1; // Enable Slave LED by default
+uint16_t buffer[1]; // Buffer for Modbus Registers
 
 void setup()
 {
@@ -23,18 +23,8 @@ void setup()
 
 void loop()
 {
-  digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
+  Serial.println(modbus.readInputRegisters(1, 0, buffer, 1));
+  Serial.println(buffer[0]);
 
-  modbus.writeSingleCoil(0, 0, SlaveLED); // 0 sends to all boards
-  if (SlaveLED == 1)
-  { // Turns LED off if on and vice versa
-    SlaveLED = 0;
-    Serial.println("SlaveLED Enabled");
-  }
-  else
-  {
-    SlaveLED = 1;
-    Serial.println("SlaveLED Disabled");
-  }
   delay(2000);
 }
