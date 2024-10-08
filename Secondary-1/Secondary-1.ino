@@ -1,11 +1,11 @@
 #include <SimpleDHT.h>
 
-// for DHT11, 
+// for DHT22, 
 //      VCC: 5V or 3V
 //      GND: GND
 //      DATA: 2
-int pinDHT11 = 2;
-SimpleDHT11 dht11(pinDHT11);
+int pinDHT22 = 4;
+SimpleDHT22 dht22(pinDHT22);
 
 void setup() {
   Serial.begin(115200);
@@ -14,22 +14,24 @@ void setup() {
 void loop() {
   // start working...
   Serial.println("=================================");
-  Serial.println("Sample DHT11...");
+  Serial.println("Sample DHT22...");
   
   // read without samples.
-  byte temperature = 0;
-  byte humidity = 0;
+  // @remark We use read2 to get a float data, such as 10.1*C
+  //    if user doesn't care about the accurate data, use read to get a byte data, such as 10*C.
+  float temperature = 0;
+  float humidity = 0;
   int err = SimpleDHTErrSuccess;
-  if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
-    Serial.print("Read DHT11 failed, err="); Serial.print(SimpleDHTErrCode(err));
-    Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(1000);
+  if ((err = dht22.read2(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
+    Serial.print("Read DHT22 failed, err="); Serial.print(SimpleDHTErrCode(err));
+    Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(2000);
     return;
   }
   
   Serial.print("Sample OK: ");
-  Serial.print((int)temperature); Serial.print(" *C, "); 
-  Serial.print((int)humidity); Serial.println(" H");
+  Serial.print((float)temperature); Serial.print(" *C, ");
+  Serial.print((float)humidity); Serial.println(" RH%");
   
-  // DHT11 sampling rate is 1HZ.
-  delay(1500);
+  // DHT22 sampling rate is 0.5HZ.
+  delay(2500);
 }
