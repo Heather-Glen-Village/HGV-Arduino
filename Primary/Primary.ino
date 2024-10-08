@@ -8,10 +8,10 @@
 #define LED 2
 
 // Initialize Library
-//SoftwareSerial modbusSerial(SoftRX, SoftTX);
-ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
+SoftwareSerial modbusSerial(SoftRX, SoftTX);
+ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t buffer[1]; // Buffer for Modbus Registers
+bool SlaveLED = 1; // Enable Slave LED by default
 
 void setup()
 {
@@ -23,10 +23,18 @@ void setup()
 
 void loop()
 {
-  Serial.println(modbus.readInputRegisters(1, 0, buffer, 1));
-  Serial.println("");
-  Serial.println(buffer[0]);
-  Serial.println("");
+  digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
 
+  modbus.writeSingleCoil(0, 0, SlaveLED); // 0 sends to all boards
+  if (SlaveLED == 1)
+  { // Turns LED off if on and vice versa
+    SlaveLED = 0;
+    Serial.println("SlaveLED Enabled");
+  }
+  else
+  {
+    SlaveLED = 1;
+    Serial.println("SlaveLED Disabled");
+  }
   delay(2000);
 }

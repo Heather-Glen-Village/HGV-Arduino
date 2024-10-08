@@ -1,37 +1,37 @@
-#include <SimpleDHT.h>
+#include <ModbusRTUSlave.h>
 
-// for DHT22, 
-//      VCC: 5V or 3V
-//      GND: GND
-//      DATA: 2
-int pinDHT22 = 4;
-SimpleDHT22 dht22(pinDHT22);
+// Pins List
+// #define SoftTX 14 // Phyical TX 0
+// #define SoftRX 15 // Phyical RX 1
+#define DERE 9
+#define LED 2
 
-void setup() {
-  Serial.begin(9600);
+// Defines the ID for the Secondary Board from 1-246
+#define ID 1
+
+// Initialize Library
+ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
+
+bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
+
+void setup()
+{
+    pinMode(LED, OUTPUT);
+
+    modbus.configureCoils(coils, 1); // Says where The Coils can go and how many Value is allowed
+    modbus.begin(ID, 9600);          // ID | Baud Rate
+    Serial.begin(9600);              // For Debuging
 }
 
-void loop() {
-  // start working...
-  Serial.println("=================================");
-  Serial.println("Sample DHT22...");
-  
-  // read without samples.
-  // @remark We use read2 to get a float data, such as 10.1*C
-  //    if user doesn't care about the accurate data, use read to get a byte data, such as 10*C.
-  float temperature = 0;
-  float humidity = 0;
-  int err = SimpleDHTErrSuccess;
-  if ((err = dht22.read2(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
-    Serial.print("Read DHT22 failed, err="); Serial.print(SimpleDHTErrCode(err));
-    Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(2000);
-    return;
-  }
-  
-  Serial.print("Sample OK: ");
-  Serial.print((float)temperature); Serial.print(" *C, ");
-  Serial.print((float)humidity); Serial.println(" RH%");
-  
-  // DHT22 sampling rate is 0.5HZ.
-  delay(2500);
+void loop()
+{
+    if (Serial.available() != 0) // Check if There been any Request
+    {
+        Serial.println("LED Change"); // Debugging Line
+        modbus.poll();                // Check and act on the request from the Master
+
+        digitalWrite(LED, coils[0]); // Changes LED to Match with new Message
+    }
+
+    delay(500);
 }
