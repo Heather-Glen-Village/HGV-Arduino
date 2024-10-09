@@ -1,13 +1,7 @@
 #define buzzerPin 2
-const int ledPins[] = {0,1};
 
 void setup() {
   pinMode(buzzerPin, OUTPUT);  // Set buzzer pin as output
-
-  // Set LED pins as output
-  for (int i = 0; i < 2; i++) { // fine I guess I feel like it a bit overkill you could just have 2 vars for 2 Leds
-    pinMode(ledPins[i], OUTPUT);
-  }
 
   // Quater Note
   digitalWrite(buzzerPin, HIGH); 
