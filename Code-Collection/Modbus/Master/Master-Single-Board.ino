@@ -9,7 +9,7 @@
 
 // Initialize Library
 SoftwareSerial modbusSerial(SoftRX, SoftTX);
-ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object with port for RS485
+ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
 bool SlaveLED = 1; // Enable Slave LED by default
 
