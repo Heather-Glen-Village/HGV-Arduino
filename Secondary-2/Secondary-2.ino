@@ -9,46 +9,47 @@ void setup() {
     pinMode(ledPins[i], OUTPUT);
   }
 
-  
-  // Start of LED and wiring check sequenc
-  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON (Shave note)
-  delay(600);                     // Extended timing after "Shave"
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(500);
+  // Quater Note
+  digitalWrite(buzzerPin, HIGH); 
+  delay(272);                    
+  digitalWrite(buzzerPin, LOW);  
+  delay(272);
+  // 2 Eighth Notes
+  digitalWrite(buzzerPin, HIGH); 
+  delay(136);                    
+  digitalWrite(buzzerPin, LOW);  
+  delay(136);
 
-  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
-  delay(400);                     // Short note
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(500);
-
-  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
-  delay(400); 
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(500);
-
-  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
-  delay(400);
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(500);
-
-  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
-  delay(250);
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(400);
-
-  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
-  delay(300);
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(400);
-
-  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
-  delay(350);
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(400);
-
-  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
-  delay(600);
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  digitalWrite(buzzerPin, HIGH); 
+  delay(136);                    
+  digitalWrite(buzzerPin, LOW);  
+  delay(136);
+  // Quater Note
+  digitalWrite(buzzerPin, HIGH); 
+  delay(272);                    
+  digitalWrite(buzzerPin, LOW);  
+  delay(272);
+  // Half Note
+  digitalWrite(buzzerPin, HIGH); 
+  delay(545);                    
+  digitalWrite(buzzerPin, LOW);  
+  delay(545);
+  // 1 Quater Rest
+delay(272);
+delay(272);
+  // Quater Note
+  digitalWrite(buzzerPin, HIGH); 
+  delay(272);                    
+  digitalWrite(buzzerPin, LOW);  
+  delay(272);
+// Eigth Rest
+  delay(136);
+  delay(136);
+// Quater Note
+  digitalWrite(buzzerPin, HIGH); 
+  delay(272);                    
+  digitalWrite(buzzerPin, LOW);  
+  delay(272);
 }
 
 void loop() {
