@@ -1,37 +1,63 @@
-#include <ModbusRTUSlave.h>
+#define buzzerPin 2
+const int ledPins[] = {0,1};
 
-// Pins List
-// #define SoftTX 14 // Phyical TX 0
-// #define SoftRX 15 // Phyical RX 1
-#define DERE 9
-#define LED 2
+void setup() {
+  pinMode(buzzerPin, OUTPUT);  // Set buzzer pin as output
 
-// Defines the ID for the Secondary Board from 1-246
-#define ID 1
+  // Set LED pins as output
+  for (int i = 0; i < 2; i++) { // fine I guess I feel like it a bit overkill you could just have 2 vars for 2 Leds
+    pinMode(ledPins[i], OUTPUT);
+  }
 
-// Initialize Library
-ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
+  // Signal the start of sequence
+  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
+  delay(1000);                     // Beep for 500 ms
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(750);                     // Wait for 250 ms
 
-bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
+  // Start of LED and wiring check sequence
+  for (int i = 0; i < 2; i++) {
+  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON (Shave note)
+  delay(600);                     // Extended timing after "Shave"
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(500);
 
-void setup()
-{
-    pinMode(LED, OUTPUT);
+  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
+  delay(400);                     // Short note
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(500);
 
-    modbus.configureCoils(coils, 1); // Says where The Coils can go and how many Value is allowed
-    modbus.begin(ID, 9600);          // ID | Baud Rate
-    Serial.begin(9600);              // For Debuging
+  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
+  delay(400); 
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(500);
+
+  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
+  delay(400);
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(500);
+
+  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
+  delay(250);
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(400);
+
+  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
+  delay(300);
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(400);
+
+  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
+  delay(350);
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  delay(400);
+
+  digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
+  delay(600);
+  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
+  }
 }
 
-void loop()
-{
-    if (Serial.available() != 0) // Check if There been any Request
-    {
-        Serial.println("LED Change"); // Debugging Line
-        modbus.poll();                // Check and act on the request from the Master
-
-        digitalWrite(LED, coils[0]); // Changes LED to Match with new Message
-    }
-
-    delay(500);
+void loop() {
+  // Empty loop, logic is in setup()
 }
