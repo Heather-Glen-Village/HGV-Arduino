@@ -33,7 +33,7 @@ void setup() {
   digitalWrite(buzzerPin, HIGH); 
   delay(545);                    
   digitalWrite(buzzerPin, LOW);  
-  delay(545);
+  delay(272);
   // 1 Quater Rest
 delay(272);
   // Quater Note
