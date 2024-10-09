@@ -9,14 +9,8 @@ void setup() {
     pinMode(ledPins[i], OUTPUT);
   }
 
-  // Signal the start of sequence
-  digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON
-  delay(1000);                     // Beep for 500 ms
-  digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  delay(750);                     // Wait for 250 ms
-
-  // Start of LED and wiring check sequence
-  for (int i = 0; i < 2; i++) {
+  
+  // Start of LED and wiring check sequenc
   digitalWrite(buzzerPin, HIGH);  // Turn buzzer ON (Shave note)
   delay(600);                     // Extended timing after "Shave"
   digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
@@ -55,7 +49,6 @@ void setup() {
   digitalWrite(buzzerPin, HIGH);  // Long buzz (Buzz)
   delay(600);
   digitalWrite(buzzerPin, LOW);   // Turn buzzer OFF
-  }
 }
 
 void loop() {
