@@ -1,5 +1,6 @@
-C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\SoftwareSerial\SoftwareSerial.cpp.o: \
- C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SoftwareSerial\src\SoftwareSerial.cpp \
+C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\EtherCard\EtherCard.cpp.o: \
+ C:\Users\Zach_\Documents\Arduino\libraries\EtherCard\src\EtherCard.cpp \
+ C:\Users\Zach_\Documents\Arduino\libraries\EtherCard\src\EtherCard.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \
@@ -12,5 +13,7 @@ C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\SoftwareS
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs/pins_arduino.h \
  c:\users\zach_\appdata\local\arduino15\packages\arduino\hardware\avr\1.8.6\variants\standard\pins_arduino.h \
- C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SoftwareSerial\src/SoftwareSerial.h \
- C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Stream.h
+ C:\Users\Zach_\Documents\Arduino\libraries\EtherCard\src\bufferfiller.h \
+ C:\Users\Zach_\Documents\Arduino\libraries\EtherCard\src\enc28j60.h \
+ C:\Users\Zach_\Documents\Arduino\libraries\EtherCard\src\net.h \
+ C:\Users\Zach_\Documents\Arduino\libraries\EtherCard\src\stash.h

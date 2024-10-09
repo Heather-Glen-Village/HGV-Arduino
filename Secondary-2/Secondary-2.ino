@@ -1,4 +1,9 @@
 #include <ModbusRTUSlave.h>
+#include <time.h>
+
+
+
+
 
 // Pins List
 // #define SoftTX 14 // Phyical TX 0
@@ -9,17 +14,28 @@
 // Defines the ID for the Secondary Board from 1-246
 #define ID 2
 
-// Initialize Library
+// Initialize Libaries
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
-bool coils[1]; // Creating an array where the Coils can go | Read & Write Only Bools
 
+//Modbus Data Types
+bool coils[1]; 
+
+
+// Sensor Code
+float getTemperature() {
+    // Read Temperature Sensor
+    // return as a int? 
+}
 void setup()
 {
+    //Initialize Pins
     pinMode(LED, OUTPUT);
 
+    // Initialize Modbus
     modbus.configureCoils(coils, 1); // Says where The Coils can go and how many Value is allowed
     modbus.begin(ID, 9600);          // ID | Baud Rate
+    //Initialize Serial
     Serial.begin(9600);              // For Debuging
 }
 
@@ -27,11 +43,9 @@ void loop()
 {
     if (Serial.available() != 0) // Check if There been any Request
     {
-        Serial.println("LED Change"); // Debugging Line
-        modbus.poll();                // Check and act on the request from the Master
-
-        digitalWrite(LED, coils[0]); // Changes LED to Match with new Message
+        modbus.poll();           //act on the request from the Master
     }
-
-    delay(500);
+    time_t t = now();
+    Serial.println(t)
+    delay(500); // Remove or lower at some point?
 }
