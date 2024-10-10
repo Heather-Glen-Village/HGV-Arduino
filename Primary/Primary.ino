@@ -22,7 +22,7 @@ float *floatRegisters = (float*)holdingRegisters;
 
 void setup() {
   modbus.begin(38400);
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.setTimeout(10);
   while(!Serial);
 }
