@@ -58,6 +58,7 @@ void loop()
     }
     if (Serial.available() != 0) { // Check if There been any Request
         //act on the request from the Master
+        modbus.poll();           
     }
     if (Coils[0] == 1) {
         newNumber = true;
