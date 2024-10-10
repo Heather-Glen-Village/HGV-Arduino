@@ -44,7 +44,7 @@ void loop()
   delay(5000);
 }
 
-
+}
 bool debug(uint16_t message){
   uint16_t returnCode = message;
     if (returnCode == 0) {
