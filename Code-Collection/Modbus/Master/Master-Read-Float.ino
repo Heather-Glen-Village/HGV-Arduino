@@ -1,5 +1,3 @@
-#include <Arduino.h>
-#line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 #include <SoftwareSerial.h>
 #include <ModbusRTUMaster.h>
 
@@ -13,18 +11,13 @@
 SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t randomfloat_UINT16[2];
+uint16_t randomfloat_UINT16[200];
 float *randomfloat = (float*)randomfloat_UINT16;
 
-uint16_t randomtime_UINT16[2];
+uint16_t randomtime_UINT16[200];
 float *randomtime = (float*)randomtime_UINT16;
 
 bool coils[1];
-#line 21 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-void setup();
-#line 30 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-void loop();
-#line 21 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup()
 {
   pinMode(LED, OUTPUT);
@@ -36,16 +29,20 @@ void setup()
 
 void loop()
 {
-  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
-  Serial.print('returncode: ');
+  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 5);
   Serial.println(returncode);
-  Serial.print('Float Raw: ');
-  Serial.println(randomfloat_UINT16[0]);
-  Serial.println(randomfloat_UINT16[1]);
-  Serial.print('Float: ');
-  Serial.println(randomfloat[0]);
-    delay(5000);
-  Serial.println('--------------------------------')
+  if(returncode == 0) {
+    for (int i = 0; i <= 20; i++) {
+      Serial.println(randomfloat_UINT16[i]);
+    }
+    delay(3000);
+  uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
+  Serial.println(returncode);
+    if (returncode == 0) {
+      Serial.println("New Number Coming");
+      
+  }
+  delay(5000);
 }
 
 }

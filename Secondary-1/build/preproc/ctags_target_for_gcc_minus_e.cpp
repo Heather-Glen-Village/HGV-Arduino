@@ -8,7 +8,7 @@
 
 
 // Defines the ID for the Secondary Board from 1-246
-
+const uint16_t ID = 1;
 
 // Initialize Libaries
 ModbusRTUSlave modbus(Serial, 9); // Create Modbus Object
@@ -40,9 +40,9 @@ void setup()
 
     // Initialize Modbus
     modbus.configureCoils(Coils,1);
-    modbus.configureHoldingRegisters(HoldingRegister, 100);
+    modbus.configureHoldingRegisters(HoldingRegister, 2);
     modbus.configureInputRegisters(InputRegister, 100);
-    modbus.begin(1, 9600); // ID | Baud Rate
+    modbus.begin(ID, 9600); // ID | Baud Rate
     //Initialize Serial
     Serial.begin(9600); // For Debuging
 }
@@ -57,9 +57,9 @@ void loop()
         newNumber = false;
         Serial.println("Done!");
     }
-
     if (Serial.available() != 0) { // Check if There been any Request
-        modbus.poll(); //act on the request from the Master
+        //act on the request from the Master
+        modbus.poll();
     }
     if (Coils[0] == 1) {
         newNumber = true;
