@@ -63,10 +63,6 @@ void loop()
         newNumber = true;
         Coils[0] = 0;
     }
-    else {
-        Serial.print("Coils[0]: ");
-        Serial.println(Coils[0]);
-    }
 
     delay(500); // Remove or lower at some point?
 }
