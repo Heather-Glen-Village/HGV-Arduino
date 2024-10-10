@@ -12,7 +12,7 @@ const int arraySize = 5;
 float temperatureArray[arraySize];
 
 void setup() {
-  Serial.begin(115200); // Start serial communication
+  Serial.begin(9600); // Start serial communication
   dht.begin();        // Initialize the DHT sensor
 }
 
