@@ -1,5 +1,7 @@
-C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-2\build\sketch\Secondary-2.ino.cpp.o: \
- C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-2\build\sketch\Secondary-2.ino.cpp \
+C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-2\build\libraries\DHT_sensor_library\DHT_U.cpp.o: \
+ C:\Users\Zach_\Documents\Arduino\libraries\DHT_sensor_library\DHT_U.cpp \
+ C:\Users\Zach_\Documents\Arduino\libraries\DHT_sensor_library\DHT_U.h \
+ C:\Users\Zach_\Documents\Arduino\libraries\Adafruit_Unified_Sensor/Adafruit_Sensor.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \
@@ -12,4 +14,5 @@ C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-2\build\sketch\Secondar
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs/pins_arduino.h \
  c:\users\zach_\appdata\local\arduino15\packages\arduino\hardware\avr\1.8.6\variants\standard\pins_arduino.h \
+ C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Print.h \
  C:\Users\Zach_\Documents\Arduino\libraries\DHT_sensor_library/DHT.h
