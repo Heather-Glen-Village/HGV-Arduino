@@ -35,7 +35,7 @@ void loop()
     Serial.print("Available: ");
     Serial.println(Serial.available());
     Serial.print("Coils[0]: ");
-    Serial.println(Coils[0]);
+    Serial.println(coils[0]);
 
     delay(500);
 }
