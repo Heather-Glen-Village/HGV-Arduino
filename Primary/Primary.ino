@@ -25,25 +25,16 @@ void loop()
 {
   digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
 
-  uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED); // Write to Coil of Board id=1
-  if (returncode == 0)
-  {
-    if (SlaveLED == 1)
-    {
-      SlaveLED = 0;
-      //Serial.println("SlaveLED Enabled");
-    }
-    else
-    {
-      SlaveLED = 1;
-      //Serial.println("SlaveLED Disabled");
-    }
+  modbus.writeSingleCoil(0, 0, SlaveLED); // 0 sends to all boards
+  if (SlaveLED == 1)
+  { // Turns LED off if on and vice versa
+    SlaveLED = 0;
+    Serial.println("SlaveLED Enabled");
   }
   else
   {
-    // Shows error Message in Debug Terminal
-    //Serial.print("S1 Code: ");
-    //Serial.println(returncode);
+    SlaveLED = 1;
+    Serial.println("SlaveLED Disabled");
   }
   delay(2000);
 }
