@@ -56,7 +56,7 @@ void loop()
         newNumber = false;
         Serial.println("Done!");
     }
-
+     modbus.poll();  
     if (Serial.available() != 0) { // Check if There been any Request
         modbus.poll();            //act on the request from the Master
     }
