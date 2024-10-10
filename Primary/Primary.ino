@@ -26,6 +26,7 @@ void loop()
   digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
 
   modbus.writeSingleCoil(0, 0, SlaveLED); // 0 sends to all boards
+  Serial.flush();
   if (SlaveLED == 1)
   { // Turns LED off if on and vice versa
     SlaveLED = 0;
