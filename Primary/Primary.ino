@@ -33,6 +33,7 @@ void loop()
   Serial.println(returncode);
   if(returncode == 0) {
   Serial.println(randomfloat_UINT16[0]);
+  delay(1000);
 
   uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
   Serial.println(returncode);
