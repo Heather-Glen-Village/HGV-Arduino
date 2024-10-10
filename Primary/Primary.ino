@@ -30,13 +30,13 @@ void setup()
 void loop()
 {
   uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
-  Serial.print('returncode: ');
+  Serial.print("returncode: ");
   Serial.println(returncode);
-  Serial.print('Float Raw: ');
+  Serial.print("Float Raw: ");
   Serial.println(randomfloat_UINT16[0]);
   Serial.println(randomfloat_UINT16[1]);
-  Serial.print('Float: ');
+  Serial.print("Float: ");
   Serial.println(randomfloat[0]);
     delay(5000);
-  Serial.println('--------------------------------');
+  Serial.println("--------------------------------");
 }
