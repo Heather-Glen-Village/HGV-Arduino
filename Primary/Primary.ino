@@ -1,60 +1,78 @@
-#include <SoftwareSerial.h>
+#if (defined __AVR_ATmega328P__ || defined __AVR_ATmega168__ || defined __AVR_ATmega1280__ || defined __AVR_ATmega2560__)
+  #include <SoftwareSerial.h>
+#endif
+
 #include <ModbusRTUMaster.h>
 
-// Pins List
-#define SoftTX 14 // Phyical TX 0
-#define SoftRX 15 // Phyical RX 1
-#define DERE 9
-#define LED 2
+const byte dePin = 9;
 
-// Initialize Library
-SoftwareSerial modbusSerial(SoftRX, SoftTX);
-ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
+#if (defined __AVR_ATmega328P__ || defined __AVR_ATmega168__ || defined __AVR_ATmega1280__ || defined __AVR_ATmega2560__)
+  const byte rxPin = 10;
+  const byte txPin = 11;
+  SoftwareSerial mySerial(rxPin, txPin);
+  ModbusRTUMaster modbus(mySerial, dePin);
+#elif defined ESP32
+  ModbusRTUMaster modbus(Serial0, dePin);
+#else
+  ModbusRTUMaster modbus(Serial1, dePin);
+#endif
 
-uint16_t randomfloat_UINT16[200];
-float *randomfloat = (float*)randomfloat_UINT16;
+uint16_t holdingRegisters[2];
+float *floatRegisters = (float*)holdingRegisters;
 
-uint16_t randomtime_UINT16[200];
-float *randomtime = (float*)randomtime_UINT16;
-
-bool coils[1];
-void setup()
-{
-  pinMode(LED, OUTPUT);
-
-  modbus.begin(9600);
-  Serial.begin(9600); // For Debuging
-  delay(5000);
+void setup() {
+  modbus.begin(38400);
+  Serial.begin(9600);
+  Serial.setTimeout(10);
+  while(!Serial);
 }
 
-void loop()
-{
-  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
-  Serial.println(returncode);
-  if(returncode == 0) {
-    for (int i = 0; i <= 20; i++) {
-      Serial.println(randomfloat_UINT16[i]);
-    }
-    delay(3000);
-  uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
-  Serial.println(returncode);
-    if (returncode == 0) {
-      Serial.println("New Number Coming");
-      
+void loop() {
+  if (Serial.available()) {
+    String string = Serial.readStringUntil('\n');
+    string.trim();
+    floatRegisters[0] = string.toFloat();
+    Serial.print("Sending: ");
+    Serial.println(floatRegisters[0], 5);
+    debug(modbus.writeMultipleHoldingRegisters(1, 0, holdingRegisters, 2));
   }
-  delay(5000);
 }
 
-}
-bool debug(uint16_t message){
-  uint16_t returnCode = message;
-    if (returnCode == 0) {
-      return true;
+
+bool debug(bool modbusRequest) {
+  if (modbusRequest == true) {
+    Serial.println("Success");
   }
   else {
-    // Shows error Message in Debug Terminal
-    Serial.print("Error Code: ");
-    Serial.println(returnCode);
-    return false;
+    Serial.print("Failure");
+    if (modbus.getTimeoutFlag() == true) {
+      Serial.print(": Timeout");
+      modbus.clearTimeoutFlag();
+    }
+    else if (modbus.getExceptionResponse() != 0) {
+      Serial.print(": Exception Response ");
+      Serial.print(modbus.getExceptionResponse());
+      switch (modbus.getExceptionResponse()) {
+        case 1:
+          Serial.print(" (Illegal Function)");
+          break;
+        case 2:
+          Serial.print(" (Illegal Data Address)");
+          break;
+        case 3:
+          Serial.print(" (Illegal Data Value)");
+          break;
+        case 4:
+          Serial.print(" (Server Device Failure)");
+          break;
+        default:
+          Serial.print(" (Uncommon Exception Response)");
+          break;
+      }
+      modbus.clearExceptionResponse();
+    }
+    Serial.println();
   }
+  Serial.flush();
+  return modbusRequest;
 }
