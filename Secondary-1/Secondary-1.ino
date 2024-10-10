@@ -7,7 +7,7 @@
 #define LED 2
 
 // Defines the ID for the Secondary Board from 1-246
-#define ID 1
+const uint16_t ID = 1;
 
 // Initialize Libaries
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
