@@ -13,10 +13,10 @@ ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS48
 
 bool SlaveLED = 1; // Enable Slave LED by default
 
-uint16_t randomfloat_UINT16[];
+uint16_t randomfloat_UINT16[200];
 float *randomfloat = (float*)randomfloat_UINT16;
 
-uint16_t randomtime_UINT16[];
+uint16_t randomtime_UINT16[200];
 float *randomtime = (float*)randomtime_UINT16;
 
 void setup()
@@ -41,5 +41,5 @@ void loop()
     Serial.print("Error Code: ");
     Serial.println(returnCode);
   }
-  delay(2000);
+  delay(5000);
 }

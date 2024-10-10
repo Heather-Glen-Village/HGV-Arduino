@@ -36,26 +36,18 @@ void setup()
 
 void loop()
 {
-  if (modbus)
+  bool returnCode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20);
 
-  if (returncode == 0)
-  {
-    if (SlaveLED == 1)
-    {
-      SlaveLED = 0;
-      Serial.println("SlaveLED Enabled");
-    }
-    else
-    {
-      SlaveLED = 1;
-      Serial.println("SlaveLED Disabled");
+  if (returnCode == 0) {
+    for(int i = 0; i <= 10; i++) {
+      Serial.println(randomfloat[i]);
     }
   }
-  else
-  {
+  else {
     // Shows error Message in Debug Terminal
-    Serial.print("S1 Code: ");
-    Serial.println(returncode);
+    Serial.print("Error Code: ");
+    Serial.println(returnCode);
   }
   delay(2000);
 }
+

@@ -51,6 +51,7 @@ void loop()
             Serial.println(FloatRegisters[i]);
         }
         newNumber = false;
+        Serial.println("Done!");
     }
 
     if (Serial.available() != 0) // Check if There been any Request
