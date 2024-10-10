@@ -25,7 +25,7 @@ void loop()
 {
   digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
 
-  uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED); // Write to Coil of Board id=1
+  uint8_t returncode = modbus.writeSingleCoil(2, 0, SlaveLED); // Write to Coil of Board id=1
   if (returncode == 0)
   {
     if (SlaveLED == 1)
