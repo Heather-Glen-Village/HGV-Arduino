@@ -25,11 +25,12 @@ void setup()
 
   modbus.begin(9600);
   Serial.begin(9600); // For Debuging
+  delay(5000);
 }
 
 void loop()
 {
-  if(debug(modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20) == true)) {
+  if(debug(modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1) == true)) {
     for (int i = 0; i <= 200; i++) {
       Serial.println(randomfloat_UINT16[i]);
     }
