@@ -11,8 +11,13 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "bufferfiller.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src"
+    "Include": "SoftwareSerial.h",
+    "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
+    "Include": "ModbusRTUMaster.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
@@ -20,47 +25,12 @@
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\EtherCard.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src\\SoftwareSerial.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\bufferfiller.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\dhcp.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\dns.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\enc28j60.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\stash.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\tcpip.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\udpserver.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\EtherCard\\src\\webutil.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src\\ModbusRTUMaster.cpp",
     "Include": "",
     "Includepath": null
   }

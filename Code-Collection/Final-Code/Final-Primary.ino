@@ -13,11 +13,8 @@ ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS48
 
 bool SlaveLED = 1; // Enable Slave LED by default
 
-uint16_t randomfloat_UINT16[];
-float *randomfloat = (float*)randomfloat_UINT16;
 
-uint16_t randomtime_UINT16[];
-float *randomtime = (float*)randomtime_UINT16;
+
 
 void setup()
 {
@@ -29,17 +26,27 @@ void setup()
 
 void loop()
 {
-  bool returnCode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20);
+  digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
 
-  if (returnCode == 0) {
-    for(int i = 0; i <= 10; i++) {
-      Serial.println(randomfloat[i]);
+  uint8_t returncode = modbus.writeSingleCoil(1, 0, SlaveLED); // Write to Coil of Board id=1
+  if (returncode == 0)
+  {
+    if (SlaveLED == 1)
+    {
+      SlaveLED = 0;
+      Serial.println("SlaveLED Enabled");
+    }
+    else
+    {
+      SlaveLED = 1;
+      Serial.println("SlaveLED Disabled");
     }
   }
-  else {
+  else
+  {
     // Shows error Message in Debug Terminal
-    Serial.print("Error Code: ");
-    Serial.println(returnCode);
+    Serial.print("S1 Code: ");
+    Serial.println(returncode);
   }
   delay(2000);
 }
