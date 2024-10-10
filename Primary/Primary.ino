@@ -29,17 +29,12 @@ void setup()
 
 void loop()
 {
-  /*uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
+  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
   Serial.println(returncode);
   if(returncode == 0) {
     for (int i = 0; i <= 200; i++) {
-      //Serial.println(randomfloat_UINT16[i]);
+      Serial.println(randomfloat_UINT16[i]);
     }
-  uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
-  Serial.println(returncode);
-    if (returncode == 0) {
-      Serial.println("New Number Coming");
-    }*/
   uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
   Serial.println(returncode);
     if (returncode == 0) {
