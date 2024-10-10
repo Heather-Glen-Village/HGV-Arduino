@@ -1,51 +1,50 @@
-#include <ModbusRTUSlave.h>
-#include <time.h>
+#include <DHT.h>
+//#include <SPI.h>
+// #include <SD.h>
 
+#define DHTPIN 4      // Pin D3
+#define DHTTYPE DHT22 // DHT 22 (AM2302)
 
+// Initialize DHT sensor
+DHT dht(DHTPIN, DHTTYPE);
 
+const int arraySize = 5;
+float temperatureArray[arraySize];
 
-
-// Pins List
-// #define SoftTX 14 // Phyical TX 0
-// #define SoftRX 15 // Phyical RX 1
-#define DERE 9
-#define LED 2
-
-// Defines the ID for the Secondary Board from 1-246
-#define ID 2
-
-// Initialize Libaries
-ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
-
-
-//Modbus Data Types
-bool coils[1]; 
-
-
-// Sensor Code
-float getTemperature() {
-    // Read Temperature Sensor
-    // return as a int? 
-}
-void setup()
-{
-    //Initialize Pins
-    pinMode(LED, OUTPUT);
-
-    // Initialize Modbus
-    modbus.configureCoils(coils, 1); // Says where The Coils can go and how many Value is allowed
-    modbus.begin(ID, 9600);          // ID | Baud Rate
-    //Initialize Serial
-    Serial.begin(9600);              // For Debuging
+void setup() {
+  Serial.begin(115200); // Start serial communication
+  dht.begin();        // Initialize the DHT sensor
 }
 
-void loop()
-{
-    if (Serial.available() != 0) // Check if There been any Request
-    {
-        modbus.poll();           //act on the request from the Master
-    }
-    time_t t = now();
-    Serial.println(t)
-    delay(500); // Remove or lower at some point?
+void loop() {
+  delay(2000); // Wait a few seconds between readings
+
+for(int i =0; i < arraySize; i++){
+  // Move bracket down but then it says temperature was not declared in this scene?
+}
+
+
+  // Read temperature as Celsius
+  float temperature = dht.readTemperature();
+  // Read humidity
+  float humidity = dht.readHumidity();
+
+  // Check if any reads failed and exit early
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Print the results to the Serial Monitor
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+  
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+//File dataFile = SD.open("dht.data.txt", FILE_WRITE);
+
+  
 }
