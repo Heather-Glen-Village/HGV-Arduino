@@ -23,9 +23,9 @@ float *randomtime = (float*)randomtime_UINT16;
 
 #line 22 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 30 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 44 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 49 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 bool debug(uint16_t message);
 #line 22 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup()
@@ -34,15 +34,20 @@ void setup()
 
   modbus.begin(9600);
   Serial.begin(9600); // For Debuging
+  delay(5000);
 }
 
 void loop()
 {
-  if(debug(modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20) == true)) {
-    for (int i = 0; i <= 10; i++) {
+  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
+  Serial.println(returncode);
+  if(return == 0) {
+    for (int i = 0; i <= 200; i++) {
       Serial.println(randomfloat_UINT16[i]);
     }
-    if (debug(modbus.writeSingleCoil(1, 0, 1))== true) {
+  uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
+  Serial.println(returncode);
+    if (returncode == 0) {
       Serial.println("New Number Coming");
     }
   }
