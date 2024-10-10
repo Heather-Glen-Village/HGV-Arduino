@@ -15,11 +15,13 @@ ModbusRTUSlave modbus(Serial, 9); // Create Modbus Object
 
 
 //Modbus Data Types
+bool Coils[1];
+
 uint16_t HoldingRegister[300]; // Temperature: 0-99, Humidity: 100-199, DHT22 Time: 200-299
 float *FloatRegisters = (float*)HoldingRegister; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
 uint16_t InputRegister[200];
-uint32_t *TimeRegisters = (float*)HoldingRegister; //Current uint which can do 16 Year of time data which is overkill but idk how time is being stored yet
+uint32_t *TimeRegisters = (uint32_t*)HoldingRegister; //Current uint which can do 16 Year of time data which is overkill but idk how time is being stored yet
 //Usable Address Temp and Humidity: 100-149, Motion: 
 
 bool newNumber = true;
@@ -36,7 +38,8 @@ void setup()
     //Initialize Pins
     pinMode(2, 0x1);
 
-    // Initialize Modbub
+    // Initialize Modbus
+    modbus.config
     modbus.configureHoldingRegisters(HoldingRegister, 100);
     modbus.configureInputRegisters(InputRegister, 100);
     modbus.begin(1, 9600); // ID | Baud Rate
@@ -49,8 +52,10 @@ void loop()
     if (newNumber == true) {
         for(int i = 0; i <= 10; i++) {
             FloatRegisters[i] = random(0, 10000) /100.0;
+            Serial.println(FloatRegisters[i]);
         }
         newNumber = false;
+        Serial.println("Done!");
     }
 
     if (Serial.available() != 0) // Check if There been any Request

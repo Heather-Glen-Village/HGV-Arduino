@@ -29,17 +29,25 @@ void setup()
 
 void loop()
 {
-  bool returnCode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20);
-
-  if (returnCode == 0) {
-    for(int i = 0; i <= 10; i++) {
+  if(debug(modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20) == true)) {
+    for (int i = 0; i <= 10; i++) {
       Serial.println(randomfloat[i]);
     }
+    debug(modbus.writeSingleCoil(1, 0, 1));
+  }
+  delay(5000);
+}
+
+
+bool debug(uint16_t message){
+  uint16_t returnCode = message;
+    if (returnCode == 0) {
+      return true;
   }
   else {
     // Shows error Message in Debug Terminal
     Serial.print("Error Code: ");
     Serial.println(returnCode);
+    return false;
   }
-  delay(5000);
 }

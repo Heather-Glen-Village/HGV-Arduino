@@ -14,6 +14,8 @@ ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
 
 //Modbus Data Types
+bool Coils[1];
+
 uint16_t HoldingRegister[300]; // Temperature: 0-99, Humidity: 100-199, DHT22 Time: 200-299
 float *FloatRegisters = (float*)HoldingRegister; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
@@ -35,7 +37,8 @@ void setup()
     //Initialize Pins
     pinMode(LED, OUTPUT);
 
-    // Initialize Modbub
+    // Initialize Modbus
+    modbus.configureCoils(Coils,1);
     modbus.configureHoldingRegisters(HoldingRegister, 100);
     modbus.configureInputRegisters(InputRegister, 100);
     modbus.begin(ID, 9600);          // ID | Baud Rate
@@ -54,10 +57,13 @@ void loop()
         Serial.println("Done!");
     }
 
-    if (Serial.available() != 0) // Check if There been any Request
-    {
-        modbus.poll();           //act on the request from the Master
-        newNumber = true;
+    if (Serial.available() != 0) { // Check if There been any Request
+        modbus.poll();            //act on the request from the Master
     }
+    if (Coils[0] == 1) {
+        newNumber = true;
+        Coils[0] = 0;
+    }
+
     delay(500); // Remove or lower at some point?
 }
