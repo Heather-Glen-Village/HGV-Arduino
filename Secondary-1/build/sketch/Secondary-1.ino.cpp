@@ -47,7 +47,7 @@ void setup()
     pinMode(LED, OUTPUT);
 
     // Initialize Modbus
-    modbus.config
+    modbus.configureCoils(Coils,1);
     modbus.configureHoldingRegisters(HoldingRegister, 100);
     modbus.configureInputRegisters(InputRegister, 100);
     modbus.begin(ID, 9600);          // ID | Baud Rate
@@ -60,16 +60,19 @@ void loop()
     if (newNumber == true) {
         for(int i = 0; i <= 10; i++) {
             FloatRegisters[i] = random(0, 10000) /100.0;
-            Serial.println(FloatRegisters[i]);
+            Serial.println(HoldingRegister[i]);
         }
         newNumber = false;
         Serial.println("Done!");
     }
 
-    if (Serial.available() != 0) // Check if There been any Request
-    {
-        modbus.poll();           //act on the request from the Master
-        newNumber = true;
+    if (Serial.available() != 0) { // Check if There been any Request
+        modbus.poll();            //act on the request from the Master
     }
+    if (Coils[0] == 1) {
+        newNumber = true;
+        Coils[0] = 0;
+    }
+
     delay(500); // Remove or lower at some point?
 }

@@ -14,10 +14,10 @@ ModbusRTUMaster modbus(Serial, 9); // Create Modbus Object with port for RS485
 
 bool SlaveLED = 1; // Enable Slave LED by default
 
-uint16_t randomfloat_UINT16[];
+uint16_t randomfloat_UINT16[200];
 float *randomfloat = (float*)randomfloat_UINT16;
 
-uint16_t randomtime_UINT16[];
+uint16_t randomtime_UINT16[200];
 float *randomtime = (float*)randomtime_UINT16;
 
 void setup()
@@ -30,17 +30,27 @@ void setup()
 
 void loop()
 {
-  bool returnCode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20);
-
-  if (returnCode == 0) {
-    for(int i = 0; i <= 10; i++) {
-      Serial.println(randomfloat[i]);
+  if(debug(modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 20) == true)) {
+    for (int i = 0; i <= 10; i++) {
+      Serial.println(randomfloat_UINT16[i]);
     }
+    if (debug(modbus.writeSingleCoil(1, 0, 1))== true) {
+      Serial.println("New Number Coming");
+    }
+  }
+  delay(5000);
+}
+
+
+bool debug(uint16_t message){
+  uint16_t returnCode = message;
+    if (returnCode == 0) {
+      return true;
   }
   else {
     // Shows error Message in Debug Terminal
     Serial.print("Error Code: ");
     Serial.println(returnCode);
+    return false;
   }
-  delay(2000);
 }
