@@ -51,7 +51,7 @@ void loop()
     if (newNumber == true) {
         for(int i = 0; i <= 10; i++) {
             FloatRegisters[i] = random(0, 10000) /100.0;
-            Serial.println(HoldingRegister[i]);
+            Serial.println(FloatRegisters[i]);
         }
         newNumber = false;
         Serial.println("Done!");
