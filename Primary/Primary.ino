@@ -32,7 +32,7 @@ void loop()
   uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
   Serial.println(returncode);
   if(returncode == 0) {
-    for (int i = 0; i <= 200; i++) {
+    for (int i = 0; i <= 20; i++) {
       Serial.println(randomfloat[i]);
     }
     delay(3000);
