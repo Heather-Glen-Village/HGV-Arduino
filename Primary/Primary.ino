@@ -11,7 +11,11 @@
 SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-bool SlaveLED = 1; // Enable Slave LED by default
+uint16_t randomfloat_UINT16[200];
+float *randomfloat = (float*)randomfloat_UINT16;
+
+uint16_t randomtime_UINT16[200];
+float *randomtime = (float*)randomtime_UINT16;
 
 void setup()
 {
@@ -19,23 +23,36 @@ void setup()
 
   modbus.begin(9600);
   Serial.begin(9600); // For Debuging
+  delay(5000);
 }
 
 void loop()
 {
-  digitalWrite(LED, SlaveLED); // Matches Slave LED With Board LED
+  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
+  Serial.println(returncode);
+  if(returncode == 0) {
+    for (int i = 0; i <= 200; i++) {
+      //Serial.println(randomfloat_UINT16[i]);
+    }
+  uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
+  Serial.println(returncode);
+    if (returncode == 0) {
+      Serial.println("New Number Coming");
+    }
+  }
+  delay(5000);
+}
 
-  modbus.writeSingleCoil(0, 0, SlaveLED); // 0 sends to all boards
-  Serial.flush();
-  if (SlaveLED == 1)
-  { // Turns LED off if on and vice versa
-    SlaveLED = 0;
-    Serial.println("SlaveLED Enabled");
+
+bool debug(uint16_t message){
+  uint16_t returnCode = message;
+    if (returnCode == 0) {
+      return true;
   }
-  else
-  {
-    SlaveLED = 1;
-    Serial.println("SlaveLED Disabled");
+  else {
+    // Shows error Message in Debug Terminal
+    Serial.print("Error Code: ");
+    Serial.println(returnCode);
+    return false;
   }
-  delay(2000);
 }
