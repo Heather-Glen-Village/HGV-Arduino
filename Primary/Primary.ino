@@ -17,6 +17,7 @@ float *randomfloat = (float*)randomfloat_UINT16;
 uint16_t randomtime_UINT16[200];
 float *randomtime = (float*)randomtime_UINT16;
 
+bool coils[1];
 void setup()
 {
   pinMode(LED, OUTPUT);
@@ -28,7 +29,7 @@ void setup()
 
 void loop()
 {
-  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
+  /*uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
   Serial.println(returncode);
   if(returncode == 0) {
     for (int i = 0; i <= 200; i++) {
@@ -38,7 +39,12 @@ void loop()
   Serial.println(returncode);
     if (returncode == 0) {
       Serial.println("New Number Coming");
-    }
+    }*/
+  uint16_t returncode = modbus.writeSingleCoil(1, 0, true);
+  Serial.println(returncode);
+    if (returncode == 0) {
+      Serial.println("New Number Coming");
+      
   }
   delay(5000);
 }
