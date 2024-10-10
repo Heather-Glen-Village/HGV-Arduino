@@ -31,19 +31,19 @@ void loop()
     if (SlaveLED == 1)
     {
       SlaveLED = 0;
-      Serial.println("SlaveLED Enabled");
+      //Serial.println("SlaveLED Enabled");
     }
     else
     {
       SlaveLED = 1;
-      Serial.println("SlaveLED Disabled");
+      //Serial.println("SlaveLED Disabled");
     }
   }
   else
   {
     // Shows error Message in Debug Terminal
-    Serial.print("S1 Code: ");
-    Serial.println(returncode);
+    //Serial.print("S1 Code: ");
+    //Serial.println(returncode);
   }
   delay(2000);
 }

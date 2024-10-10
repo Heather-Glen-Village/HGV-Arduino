@@ -27,15 +27,15 @@ void loop()
 {
     if (Serial.available() != 0) // Check if There been any Request
     {
-        Serial.println("LED Change"); // Debugging Line
+        //Serial.println("LED Change"); // Debugging Line
         modbus.poll();                // Check and act on the request from the Master
 
         digitalWrite(LED, coils[0]); // Changes LED to Match with new Message
     }
-    Serial.print("Available: ");
-    Serial.println(Serial.available());
-    Serial.print("Coils[0]: ");
-    Serial.println(coils[0]);
+    //Serial.print("Available: ");
+    //Serial.println(Serial.available());
+    //Serial.print("Coils[0]: ");
+    //Serial.println(coils[0]);
 
     delay(500);
 }
