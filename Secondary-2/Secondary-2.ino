@@ -2,7 +2,7 @@
 //#include <SPI.h>
 // #include <SD.h>
 
-#define DHTPIN 4      // Pin D3
+#define DHTPIN 3      // Pin D3
 #define DHTTYPE DHT22 // DHT 22 (AM2302)
 
 // Initialize DHT sensor
@@ -12,7 +12,7 @@ const int arraySize = 5;
 float temperatureArray[arraySize];
 
 void setup() {
-  Serial.begin(9600); // Start serial communication
+  Serial.begin(115200); // Start serial communication
   dht.begin();        // Initialize the DHT sensor
 }
 

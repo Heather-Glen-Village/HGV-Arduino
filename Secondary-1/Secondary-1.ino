@@ -2,7 +2,7 @@
 //#include <SPI.h>
 // #include <SD.h>
 
-#define DHTPIN 4      // Pin D3
+#define DHTPIN 3      // Pin D3
 #define DHTTYPE DHT22 // DHT 22 (AM2302)
 
 // Initialize DHT sensor
