@@ -11,7 +11,7 @@
 //SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t buffer[1]; // Buffer for Modbus Registers
+uint16_t buffer[2]; // Buffer for Modbus Registers
 
 void setup()
 {
