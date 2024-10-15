@@ -45,7 +45,7 @@ void setup()
     modbus.begin(ID, 9600);          // ID | Baud Rate
     //Initialize Serial
     Serial.begin(9600);              // For Debuging
-    FloatRegisters[0] = 1.2f;
+    FloatRegisters[0] = 1.5f;
     Serial.println(FloatRegisters[0]);
     Serial.println(HoldingRegister[0]);
     Serial.println(HoldingRegister[1]);
