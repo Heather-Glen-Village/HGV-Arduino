@@ -12,16 +12,16 @@
 // Initialize Library
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
-bool coils[1]= {1};
-bool discreteInput[2] = {1,0};
+bool coils[1] = {1};
+uint16_t InputRegisters[2] = {1,0};
 
 void setup()
 {
   pinMode(LED, OUTPUT);
 
   modbus.configureCoils(coils, 1);
-  modbus.configureDiscreteInputs(discreteInput, 2);
-  modbus.begin(ID, 9600);          // ID | Baud Rate
+  modbus.configureInputRegisters(InputRegisters, 2);
+  modbus.begin(ID, 19200);          // ID | Baud Rate
   Serial.begin(9600);              // For Debuging
 }
 
@@ -29,10 +29,10 @@ void loop() {
 modbus.poll();
     if (coils[0] == 1) {
         coils[0] = 0;
-        discreteInput[0] = !discreteInput[0];
-        discreteInput[1] = !discreteInput[1];
+        InputRegisters[0] = random(0, 500);
+        InputRegisters[1] = random(0, 500);
         Serial.println();
-        Serial.print("discreteInput 1: "); Serial.println(discreteInput[0]);
-        Serial.print("discreteInput 2: "); Serial.println(discreteInput[1]);
+        Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
+        Serial.print("InputRegisters 2: "); Serial.println(InputRegisters[1]);
     }
 }
