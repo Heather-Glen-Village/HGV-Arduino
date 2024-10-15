@@ -23,10 +23,13 @@ void setup()
 
 void loop()
 {
+  Serial.println("----------------------------------------------------------------");
   Serial.println(modbus.readInputRegisters(1, 0, buffer, 1));
   Serial.println("");
+  Serial.print("Buffer 1: ");
   Serial.println(buffer[0]);
-  Serial.println("");
+  Serial.print("Buffer 2: ");
+  Serial.println(buffer[1]);
 
   delay(2000);
 }

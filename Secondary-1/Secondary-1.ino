@@ -32,6 +32,7 @@ void loop()
     modbus.poll();// Check and act on the request from the Master
     
     inputRegisters[0] = random(0, 65536);
+    Serial.println();
     Serial.print("Changed to: "); // Debugging Line
     Serial.println(inputRegisters[0]);
   }
