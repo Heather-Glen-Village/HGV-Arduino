@@ -41,7 +41,10 @@ void setup()
 }
 
 void loop() {
-modbus.poll();
+    if (Serial.available() != 0) {
+        modbus.poll();
+    }
+
     if (coils[0] == 1) {
         coils[0] = 0;
         if (x == 99) {

@@ -69,10 +69,12 @@ const char* errorStrings[] = {
 };
 bool debug(uint16_t returncode) {
   if (returncode == 0) {
+    Serial.println();
     Serial.println(String(returncode) + ", " + errorStrings[returncode]);
     return true;
   }
   else {
+    Serial.println();
     Serial.println("Error: " + String(returncode) + ", " + errorStrings[returncode]);
     return false;
   }
