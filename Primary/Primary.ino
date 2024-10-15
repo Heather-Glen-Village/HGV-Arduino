@@ -11,7 +11,7 @@
 SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t randomfloat_UINT16[2];
+uint16_t randomfloat_UINT16[6];
 float *randomfloat = (float*)randomfloat_UINT16;
 
 uint16_t randomtime_UINT16[2];
@@ -37,8 +37,23 @@ void loop()
   Serial.println(randomfloat_UINT16[1]);
   Serial.print("Float: ");
   Serial.println(randomfloat[0]);
+  Serial.println("----");
+  Serial.print("Float Raw: ");
+  Serial.println(randomfloat_UINT16[2]);
+  Serial.println(randomfloat_UINT16[3]);
+  Serial.print("Float: ");
+  Serial.println(randomfloat[1]);
+  Serial.println("----");
+  Serial.print("Float Raw: ");
+  Serial.println(randomfloat_UINT16[4]);
+  Serial.println(randomfloat_UINT16[5]);
+  Serial.print("Float: ");
+  Serial.println(randomfloat[2]);
     delay(5000);
   Serial.println("--------------------------------");
   randomtime_UINT16[0] = 0;
   randomtime_UINT16[1] = 0;
+  Serial.println("did it reset?");
+  Serial.println(randomtime_UINT16[0]);
+  Serial.println(randomtime_UINT16[1]);
 }
