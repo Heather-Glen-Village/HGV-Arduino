@@ -50,11 +50,16 @@ modbus.poll();
         else {
             x++;
         }
-        FloatRegisters[1] = floatArray[x];
+        FloatRegisters[0] = floatArray[x];
+        FloatRegisters[1] = floatArray[x + 1];
         Serial.println();
         Serial.println("----------------------------------------------------------------");
         Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
         Serial.print("InputRegisters 2: "); Serial.println(InputRegisters[1]);
         Serial.print("Float Registers 1: "); Serial.println(FloatRegisters[0]);
+        Serial.println();
+        Serial.print("InputRegisters 3: "); Serial.println(InputRegisters[2]);
+        Serial.print("InputRegisters 4: "); Serial.println(InputRegisters[3]);
+        Serial.print("Float Registers 2: "); Serial.println(FloatRegisters[1]);
     }
 }
