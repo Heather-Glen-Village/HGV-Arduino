@@ -8,7 +8,7 @@
 //SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t InputRegisters[2];
+uint16_t InputRegisters[4];
 float *FloatRegisters = (float*)InputRegisters; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
 
@@ -30,5 +30,9 @@ Serial.println("----------------------------------------------------------------
 Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
 Serial.print("InputRegisters 2: "); Serial.println(InputRegisters[1]);
 Serial.print("Float Registers 1: "); Serial.println(FloatRegisters[0]);
+Serial.println();
+Serial.print("InputRegisters 3: "); Serial.println(InputRegisters[2]);
+Serial.print("InputRegisters 4: "); Serial.println(InputRegisters[3]);
+Serial.print("Float Registers 2: "); Serial.println(FloatRegisters[1]);
 delay(1000);
 }
