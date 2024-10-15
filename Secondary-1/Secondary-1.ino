@@ -30,7 +30,7 @@ void loop() {
 modbus.poll();
     if (coils[0] == 1) {
         coils[0] = 0;
-        FloatRegisters[0] = 1.6f;
+        FloatRegisters[0] = random(0.0f, 99.9f);
         Serial.println();
         Serial.println("----------------------------------------------------------------");
         Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
