@@ -43,6 +43,7 @@ void setup()
 void loop() {
     if (Serial.available() != 0) {
         modbus.poll();
+        delay(100);
     }
 
     if (coils[0] == 1) {
@@ -65,5 +66,5 @@ void loop() {
         Serial.print("InputRegisters 4: "); Serial.println(InputRegisters[3]);
         Serial.print("Float Registers 2: "); Serial.println(FloatRegisters[1]);
     }
- delay(100);
+
 }
