@@ -8,7 +8,7 @@
 //SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-bool discreteInput[2] = {0,0}; // Buffer for Modbus Registers
+bool discreteInput[2]; // Buffer for Modbus Registers
 
 void setup()
 {
@@ -23,7 +23,8 @@ void loop() {
 modbus.writeSingleCoil(1,0,1);
 delay(3000);
 modbus.readDiscreteInputs(1,0, discreteInput,2);
-Serial.println(discreteInput[0]);
-Serial.println(discreteInput[0]);
+Serial.println();
+Serial.print("discreteInput 1: "); Serial.println(discreteInput[0]);
+Serial.print("discreteInput 2: "); Serial.println(discreteInput[1]);
 delay(1000);
 }

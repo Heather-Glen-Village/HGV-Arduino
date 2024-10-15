@@ -31,9 +31,8 @@ modbus.poll();
         coils[0] = 0;
         discreteInput[0] = !discreteInput[0];
         discreteInput[1] = !discreteInput[1];
-        Serial.print("discreteInput 1: ");
-        Serial.println(discreteInput[0]);
-        Serial.print("discreteInput 2: ");
-        Serial.println(discreteInput[1]);
+        Serial.println();
+        Serial.print("discreteInput 1: "); Serial.println(discreteInput[0]);
+        Serial.print("discreteInput 2: "); Serial.println(discreteInput[1]);
     }
 }
