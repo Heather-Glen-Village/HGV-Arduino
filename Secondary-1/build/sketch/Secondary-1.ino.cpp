@@ -18,7 +18,7 @@ ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 //Modbus Data Types
 bool Coils[1];
 
-uint16_t HoldingRegister[300]; // Temperature: 0-99, Humidity: 100-199, DHT22 Time: 200-299
+uint16_t HoldingRegister[2]; // Temperature: 0-99, Humidity: 100-199, DHT22 Time: 200-299
 float *FloatRegisters = (float*)HoldingRegister; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
 uint16_t InputRegister[200];
@@ -34,7 +34,7 @@ bool newNumber = true;
 float getTemperature();
 #line 35 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 49 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 53 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
 #line 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 float getTemperature() {
@@ -53,25 +53,24 @@ void setup()
     modbus.begin(ID, 9600);          // ID | Baud Rate
     //Initialize Serial
     Serial.begin(9600);              // For Debuging
+    FloatRegisters[0] = 1.2f;
+    Serial.println(FloatRegisters[0]);
+    Serial.println(HoldingRegister[0]);
+    Serial.println(HoldingRegister[1]);
 }
 
 void loop()
 {
-    if (newNumber == true) {
+    /*if (newNumber == true) {
         for(int i = 0; i <= 10; i++) {
             FloatRegisters[i] = random(0, 10000) /100.0;
             Serial.println(HoldingRegister[i]);
         }
         newNumber = false;
-        Serial.println("Done!");
-    }
+        Serial.println("Done!");*/
     if (Serial.available() != 0) { // Check if There been any Request
         //act on the request from the Master
         modbus.poll();           
-    }
-    if (Coils[0] == 1) {
-        newNumber = true;
-        Coils[0] = 0;
     }
 
     delay(500); // Remove or lower at some point?

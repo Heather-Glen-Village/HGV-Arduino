@@ -1,5 +1,6 @@
 #include <ModbusRTUSlave.h>
 
+
 // Pins List
 // #define SoftTX 14 // Phyical TX 0
 // #define SoftRX 15 // Phyical RX 1
@@ -61,7 +62,12 @@ void loop()
         Serial.println("Done!");*/
     if (Serial.available() != 0) { // Check if There been any Request
         //act on the request from the Master
-        modbus.poll();           
+        modbus.poll();
+
+        FloatRegisters[0] = random(0, 10000) /100.0;
+        Serial.println(FloatRegisters[0]);
+        Serial.println(HoldingRegister[0]);
+        Serial.println(HoldingRegister[1]);
     }
 
     delay(500); // Remove or lower at some point?
