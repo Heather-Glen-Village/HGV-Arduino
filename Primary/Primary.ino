@@ -24,7 +24,7 @@ void setup()
 void loop()
 {
   Serial.println("----------------------------------------------------------------");
-  Serial.println(modbus.readInputRegisters(1, 0, buffer, 1));
+  Serial.println(modbus.readInputRegisters(1, 0, buffer, 2));
   Serial.println("");
   Serial.print("Buffer 1: ");
   Serial.println(buffer[0]);
