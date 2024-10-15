@@ -13,7 +13,7 @@
 SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t randomfloat_UINT16[2];
+uint16_t randomfloat_UINT16[6];
 float *randomfloat = (float*)randomfloat_UINT16;
 
 uint16_t randomtime_UINT16[2];
@@ -36,28 +36,31 @@ void setup()
 
 void loop()
 {
-  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 1);
-  Serial.print('returncode: ');
+  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 2);
+  Serial.print("returncode: ");
   Serial.println(returncode);
-  Serial.print('Float Raw: ');
+  Serial.print("Float Raw: ");
   Serial.println(randomfloat_UINT16[0]);
   Serial.println(randomfloat_UINT16[1]);
-  Serial.print('Float: ');
+  Serial.print("Float: ");
   Serial.println(randomfloat[0]);
+  Serial.println("----");
+  Serial.print("Float Raw: ");
+  Serial.println(randomfloat_UINT16[2]);
+  Serial.println(randomfloat_UINT16[3]);
+  Serial.print("Float: ");
+  Serial.println(randomfloat[1]);
+  Serial.println("----");
+  Serial.print("Float Raw: ");
+  Serial.println(randomfloat_UINT16[4]);
+  Serial.println(randomfloat_UINT16[5]);
+  Serial.print("Float: ");
+  Serial.println(randomfloat[2]);
     delay(5000);
-  Serial.println('--------------------------------')
-}
-
-}
-bool debug(uint16_t message){
-  uint16_t returnCode = message;
-    if (returnCode == 0) {
-      return true;
-  }
-  else {
-    // Shows error Message in Debug Terminal
-    Serial.print("Error Code: ");
-    Serial.println(returnCode);
-    return false;
-  }
+  Serial.println("--------------------------------");
+  randomtime_UINT16[0] = 0;
+  randomtime_UINT16[1] = 0;
+  Serial.println("did it reset?");
+  Serial.println(randomtime_UINT16[0]);
+  Serial.println(randomtime_UINT16[0]);
 }
