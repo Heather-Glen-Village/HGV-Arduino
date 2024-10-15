@@ -18,7 +18,7 @@ void setup()
 {
   pinMode(LED, OUTPUT);
 
-  modbus.configureInputRegisters(inputRegisters, 1);
+  modbus.configureInputRegisters(inputRegisters, 2);
   modbus.begin(ID, 9600);          // ID | Baud Rate
   Serial.begin(9600);              // For Debuging
   inputRegisters[0] = random(0, 65536);
@@ -32,13 +32,13 @@ void loop()
   {
     modbus.poll();// Check and act on the request from the Master
     
-    inputRegisters[0] = random(0, 65536);
+    /*inputRegisters[0] = random(0, 65536);
     inputRegisters[1] = random(0, 65536);
     Serial.println();
     Serial.print("Address 1: "); // Debugging Line
     Serial.println(inputRegisters[0]);
     Serial.print("Address 2: "); // Debugging Line
-    Serial.println(inputRegisters[1]);
+    Serial.println(inputRegisters[1]);*/
   }
 
   delay(500);
