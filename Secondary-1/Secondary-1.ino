@@ -64,7 +64,7 @@ void loop()
         //act on the request from the Master
         modbus.poll();
 
-        FloatRegisters[0] = random(0, 10000) /100.0;
+        FloatRegisters[0] = random(0, 10000) /100.0f;
         Serial.println(FloatRegisters[0]);
         Serial.println(HoldingRegister[0]);
         Serial.println(HoldingRegister[1]);
