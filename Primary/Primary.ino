@@ -39,4 +39,6 @@ void loop()
   Serial.println(randomfloat[0]);
     delay(5000);
   Serial.println("--------------------------------");
+  randomtime_UINT16[0] = 0;
+  randomtime_UINT16[1] = 0;
 }

@@ -27,6 +27,8 @@ uint32_t *TimeRegisters = (uint32_t*)HoldingRegister; //Current uint which can d
 bool newNumber = true;
 
 
+//float floatlist = {0.1, 0.2, 0.3, 0.4, 0.5};
+
 
 // Sensor Code
 float getTemperature() {
