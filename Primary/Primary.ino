@@ -8,8 +8,7 @@
 //SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-bool coils[2] = {0,0}; // Buffer for Modbus Registers
-bool on[2] = {1,1};
+bool discreteInput[2] = {0,0}; // Buffer for Modbus Registers
 
 void setup()
 {
@@ -21,20 +20,10 @@ void setup()
 }
 
 void loop() {
-if (coils[0] == 0 && coils[1] == 0) {
-  modbus.writeMultipleCoils(1, 0, on, 2);
-  modbus.readCoils(1,0, coils, 2);
-  coils[0] = on[0];
-  coils[1] = on[1];
-  Serial.println("ON!");
-}
-else if (coils[0] == 1 && coils[1] == 1) {
-  modbus.readCoils(1,0, coils, 2);
-
-  Serial.println("OFF!");
-  }
-Serial.println(coils[0]);
-Serial.println(coils[1]);
-delay(5000);
-
+modbus.writeSingleCoil(1,0,1);
+delay(3000);
+modbus.readDiscreteInputs(1,0, discreteInput,2);
+Serial.println(discreteInput[0]);
+Serial.println(discreteInput[0]);
+delay(1000);
 }
