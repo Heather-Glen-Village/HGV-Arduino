@@ -43,7 +43,6 @@ void setup()
 void loop() {
     if (Serial.available() != 0) {
         modbus.poll();
-        delay(100);
     }
 
     if (coils[0] == 1) {
