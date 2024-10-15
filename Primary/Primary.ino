@@ -32,12 +32,12 @@ uint16_t smoke[1];
 void setup() {
   pinMode(LED, OUTPUT);
 
-  modbus.begin(9600);
+  modbus.begin(19200);
   Serial.begin(9600); // For Debuging
 }
 
 void loop() {
-  Serial.println("FLOAT: "+ String(readFloat(1)));
+  Serial.println("Float: "+ String(readFloat(1)));
   delay(1000);
 }
 
