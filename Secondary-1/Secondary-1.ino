@@ -13,7 +13,8 @@
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
 bool coils[1] = {1};
-uint16_t InputRegisters[2] = {1,0};
+uint16_t InputRegisters[2];
+float *FloatRegisters = (float*)InputRegisters; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
 void setup()
 {
@@ -29,10 +30,11 @@ void loop() {
 modbus.poll();
     if (coils[0] == 1) {
         coils[0] = 0;
-        InputRegisters[0] = random(0, 500);
-        InputRegisters[1] = random(0, 500);
+        FloatRegisters[0] = random(0, 1000) / 100.0f;
         Serial.println();
+        Serial.println("----------------------------------------------------------------");
         Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
         Serial.print("InputRegisters 2: "); Serial.println(InputRegisters[1]);
+        Serial.print("Float Registers 1: "); Serial.println(FloatRegisters[0]);
     }
 }

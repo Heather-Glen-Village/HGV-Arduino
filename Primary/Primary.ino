@@ -9,6 +9,7 @@
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
 uint16_t InputRegisters[2];
+float *FloatRegisters = (float*)InputRegisters; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
 
 void setup()
@@ -25,7 +26,9 @@ modbus.writeSingleCoil(1,0,1);
 delay(3000);
 modbus.readInputRegisters(1, 0, InputRegisters,2);
 Serial.println();
-Serial.print("discreteInput 1: "); Serial.println(InputRegisters[0]);
-Serial.print("discreteInput 2: "); Serial.println(InputRegisters[1]);
+Serial.println("----------------------------------------------------------------");
+Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
+Serial.print("InputRegisters 2: "); Serial.println(InputRegisters[1]);
+Serial.print("Float Registers 1: "); Serial.println(FloatRegisters[0]);
 delay(1000);
 }
