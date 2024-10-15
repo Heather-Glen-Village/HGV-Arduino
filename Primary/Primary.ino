@@ -17,13 +17,13 @@ float *Floatbuffer = (float*)buffer; // Used for Temperature and Humidity
 
 
 // Storage Array
-uint16_t Time[];
-float Temperature[];
-float Humidity[];
-bool Motion[];
-uint16_t Vibration[];
-uint16_t Water[];
-uint16_t Smoke[];
+uint16_t time[1];
+float temperature[2];
+float humidity[2];
+bool motion[1];
+uint16_t vibration[1];
+uint16_t water[1];
+uint16_t smoke[1];
 
 
 
