@@ -8,52 +8,25 @@
 #define LED 2
 
 // Initialize Library
-SoftwareSerial modbusSerial(SoftRX, SoftTX);
+//SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t randomfloat_UINT16[6];
-float *randomfloat = (float*)randomfloat_UINT16;
+uint16_t buffer[1]; // Buffer for Modbus Registers
 
-uint16_t randomtime_UINT16[2];
-float *randomtime = (float*)randomtime_UINT16;
-
-bool coils[1];
 void setup()
 {
   pinMode(LED, OUTPUT);
 
   modbus.begin(9600);
   Serial.begin(9600); // For Debuging
-  delay(10000);
 }
 
 void loop()
 {
-  uint16_t returncode = modbus.readInputRegisters(1, 0, randomfloat_UINT16, 2);
-  Serial.print("returncode: ");
-  Serial.println(returncode);
-  Serial.print("Float Raw: ");
-  Serial.println(randomfloat_UINT16[0]);
-  Serial.println(randomfloat_UINT16[1]);
-  Serial.print("Float: ");
-  Serial.println(randomfloat[0]);
-  Serial.println("----");
-  Serial.print("Float Raw: ");
-  Serial.println(randomfloat_UINT16[2]);
-  Serial.println(randomfloat_UINT16[3]);
-  Serial.print("Float: ");
-  Serial.println(randomfloat[1]);
-  Serial.println("----");
-  Serial.print("Float Raw: ");
-  Serial.println(randomfloat_UINT16[4]);
-  Serial.println(randomfloat_UINT16[5]);
-  Serial.print("Float: ");
-  Serial.println(randomfloat[2]);
-    delay(5000);
-  Serial.println("--------------------------------");
-  randomtime_UINT16[0] = 0;
-  randomtime_UINT16[1] = 0;
-  Serial.println("did it reset?");
-  Serial.println(randomtime_UINT16[0]);
-  Serial.println(randomtime_UINT16[1]);
+  Serial.println(modbus.readInputRegisters(1, 0, buffer, 1));
+  Serial.println("");
+  Serial.println(buffer[0]);
+  Serial.println("");
+
+  delay(2000);
 }
