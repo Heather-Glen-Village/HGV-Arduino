@@ -12,18 +12,17 @@
 // Initialize Library
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
-uint16_t inputRegisters[2]; // Creating an array where the Coils can go | Read & Write Only Bools
+uint16_t inputRegisters[5]; // Creating an array where the Coils can go | Read & Write Only Bools
 
 void setup()
 {
   pinMode(LED, OUTPUT);
 
-  modbus.configureInputRegisters(inputRegisters, 2);
+  modbus.configureInputRegisters(inputRegisters, 5);
   modbus.begin(ID, 9600);          // ID | Baud Rate
   Serial.begin(9600);              // For Debuging
-  inputRegisters[0] = random(0, 65536);
-  inputRegisters[1] = random(0, 65536);
-  Serial.println(inputRegisters[0]);
+  inputRegisters[4] = random(0, 65536);
+  Serial.println(inputRegisters[4]);
 }
 
 void loop()
@@ -32,13 +31,9 @@ void loop()
   {
     modbus.poll();// Check and act on the request from the Master
     
-    /*inputRegisters[0] = random(0, 65536);
-    inputRegisters[1] = random(0, 65536);
-    Serial.println();
-    Serial.print("Address 1: "); // Debugging Line
-    Serial.println(inputRegisters[0]);
-    Serial.print("Address 2: "); // Debugging Line
-    Serial.println(inputRegisters[1]);*/
+    inputRegisters[4] = random(0, 65536);
+    Serial.print("Changed to: "); // Debugging Line
+    Serial.println(inputRegisters[4]);
   }
 
   delay(500);
