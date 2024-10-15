@@ -31,4 +31,9 @@ Serial.println(coils[1]);
 
 modbus.poll();
 delay(500);
+if (coils[0] == 1 && coils[1] == 1){
+    Serial.println("----------------------------------------------------------------");
+    coils[0] = 0;
+    coils[1] = 0;
+    }
 }
