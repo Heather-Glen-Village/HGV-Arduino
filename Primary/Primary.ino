@@ -29,7 +29,7 @@ void setup()
 
 void loop()
 {
-  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 2);
+  uint16_t returncode = modbus.readInputRegisters(1, 0, randomfloat_UINT16, 2);
   Serial.print("returncode: ");
   Serial.println(returncode);
   Serial.print("Float Raw: ");

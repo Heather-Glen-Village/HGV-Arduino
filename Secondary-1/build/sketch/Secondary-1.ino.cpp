@@ -2,6 +2,7 @@
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 #include <ModbusRTUSlave.h>
 
+
 // Pins List
 // #define SoftTX 14 // Phyical TX 0
 // #define SoftRX 15 // Phyical RX 1
@@ -28,15 +29,17 @@ uint32_t *TimeRegisters = (uint32_t*)HoldingRegister; //Current uint which can d
 bool newNumber = true;
 
 
+//float floatlist = {0.1, 0.2, 0.3, 0.4, 0.5};
+
 
 // Sensor Code
-#line 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 34 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 float getTemperature();
-#line 35 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 38 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 53 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 56 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 34 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 float getTemperature() {
     // Read Temperature Sensor
     // return as a int? 
@@ -48,12 +51,12 @@ void setup()
 
     // Initialize Modbus
     modbus.configureCoils(Coils,1);
-    modbus.configureHoldingRegisters(HoldingRegister, 2);
-    modbus.configureInputRegisters(InputRegister, 100);
+    modbus.configureInputRegisters(HoldingRegister, 2);
+    //modbus.configureInputRegisters(InputRegister, 100);
     modbus.begin(ID, 9600);          // ID | Baud Rate
     //Initialize Serial
     Serial.begin(9600);              // For Debuging
-    FloatRegisters[0] = 1.2f;
+    FloatRegisters[0] = 1.5f;
     Serial.println(FloatRegisters[0]);
     Serial.println(HoldingRegister[0]);
     Serial.println(HoldingRegister[1]);
@@ -70,7 +73,12 @@ void loop()
         Serial.println("Done!");*/
     if (Serial.available() != 0) { // Check if There been any Request
         //act on the request from the Master
-        modbus.poll();           
+        modbus.poll();
+
+        FloatRegisters[0] = random(0, 10000) /100.0f;
+        Serial.println(FloatRegisters[0]);
+        Serial.println(HoldingRegister[0]);
+        Serial.println(HoldingRegister[1]);
     }
 
     delay(500); // Remove or lower at some point?

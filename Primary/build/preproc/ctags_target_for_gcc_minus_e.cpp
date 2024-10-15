@@ -30,7 +30,7 @@ void setup()
 
 void loop()
 {
-  uint16_t returncode = modbus.readHoldingRegisters(1, 0, randomfloat_UINT16, 2);
+  uint16_t returncode = modbus.re(1, 0, randomfloat_UINT16, 2);
   Serial.print("returncode: ");
   Serial.println(returncode);
   Serial.print("Float Raw: ");
@@ -56,5 +56,5 @@ void loop()
   randomtime_UINT16[1] = 0;
   Serial.println("did it reset?");
   Serial.println(randomtime_UINT16[0]);
-  Serial.println(randomtime_UINT16[0]);
+  Serial.println(randomtime_UINT16[1]);
 }
