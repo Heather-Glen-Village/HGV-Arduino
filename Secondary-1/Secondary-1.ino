@@ -13,7 +13,7 @@
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
 bool coils[1] = {1};
-uint16_t InputRegisters[2];
+uint16_t InputRegisters[4];
 float *FloatRegisters = (float*)InputRegisters; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
 float floatArray[100] = {
@@ -35,7 +35,7 @@ void setup()
   pinMode(LED, OUTPUT);
 
   modbus.configureCoils(coils, 1);
-  modbus.configureInputRegisters(InputRegisters, 2);
+  modbus.configureInputRegisters(InputRegisters, 4);
   modbus.begin(ID, 19200);          // ID | Baud Rate
   Serial.begin(9600);              // For Debuging
 }
@@ -50,7 +50,7 @@ modbus.poll();
         else {
             x++;
         }
-        FloatRegisters[0] = floatArray[x];
+        FloatRegisters[1] = floatArray[x];
         Serial.println();
         Serial.println("----------------------------------------------------------------");
         Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
