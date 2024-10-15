@@ -24,6 +24,8 @@ void loop() {
 if (coils[0] == 0 && coils[1] == 0) {
   modbus.writeMultipleCoils(1, 0, on, 2);
   modbus.readCoils(1,0, coils, 2);
+  coils[0] = on[0];
+  coils[1] = on[1];
   Serial.println("ON!");
 }
 else if (coils[0] == 1 && coils[1] == 1) {
