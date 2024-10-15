@@ -17,7 +17,7 @@ void setup()
 
   modbus.begin(9600);
   Serial.begin(9600); // For Debuging
-  delay(1000); //
+  delay(10000); //
 }
 
 void loop() {
