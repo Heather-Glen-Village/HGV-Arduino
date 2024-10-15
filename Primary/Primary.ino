@@ -44,7 +44,9 @@ void loop() {
 float readFloat(uint16_t ID) {
   modbus.writeSingleCoil(1,0,1); // Tell it to Sense
   delay(3000); // Need to Edit Time
-  debug(modbus.readInputRegisters(ID, 0, buffer, 2));
+  uint16_t returncode = modbus.readInputRegisters(ID, 0, buffer, 2);
+  Serial.println(returncode);
+  debug(returncode);
   return Floatbuffer[0];
 }
 
