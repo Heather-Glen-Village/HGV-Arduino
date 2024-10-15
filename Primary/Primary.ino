@@ -1,38 +1,80 @@
 #include <ModbusRTUMaster.h>
+//#include <SoftwareSerial.h>
 
 // Pins List
+//#define SoftTX 14 // Phyical TX 0
+//#define SoftRX 15 // Phyical RX 1
 #define DERE 9
 #define LED 2
 
 // Initialize Library
-//SoftwareSerial modbusSerial(SoftRX, SoftTX);
 ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object with port for RS485
 
-uint16_t InputRegisters[4];
-float *FloatRegisters = (float*)InputRegisters; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
+//Buffer and Pointers
+
+uint16_t buffer[2];
+float *Floatbuffer = (float*)buffer; // Used for Temperature and Humidity
 
 
-void setup()
-{
+// Storage Array
+uint16_t Time[];
+float Temperature[];
+float Humidity[];
+bool Motion[];
+uint16_t Vibration[];
+uint16_t Water[];
+uint16_t Smoke[];
+
+
+
+
+
+void setup() {
   pinMode(LED, OUTPUT);
 
-  modbus.begin(19200);
+  modbus.begin(9600);
   Serial.begin(9600); // For Debuging
-  delay(10000); //
 }
 
 void loop() {
-modbus.writeSingleCoil(1,0,1);
-delay(3000);
-modbus.readInputRegisters(1, 0, InputRegisters,4);
-Serial.println();
-Serial.println("----------------------------------------------------------------");
-Serial.print("InputRegisters 1: "); Serial.println(InputRegisters[0]);
-Serial.print("InputRegisters 2: "); Serial.println(InputRegisters[1]);
-Serial.print("Float Registers 1: "); Serial.println(FloatRegisters[0]);
-Serial.println();
-Serial.print("InputRegisters 3: "); Serial.println(InputRegisters[2]);
-Serial.print("InputRegisters 4: "); Serial.println(InputRegisters[3]);
-Serial.print("Float Registers 2: "); Serial.println(FloatRegisters[1]);
-delay(1000);
+  Serial.println("FLOAT: "+ String(readFloat(1)));
+  delay(1000);
 }
+
+float readFloat(uint16_t ID) {
+  modbus.writeSingleCoil(1,0,1); // Tell it to Sense
+  delay(3000); // Need to Edit Time
+  debug(modbus.readInputRegisters(ID, 0, buffer, 2));
+  return Floatbuffer[0];
+}
+
+
+const char* errorStrings[] = {
+  "success",
+  "invalid id",
+  "invalid buffer",
+  "invalid quantity",
+  "response timeout",
+  "frame error",
+  "crc error",
+  "unknown comm error",
+  "unexpected id",
+  "exception response",
+  "unexpected function code",
+  "unexpected response length",
+  "unexpected byte count",
+  "unexpected address",
+  "unexpected value",
+  "unexpected quantity"
+};
+bool debug(uint16_t returncode) {
+  if (returncode == 0) {
+    Serial.println(String(returncode) + ", " + errorStrings[returncode]);
+    return true;
+  }
+  else {
+    Serial.println("Error: " + String(returncode) + ", " + errorStrings[returncode]);
+    return false;
+  }
+}
+
