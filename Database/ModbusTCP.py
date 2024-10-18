@@ -1,5 +1,7 @@
 from pyModbusTCP.client import ModbusClient
+from unit16_converters import floatConvertion
 from time import sleep
+
 
 Gateway_IP = "192.168.1.254"
 Board_ID = 0
