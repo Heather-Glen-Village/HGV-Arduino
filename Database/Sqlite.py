@@ -36,8 +36,27 @@ Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+# Function to initialize the database
+def init_db():
+    engine = create_engine("sqlite:///HGV_Sensor.db", echo=True)
+    Base.metadata.create_all(bind=engine)
+    return sessionmaker(bind=engine)
 
-# Adding Data into the Database Can be remove later
+# Function to add a new sensor reading
+def add_sensor_reading(session, timestamp, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, vibration):
+    new_reading = Sensor(timestamp, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, vibration)
+    session.add(new_reading)
+    session.commit()
+    
+    
+   ### TEMP
+    
+from datetime import datetime
+    
+Session = init_db()
+
+add_sensor_reading(Session, datetime.now(), 154.1, 13.5, 69, False, True, False, False)
+
 
 from datetime import datetime
 
