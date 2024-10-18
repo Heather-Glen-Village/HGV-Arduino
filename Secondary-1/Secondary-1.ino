@@ -7,7 +7,7 @@
 #define LED 2
 
 // Defines the ID for the Secondary Board from 1-246
-#define ID 1
+#define ID 1 //asd
 
 // Initialize Library
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
@@ -45,7 +45,7 @@ void loop() {
         modbus.poll();
     }
 
-    if (coils[0] == 1) {
+    if (coils[0] == 1) { 
         coils[0] = 0;
         if (x == 99) {
             x = 0;
