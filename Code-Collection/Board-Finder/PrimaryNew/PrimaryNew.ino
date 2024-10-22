@@ -11,9 +11,6 @@ void setup() {
 
 void loop(){
     digitalWrite(LED, HIGH);
-    Serial.println("Secondary-1 Board Code - Slow Blinking ON");
-    delay(2000);
-    digitalWrite(LED, LOW);
-    delay(2000);
-    Serial.println("Secondary-1 Board Code - Slow Blinking OFF");
+    Serial.println("Primary New Board Code - ON");
+    delay(1000);
 }
