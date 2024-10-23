@@ -29,6 +29,10 @@ float getTemperature() {
     // Read Temperature Sensor
     // return as a int? 
 }
+bool motion() {
+    // Read Motion Sensor
+    // return true if motion detected, false otherwise
+}
 void setup()
 {
     //Initialize Pins
@@ -50,4 +54,6 @@ void loop()
         modbus.poll();           //act on the request from the Master
     }
     delay(500); // Remove or lower at some point?
+
+    currenttemp = getTemperature();
 }

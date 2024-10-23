@@ -1,39 +1,33 @@
 #include <SPI.h>
+// SS/CS 10
+// MOSI 11
+// MISO 12
+// SCK 13
 
-const int CS_PIN = 10; // Adjust according to your wiring
+int SS = 10;
+
+#include <SPI.h>
 
 void setup() {
   Serial.begin(9600);
-  
-  // Set the CS pin as output
-  pinMode(CS_PIN, OUTPUT);
-  digitalWrite(CS_PIN, HIGH);  // Ensure the SPI device is not selected (CS HIGH)
-  
-  // Initialize SPI
-  SPI.begin();
-  SPI.setClockDivider(SPI_CLOCK_DIV8);  // Set the SPI clock speed (optional)
+  SPI.begin();  // Initialize SPI
+  pinMode(SS, OUTPUT);  // Ensure SS is set as output
+  digitalWrite(SS, HIGH);  // Deselect the slave initially
 
-  // Test SPI communication
-  testSPI();
+  Serial.println("SPI test started");
 }
 
 void loop() {
-  // Nothing here
-}
+  digitalWrite(SS, LOW);  // Select the slave
 
-void testSPI() {
-  Serial.println("Starting SPI test...");
+  // Send a byte (0xAA) and receive a byte
+  byte receivedData = SPI.transfer(0xAA);
 
-  // Select the SPI device (CS low)
-  digitalWrite(CS_PIN, LOW);
-  
-  // Send a test byte (e.g., 0x55) and read the response
-  byte response = SPI.transfer(0x55);
-  
-  // Deselect the SPI device (CS high)
-  digitalWrite(CS_PIN, HIGH);
+  digitalWrite(SS, HIGH);  // Deselect the slave
 
-  // Print the received response
-  Serial.print("SPI Response: ");
-  Serial.println(response, HEX);  // Print the response in hexadecimal
+  // Print the received data
+  Serial.print("Received: 0x");
+  Serial.println(receivedData, HEX);
+
+  delay(1000);
 }
