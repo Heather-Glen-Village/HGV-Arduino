@@ -10,6 +10,8 @@ IPAddress ip(192, 168, 1, 177);
 void setup() {
   // Start serial communication for debugging
   Serial.begin(9600);
+  Ethernet.init(10);
+  
   
   // Allow some time for the W5500 to initialize
   delay(1000);
