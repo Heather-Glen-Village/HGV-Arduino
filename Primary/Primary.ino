@@ -18,16 +18,15 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(SlaveSelect, LOW);  // Select the slave
 
-  // Send a byte (0xAA) and receive a byte
-  byte receivedData = SPI.transfer(0xAA);
-
-  digitalWrite(SlaveSelect, HIGH);  // Deselect the slave
-
-  // Print the received data
-  Serial.print("Received: 0x");
-  Serial.println(receivedData, HEX);
-
+  Serial.println(readVersionRegister());
   delay(1000);
+}
+
+byte readVersionRegister() {
+  digitalWrite(SS, LOW);
+  SPI.transfer(0x00);  // Send read instruction (use the correct register for your device)
+  byte version = SPI.transfer(0x00);  // Receive version
+  digitalWrite(SS, HIGH);
+  return version;
 }
