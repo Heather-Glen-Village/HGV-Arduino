@@ -1,40 +1,42 @@
 # 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 # 2 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 3 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 4 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 5 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 6 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 7 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 
-const int CS_PIN = 10; // Adjust according to your wiring
+# 9 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 10 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+
+// MAC address for the Ethernet module (you can change this to any valid MAC address)
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+
+// IP address (optional if you use DHCP)
+IPAddress ip(192, 168, 1, 177);
 
 void setup() {
+  // Start serial communication for debugging
   Serial.begin(9600);
 
-  // Set the CS pin as output
-  pinMode(CS_PIN, 0x1);
-  digitalWrite(CS_PIN, 0x1); // Ensure the SPI device is not selected (CS HIGH)
+  // Allow some time for the W5500 to initialize
+  delay(1000);
 
-  // Initialize SPI
-  SPI.begin();
-  SPI.setClockDivider(0x05); // Set the SPI clock speed (optional)
+  // Start the Ethernet connection
+  Serial.println("Starting Ethernet connection...");
 
-  // Test SPI communication
-  testSPI();
+  // Start Ethernet using DHCP
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // If DHCP fails, set a static IP
+    Ethernet.begin(mac, ip);
+  }
+
+  // Print the IP address assigned to the module
+  Serial.print("My IP address: ");
+  Serial.println(Ethernet.localIP());
 }
 
 void loop() {
-  // Nothing here
-}
-
-void testSPI() {
-  Serial.println("Starting SPI test...");
-
-  // Select the SPI device (CS low)
-  digitalWrite(CS_PIN, 0x0);
-
-  // Send a test byte (e.g., 0x55) and read the response
-  byte response = SPI.transfer(0x55);
-
-  // Deselect the SPI device (CS high)
-  digitalWrite(CS_PIN, 0x1);
-
-  // Print the received response
-  Serial.print("SPI Response: ");
-  Serial.println(response, 16); // Print the response in hexadecimal
+  // Keep the Ethernet module alive
 }

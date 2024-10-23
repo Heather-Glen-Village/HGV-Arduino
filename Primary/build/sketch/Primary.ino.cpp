@@ -1,49 +1,49 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#include <Dhcp.h>
+#include <Dns.h>
+#include <Ethernet.h>
+#include <EthernetClient.h>
+#include <EthernetServer.h>
+#include <EthernetUdp.h>
+
 #include <SPI.h>
+#include <Ethernet.h>
 
-const int CS_PIN = 10; // Adjust according to your wiring
+// MAC address for the Ethernet module (you can change this to any valid MAC address)
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 
-#line 5 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+// IP address (optional if you use DHCP)
+IPAddress ip(192, 168, 1, 177);
+
+#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 20 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 39 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-void testSPI();
-#line 5 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
+  // Start serial communication for debugging
   Serial.begin(9600);
   
-  // Set the CS pin as output
-  pinMode(CS_PIN, OUTPUT);
-  digitalWrite(CS_PIN, HIGH);  // Ensure the SPI device is not selected (CS HIGH)
+  // Allow some time for the W5500 to initialize
+  delay(1000);
   
-  // Initialize SPI
-  SPI.begin();
-  SPI.setClockDivider(SPI_CLOCK_DIV8);  // Set the SPI clock speed (optional)
+  // Start the Ethernet connection
+  Serial.println("Starting Ethernet connection...");
 
-  // Test SPI communication
-  testSPI();
+  // Start Ethernet using DHCP
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // If DHCP fails, set a static IP
+    Ethernet.begin(mac, ip);
+  }
+
+  // Print the IP address assigned to the module
+  Serial.print("My IP address: ");
+  Serial.println(Ethernet.localIP());
 }
 
 void loop() {
-  // Nothing here
-}
-
-void testSPI() {
-  Serial.println("Starting SPI test...");
-
-  // Select the SPI device (CS low)
-  digitalWrite(CS_PIN, LOW);
-  
-  // Send a test byte (e.g., 0x55) and read the response
-  byte response = SPI.transfer(0x55);
-  
-  // Deselect the SPI device (CS high)
-  digitalWrite(CS_PIN, HIGH);
-
-  // Print the received response
-  Serial.print("SPI Response: ");
-  Serial.println(response, HEX);  // Print the response in hexadecimal
+  // Keep the Ethernet module alive
 }
 
