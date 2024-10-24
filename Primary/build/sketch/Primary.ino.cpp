@@ -1,12 +1,5 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-#include <Dhcp.h>
-#include <Dns.h>
-#include <Ethernet.h>
-#include <EthernetClient.h>
-#include <EthernetServer.h>
-#include <EthernetUdp.h>
-
 #include <SPI.h>
 #include <Ethernet.h>
 
@@ -16,14 +9,16 @@ byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 // IP address (optional if you use DHCP)
 IPAddress ip(192, 168, 1, 177);
 
-#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 10 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 39 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 34 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 17 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 10 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
   // Start serial communication for debugging
   Serial.begin(9600);
+  Ethernet.init(10);
+  
   
   // Allow some time for the W5500 to initialize
   delay(1000);
