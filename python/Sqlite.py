@@ -42,8 +42,8 @@ def addReading(session, time, temperature_DHT22, temperature_DS18B20, humidity_D
     session.commit()
 # Adding Data into the Database Can be remove later
 
-from datetime import datetime
+# from datetime import datetime
 
-session = initDB()
+# session = initDB()
 
-addReading(session,datetime.now(), 25.1, 25.1, 12.64, 0, 0, 0, 1 )
+# addReading(session,datetime.now(), 25.1, 25.1, 12.64, 0, 0, 0, 1 )
