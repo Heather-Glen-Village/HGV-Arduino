@@ -1,6 +1,5 @@
 import numpy as np
 from struct import pack, unpack
-import random
 
 def floatConvertion(unit16_1, unit16_2):
     uint16_array = np.array([unit16_1,unit16_2], dtype=np.uint16)
