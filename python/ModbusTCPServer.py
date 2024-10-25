@@ -5,7 +5,7 @@ import random
 #Create a Random Seed for Random Sensor Data
 random.seed()
 # Server parmaters
-host = '192.168.3.126'
+host = '127.0.0.1'
 port = 1562
 
 
@@ -64,5 +64,6 @@ class piDataBank(DataBank):
         
 if __name__ == '__main__':
     Server = ModbusServer(host=host, port=port, data_bank=piDataBank())
-    Server.start()
     print("Server has Started!")
+    Server.start()
+    
