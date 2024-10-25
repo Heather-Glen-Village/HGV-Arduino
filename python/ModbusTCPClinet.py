@@ -5,8 +5,8 @@ from decimal import Decimal, ROUND_UP
 
 #just got to the bottom to use the Code
 # Server Parmaters
-serverAddress = '127.0.0.1'
-port = 502
+host = '192.168.3.126'
+port = 1562
 unitID = 1
 
 class Modbus:
@@ -71,7 +71,7 @@ class Modbus:
         return self.response 
 
 #Create a Modbus Clinet and Trys to connect to Server
-modbusClinet = Modbus(serverAddress,port,unitID)
+modbusClinet = Modbus(host,port,unitID)
 connection = modbusClinet.modbusConnect()
 
 while connection:
