@@ -1,84 +1,79 @@
 # 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 # 2 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-
-
-// Pins List
-// #define SoftTX 14 // Phyical TX 0
-// #define SoftRX 15 // Phyical RX 1
+# 3 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+const int MOTION_SENSOR_PIN = 5;
 
 
 
-// Defines the ID for the Secondary Board from 1-246
-const uint16_t ID = 1;
-
-// Initialize Libaries
-ModbusRTUSlave modbus(Serial, 9); // Create Modbus Object
 
 
-//Modbus Data Types
-bool Coils[1];
-
-uint16_t HoldingRegister[2]; // Temperature: 0-99, Humidity: 100-199, DHT22 Time: 200-299
-float *FloatRegisters = (float*)HoldingRegister; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
-
-uint16_t InputRegister[200];
-uint32_t *TimeRegisters = (uint32_t*)HoldingRegister; //Current uint which can do 16 Year of time data which is overkill but idk how time is being stored yet
-//Usable Address Temp and Humidity: 100-149, Motion: 
-
-bool newNumber = true;
 
 
-//float floatlist = {0.1, 0.2, 0.3, 0.4, 0.5};
+ModbusRTUSlave modbus(Serial, 9);
 
+bool coils[1];
+uint16_t InputRegisters[6];
+float *FloatRegisters = (float*)InputRegisters;
 
-// Sensor Code
-float getTemperature() {
-    // Read Temperature Sensor
-    // return as a int? 
-}
-void setup()
-{
-    //Initialize Pins
-    pinMode(2, 0x1);
+int motionCurrentState = 0x0;
+int motionPreviousState = 0x0;
 
-    // Initialize Modbus
-    modbus.configureCoils(Coils,1);
-    modbus.configureInputRegisters(HoldingRegister, 2);
-    //modbus.configureInputRegisters(InputRegister, 100);
-    modbus.begin(ID, 9600); // ID | Baud Rate
-    //Initialize Serial
-    Serial.begin(9600); // For Debuging
-    FloatRegisters[0] = 1.5f;
-    Serial.println(FloatRegisters[0]);
-    Serial.println(HoldingRegister[0]);
-    Serial.println(HoldingRegister[1]);
+// Initialize DHT sensor
+DHT dht(3 /* Pin D3*/, DHT22 /* DHT 22 (AM2302)*/);
+
+void setup() {
+
+  modbus.configureCoils(coils, 1);
+  modbus.configureInputRegisters(InputRegisters, 2);
+  modbus.begin(1,9600);
+  Serial.begin(9600); // Start serial communication
+  dht.begin(); // Initialize the DHT sensor
+  pinMode(MOTION_SENSOR_PIN, 0x0); // Sensor is input
+  pinMode(2, 0x1);
 }
 
-void loop()
-{
-    /*if (newNumber == true) {
+void loop() {
+  if(Serial.available() !=0){
+  modbus.poll();
+  }
 
-        for(int i = 0; i <= 10; i++) {
+  motionPreviousState = motionCurrentState;
+  motionCurrentState = digitalRead(MOTION_SENSOR_PIN);
+ if((motionCurrentState != -1)&&(motionPreviousState!= -1)){
+  //Serial.println("lkjbeghjtg");    // Yup it works
+ }
+  if (motionPreviousState == 0x0 && motionCurrentState==0x1){
+  Serial.println("MOTION DETECTED!!");
+  coils[0] = true;
+  }
 
-            FloatRegisters[i] = random(0, 10000) /100.0;
+  if(motionPreviousState==0x1 && motionCurrentState==0x0){
+  Serial.println("MOTION STOPPED.");
+   coils[0] = false;
+  }
+  else {
+    coils[0] = false;
+  }
 
-            Serial.println(HoldingRegister[i]);
+  // Read temperature as Celsius
+  float temperature = dht.readTemperature();
+  // Read humidity
+  float humidity = dht.readHumidity();
 
-        }
+  FloatRegisters[0] = temperature;
+  FloatRegisters[1] = humidity;
 
-        newNumber = false;
+  // Check if any reads failed and exit early
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
 
-        Serial.println("Done!");*/
-# 65 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
-    if (Serial.available() != 0) { // Check if There been any Request
-        //act on the request from the Master
-        modbus.poll();
+Serial.println("Sensor readings: ");
+  Serial.print("Temperature: ");
+  Serial.println(temperature);
+  Serial.print(", Humidity: ");
+  Serial.println(humidity);
+   delay(2000); // Wait a few seconds between readings
 
-        FloatRegisters[0] = random(0, 10000) /100.0f;
-        Serial.println(FloatRegisters[0]);
-        Serial.println(HoldingRegister[0]);
-        Serial.println(HoldingRegister[1]);
-    }
-
-    delay(500); // Remove or lower at some point?
 }
