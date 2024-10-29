@@ -28,32 +28,45 @@ float *FloatRegisters = (float*)InputRegister; // Usable Address is from 0-99? T
 
 // Sensor Code
 void getDHT22() {
-  
     // Read DHT22 Sensor
     // return 2 floats?
-    FloatRegisters[0] = 123.421;
-    FloatRegisters[1] = -25.781;
+    float DHT22Temp = 0.0;
+    float DHT22Humidity = 0.0;
+    FloatRegisters[0] = DHT22Temp;
+    FloatRegisters[1] = DHT22Humidity;
 }
-float getDS18B20() {
+void getDS18B20() {
   // Read DS18B20
   // Return as a float
+  float DS18B20Temp = 0.0;
+  FloatRegisters[2] = DS18B20Temp;
 }
-bool getMotion() {
+void getMotion() {
     // Read Motion Sensor
     // return true if motion detected, false otherwise
+    bool MotionDetected = false;
+    DiscreteInputs[0] = MotionDetected;
 }
-bool getVibration() {
-  // Read SW1815P for Vibration
-  // returns a bool???? 
-}
-bool getSmoke() {
+
+void getSmoke() {
   // Read Smoke Sensor
   // Returns a Bool
+    bool SmokeDetected = false;
+    DiscreteInputs[1] = SmokeDetected;
 }
-bool getWaterLeaks() {
-  // Read WaterLeaks
+void getWaterLeak() {
+  // Read WaterLeak
   // Returns Bool?
+    bool WaterLeakDetected = false;
+    DiscreteInputs[2] = WaterLeakDetected;
 }
+void getVibration() {
+  // Read SW1815P for Vibration
+  // returns a bool???? 
+    bool VibrationDetected = false;
+    DiscreteInputs[3] = VibrationDetected;
+}
+
 void setup() {
     //Initialize Pins
     pinMode(LED, OUTPUT);
@@ -70,25 +83,32 @@ void setup() {
     modbus.begin(ID, 9600); 
     modbusSerial.begin(9600);
     Serial.begin(9600); // Debug only
-
-    Serial.println(FloatRegisters[0]);
-    Serial.println(FloatRegisters[1]);
 }
 
-void loop() {
-    
-    getDHT22();
-    getDS18B20();
-    getMotion();
-    getVibration();
-    getSmoke();
-    getWaterLeaks();
-    
+void loop() {    
     if (Serial.available() != 0) { // Only Let it poll when something has been Sent Via Uart
-        modbus.poll();          
+      //Checks all Sensors
+      getDHT22();
+      getDS18B20();
+  
+      getMotion();
+      getSmoke();
+      getWaterLeak();
+      getVibration();
+      //Updates Modbus
+      modbus.poll();
+
+      Serial.println("----------------------------------------------------------------");
+      Serial.println("DHT22 Temp: "+String(FloatRegisters[0]));
+      Serial.println("DHT22 Humidity: "+String(FloatRegisters[1]));
+      Serial.println("DS18B20 Temp: "+String(FloatRegisters[2]));  
+      Serial.println();
+      Serial.println("Motion: "+String(DiscreteInputs[0]));
+      Serial.println("Smoke: "+String(DiscreteInputs[1]));
+      Serial.println("WaterLeak: "+String(DiscreteInputs[2]));
+      Serial.println("Vibration: "+String(DiscreteInputs[3]));
+
+
     }
     delay(500);
-
-    Serial.println(FloatRegisters[0]);
-    Serial.println(FloatRegisters[1]);
 }
