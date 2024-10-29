@@ -34,8 +34,8 @@ const bool DEFAULT_AUTO_IP = false;  // Default Auto IP setting (only used if EN
   { 192, 168, 3, 1 }  // Default DNS Server (only used if ENABLE_DHCP)
 
 /****** TCP/UDP Settings ******/
-const uint16_t DEFAULT_TCP_PORT = 1562;     // Default Modbus TCP Port
-const uint16_t DEFAULT_UDP_PORT = 1562;     // Default Modbus UDP Port
+const uint16_t DEFAULT_TCP_PORT = 502;     // Default Modbus TCP Port
+const uint16_t DEFAULT_UDP_PORT = 502;     // Default Modbus UDP Port
 const uint16_t DEFAULT_WEB_PORT = 80;      // Default WebUI Port
 const bool DEFAULT_RTU_OVER_TCP = false;   // Default Modbus Mode (Modbus TCP or Modbus RTU over TCP)
 const uint16_t DEFAULT_TCP_TIMEOUT = 600;  // Default Modbus TCP Idle Timeout
