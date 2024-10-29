@@ -25,7 +25,7 @@
 /****** IP Settings ******/
 const bool DEFAULT_AUTO_IP = false;  // Default Auto IP setting (only used if ENABLE_DHCP)
 #define DEFAULT_STATIC_IP \
-  { 192, 168, 3, 162 }  // Default Static IP
+  { 192, 168, 3, 161 }  // Default Static IP
 #define DEFAULT_SUBMASK \
   { 255, 255, 255, 0 }  // Default Submask
 #define DEFAULT_GATEWAY \
@@ -65,7 +65,7 @@ const byte SCAN_FUNCTION_SECOND = 0x04;  // Function code sent during Modbus RTU
 const byte SCAN_DATA_ADDRESS = 0x01;     // Data address sent during Modbus RTU Scan request (both attempts)
 const uint16_t SCAN_TIMEOUT = 200;       // Timeout (ms) for Modbus scan requests
 
-const byte MAC_START[3] = { 0xA4, 0x22, 0xB5 };  // MAC range for Gheo SA
+const byte MAC_START[3] = { 0x90, 0xA2, 0xDA };  // MAC range for Gheo SA
 const byte ETH_RESET_PIN = 7;                    // Ethernet shield reset pin (deals with power on reset issue on low quality ethernet shields)
 const uint16_t CHECK_ETH_INTERVAL = 2000;        // Interval (ms) to check SPI connection with ethernet shield
 const uint16_t ETH_RESET_DELAY = 500;            // Delay (ms) during Ethernet start, wait for Ethernet shield to start (reset issue on low quality ethernet shields)
