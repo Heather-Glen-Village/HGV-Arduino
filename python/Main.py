@@ -5,7 +5,7 @@ from decimal import Decimal, ROUND_UP
 from time import sleep
 from datetime import datetime
 
-host = '127.0.0.1'
+host = '192.168.3.126'
 port = 1562
 unitID = 1
 
