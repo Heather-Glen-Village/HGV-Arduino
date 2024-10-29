@@ -17,3 +17,4 @@ void loop(){
     delay(2000);
     Serial.println("Secondary-1 Board Code - Slow Blinking OFF");
 }
+
