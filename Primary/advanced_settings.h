@@ -25,7 +25,7 @@
 /****** IP Settings ******/
 const bool DEFAULT_AUTO_IP = false;  // Default Auto IP setting (only used if ENABLE_DHCP)
 #define DEFAULT_STATIC_IP \
-  { 192, 168, 3, 168 }  // Default Static IP
+  { 192, 168, 3, 170 }  // Default Static IP
 #define DEFAULT_SUBMASK \
   { 255, 255, 255, 0 }  // Default Submask
 #define DEFAULT_GATEWAY \
