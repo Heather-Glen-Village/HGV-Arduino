@@ -53,7 +53,7 @@ const byte DEFAULT_ATTEMPTS = 3;                 // Default Attempts
 #define mySerial Serial  // define serial port for RS485 interface, for Arduino Mega choose from Serial1, Serial2 or Serial3
   // List of baud rates (divided by 100) available in WebUI. Feel free to add your custom baud rate (anything between 3 and 2500)
 const uint16_t BAUD_RATES[] = { 3, 6, 9, 12, 24, 48, 96, 192, 384, 576, 1152 };
-#define RS485_CONTROL_PIN 6              // Arduino Pin for RS485 Direction control, disable if you have module with hardware flow control
+#define RS485_CONTROL_PIN 9              // Arduino Pin for RS485 Direction control, disable if you have module with hardware flow control
 const byte MAX_QUEUE_REQUESTS = 10;      // max number of TCP or UDP requests stored in a queue
 const uint16_t MAX_QUEUE_DATA = 254;     // total length of TCP or UDP requests stored in a queue (in bytes),
                                          // should be at least MODBUS_SIZE - 2 (CRC is not stored in queue)
@@ -65,8 +65,8 @@ const byte SCAN_FUNCTION_SECOND = 0x04;  // Function code sent during Modbus RTU
 const byte SCAN_DATA_ADDRESS = 0x01;     // Data address sent during Modbus RTU Scan request (both attempts)
 const uint16_t SCAN_TIMEOUT = 200;       // Timeout (ms) for Modbus scan requests
 
-const byte MAC_START[3] = { 0x90, 0xA2, 0xDA };  // MAC range for Gheo SA
-const byte ETH_RESET_PIN = 7;                    // Ethernet shield reset pin (deals with power on reset issue on low quality ethernet shields)
+const byte MAC_START[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };  // MAC range for Gheo SA
+const byte ETH_RESET_PIN = 1;                    // Ethernet shield reset pin (deals with power on reset issue on low quality ethernet shields)
 const uint16_t CHECK_ETH_INTERVAL = 2000;        // Interval (ms) to check SPI connection with ethernet shield
 const uint16_t ETH_RESET_DELAY = 500;            // Delay (ms) during Ethernet start, wait for Ethernet shield to start (reset issue on low quality ethernet shields)
 const uint16_t WEB_IDLE_TIMEOUT = 400;           // Time (ms) from last client data after which webserver TCP socket could be disconnected, non-blocking.
