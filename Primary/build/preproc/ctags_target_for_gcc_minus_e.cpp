@@ -93,10 +93,10 @@ typedef struct {
 # 64 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 
 const config_t DEFAULT_CONFIG = {
-  { 192, 168, 1, 254 } /* Default Static IP*/,
+  { 192, 168, 3, 168 } /* Default Static IP*/,
   { 255, 255, 255, 0 } /* Default Submask*/,
-  { 192, 168, 1, 1 } /* Default Gateway*/,
-  { 192, 168, 1, 1 } /* Default DNS Server (only used if ENABLE_DHCP)*/,
+  { 192, 168, 3, 1 } /* Default Gateway*/,
+  { 192, 168, 3, 1 } /* Default DNS Server (only used if ENABLE_DHCP)*/,
   DEFAULT_AUTO_IP,
   DEFAULT_TCP_PORT,
   DEFAULT_UDP_PORT,

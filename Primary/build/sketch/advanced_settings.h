@@ -26,13 +26,13 @@
 /****** IP Settings ******/
 const bool DEFAULT_AUTO_IP = false;  // Default Auto IP setting (only used if ENABLE_DHCP)
 #define DEFAULT_STATIC_IP \
-  { 192, 168, 1, 254 }  // Default Static IP
+  { 192, 168, 3, 168 }  // Default Static IP
 #define DEFAULT_SUBMASK \
   { 255, 255, 255, 0 }  // Default Submask
 #define DEFAULT_GATEWAY \
-  { 192, 168, 1, 1 }  // Default Gateway
+  { 192, 168, 3, 1 }  // Default Gateway
 #define DEFAULT_DNS \
-  { 192, 168, 1, 1 }  // Default DNS Server (only used if ENABLE_DHCP)
+  { 192, 168, 3, 1 }  // Default DNS Server (only used if ENABLE_DHCP)
 
 /****** TCP/UDP Settings ******/
 const uint16_t DEFAULT_TCP_PORT = 502;     // Default Modbus TCP Port
