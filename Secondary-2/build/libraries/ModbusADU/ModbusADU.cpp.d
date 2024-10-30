@@ -1,6 +1,6 @@
-C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-1\build\libraries\DHT_sensor_library\DHT.cpp.o: \
- C:\Users\Zach_\Documents\Arduino\libraries\DHT_sensor_library\DHT.cpp \
- C:\Users\Zach_\Documents\Arduino\libraries\DHT_sensor_library\DHT.h \
+C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-2\build\libraries\ModbusADU\ModbusADU.cpp.o: \
+ C:\Users\Zach_\Documents\Arduino\libraries\ModbusADU\src\ModbusADU.cpp \
+ C:\Users\Zach_\Documents\Arduino\libraries\ModbusADU\src\ModbusADU.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \

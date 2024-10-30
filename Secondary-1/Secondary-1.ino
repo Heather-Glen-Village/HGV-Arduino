@@ -1,6 +1,5 @@
-#include <ModbusRTUSlave.h>
 #include <SoftwareSerial.h>
-
+#include <ModbusRTUSlave.h>
 // Pins List
 #define SoftTX 16 // A2
 #define SoftRX 17 // A3

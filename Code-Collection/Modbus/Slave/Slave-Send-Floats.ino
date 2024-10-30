@@ -1,8 +1,8 @@
 #include <ModbusRTUSlave.h>
 
 // Pins List
-// #define SoftTX 14 // Phyical TX 0
-// #define SoftRX 15 // Phyical RX 1
+#define SoftTX 16 // Phyical TX 0
+#define SoftRX 17 // Phyical RX 1
 #define DERE 9
 #define LED 2
 

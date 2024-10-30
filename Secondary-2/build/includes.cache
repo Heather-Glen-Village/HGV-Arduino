@@ -11,8 +11,23 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
-    "Include": "DHT.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library"
+    "Include": "SoftwareSerial.h",
+    "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
+    "Include": "ModbusRTUSlave.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
+    "Include": "ModbusADU.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusADU\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
+    "Include": "ModbusRTUComm.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
@@ -20,22 +35,22 @@
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src\\SoftwareSerial.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp",
-    "Include": "Adafruit_Sensor.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src\\ModbusRTUSlave.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor\\Adafruit_Sensor.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusADU\\src\\ModbusADU.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src\\ModbusRTUComm.cpp",
     "Include": "",
     "Includepath": null
   }
