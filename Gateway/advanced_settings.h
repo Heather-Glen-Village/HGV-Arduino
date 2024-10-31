@@ -11,7 +11,7 @@
 #if defined(ARDUINO_AVR_MEGA) || defined(ARDUINO_AVR_MEGA2560)
 #define ENABLE_EXTENDED_WEBUI
 #define ENABLE_DHCP
-#endif
+#endif |
 
 /****** DEFAULT CONFIGURATION ******/
 /*
