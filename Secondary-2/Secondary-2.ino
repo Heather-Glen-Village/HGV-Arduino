@@ -16,7 +16,7 @@
 
 // Initialize Libaries
 SoftwareSerial modbusSerial(SoftRX, SoftTX);
-ModbusRTUSlave modbus(modbusSerial, DERE); // Create Modbus Object
+ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
 bool coils[1] = {1};
 uint16_t InputRegisters[1];
