@@ -12,7 +12,7 @@
 #define DERE 9
 
 // Defines the ID for the Secondary Board from 1-246
-#define ID 2
+#define ID 1
 
 // Initialize Libaries
 SoftwareSerial modbusSerial(SoftRX, SoftTX);
