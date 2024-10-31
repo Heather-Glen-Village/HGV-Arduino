@@ -15,8 +15,8 @@
 #define ID 1
 
 // Initialize Libaries
-SoftwareSerial modbusSerial(SoftRO, SoftDI);
-ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
+SoftwareSerial modbusSerial(SoftRO, SoftDI); // RX TX
+ModbusRTUSlave modbus(modbusSerial, DERE); // Create Modbus Object
 
 bool coils[1] = {1};
 uint16_t InputRegisters[1];
@@ -31,8 +31,8 @@ void setup() {
 
 void loop() {
 modbus.poll();
-Serial.println(Serial.available());
-Serial.println(modbusSerial.available());
+// Serial.println(Serial.available());
+// Serial.println(modbusSerial.available());
     if (coils[0] == 1) {
         coils[0] = 0;
         InputRegisters[0] = random(0, 65536);

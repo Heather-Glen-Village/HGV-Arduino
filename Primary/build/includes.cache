@@ -21,28 +21,18 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "SPI.h",
-    "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SPI\\src"
+    "Include": "ModbusRTUSlave.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "Ethernet.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src"
+    "Include": "ModbusADU.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusADU\\src"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "CircularBuffer.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\CircularBuffer"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "EEPROM.h",
-    "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\EEPROM\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
-    "Include": "StreamLib.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src"
+    "Include": "ModbusRTUComm.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\build\\sketch\\Primary.ino.cpp",
@@ -60,87 +50,17 @@
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SPI\\src\\SPI.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src\\ModbusRTUSlave.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\Dhcp.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusADU\\src\\ModbusADU.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\Dns.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\Ethernet.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\EthernetClient.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\EthernetServer.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\EthernetUdp.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\socket.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Ethernet\\src\\utility\\w5100.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\BufferedClient.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\BufferedClientReader.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\BufferedPrint.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\CStringBuilder.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\ChunkedPrint.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\ChunkedStreamReader.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\PrintPlus.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\StreamLib\\src\\StringReadStream.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src\\ModbusRTUComm.cpp",
     "Include": "",
     "Includepath": null
   }

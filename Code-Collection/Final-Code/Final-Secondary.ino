@@ -4,8 +4,10 @@
 #define SoftTX 16 // A2
 #define SoftRX 17 // A3
 #define LED 2
+#define Smoke 3
 #define DHT22 4
 #define Motion 5
+#define WaterLeak 5 // Only on Primary
 #define Vibration 6
 #define DS18B20 7
 #define DERE 9
@@ -41,39 +43,37 @@ void getDS18B20() {
   FloatRegisters[2] = DS18B20Temp;
 }
 void getMotion() {
-    // Read Motion Sensor
-    // return true if motion detected, false otherwise
-    bool MotionDetected = false;
+    // Read Motion Sensor for Motion
+    bool MotionDetected = digitalRead(Motion);
     DiscreteInputs[0] = MotionDetected;
 }
 
 void getSmoke() {
   // Read Smoke Sensor
-  // Returns a Bool
-    bool SmokeDetected = false;
+    bool SmokeDetected = digitalRead(Smoke);
     DiscreteInputs[1] = SmokeDetected;
 }
 void getWaterLeak() {
-  // Read WaterLeak
-  // Returns Bool?
-    bool WaterLeakDetected = false;
+  // Read WaterLeak Only for Primary (For Now)
+    bool WaterLeakDetected = digitalRead(WaterLeak);
     DiscreteInputs[2] = WaterLeakDetected;
 }
 void getVibration() {
   // Read SW1815P for Vibration
-  // returns a bool???? 
-    bool VibrationDetected = false;
+    bool VibrationDetected = digitalRead(Vibration);
     DiscreteInputs[3] = VibrationDetected;
 }
 
 void setup() {
     //Initialize Pins
     pinMode(LED, OUTPUT);
-    pinMode(DHT22, OUTPUT); //probably Not Needed
-    pinMode(Motion, OUTPUT); //probably Not Needed
+    pinMode(Smoke, INPUT);
+    pinMode(DHT22, INPUT); //probably Not Needed
+    pinMode(Motion, INPUT);
+    pinMode(WaterLeak, INPUT); // Only on Primary
     pinMode(Vibration, INPUT); //?? idk if this right
-    pinMode(DS18B20, OUTPUT); //probably Not Needed
-
+    pinMode(DS18B20, INPUT); //probably Not Needed
+    
     // Initialize Modbus Data Types
     modbus.configureDiscreteInputs(DiscreteInputs, 4);
     modbus.configureInputRegisters(InputRegister, 6);

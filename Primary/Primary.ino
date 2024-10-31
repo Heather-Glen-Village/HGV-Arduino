@@ -1,8 +1,9 @@
 #include <SoftwareSerial.h>
 #include <ModbusRTUMaster.h>
+
 // Pins List
-#define SoftTX 16 // A2
-#define SoftRX 17 // A3
+#define SoftDI 14 // A2
+#define SoftRO 15 // A3
 #define LED 2
 #define DHT22 4
 #define Motion 5
@@ -14,8 +15,8 @@
 #define ID 1
 
 // Initialize Libaries
-SoftwareSerial modbusSerial(SoftRX, SoftTX);
-ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object
+SoftwareSerial modbusSerial(SoftRO, SoftDI); // RX TX
+ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object
 
 bool coils[1] = {1};
 uint16_t InputRegisters[1];

@@ -1,7 +1,6 @@
-C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\StreamLib\CStringBuilder.cpp.o: \
- C:\Users\Zach_\Documents\Arduino\libraries\StreamLib\src\CStringBuilder.cpp \
- C:\Users\Zach_\Documents\Arduino\libraries\StreamLib\src\CStringBuilder.h \
- C:\Users\Zach_\Documents\Arduino\libraries\StreamLib\src\PrintPlus.h \
+C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\libraries\ModbusADU\ModbusADU.cpp.o: \
+ C:\Users\Zach_\Documents\Arduino\libraries\ModbusADU\src\ModbusADU.cpp \
+ C:\Users\Zach_\Documents\Arduino\libraries\ModbusADU\src\ModbusADU.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \
