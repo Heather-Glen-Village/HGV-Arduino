@@ -32,6 +32,7 @@ void setup() {
 void loop() {
 modbus.poll();
 Serial.println(Serial.available());
+Serial.println(modbusSerial.available());
     if (coils[0] == 1) {
         coils[0] = 0;
         InputRegisters[0] = random(0, 65536);
