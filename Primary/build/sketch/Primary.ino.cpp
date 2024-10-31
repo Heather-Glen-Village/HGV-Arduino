@@ -1,5 +1,143 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#include <SoftwareSerial.h>
+#include <ModbusRTUMaster.h>
+// Pins List
+#define SoftTX 16 // A2
+#define SoftRX 17 // A3
+#define LED 2
+#define DHT22 4
+#define Motion 5
+#define Vibration 6
+#define DS18B20 7
+#define DERE 9
+
+// Defines the ID for the Secondary Board from 1-246
+#define ID 1
+
+// Initialize Libaries
+SoftwareSerial modbusSerial(SoftRX, SoftTX);
+ModbusRTUMaster modbus(Serial, DERE); // Create Modbus Object
+
+bool coils[1] = {1};
+uint16_t InputRegisters[1];
+
+
+#line 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+void setup();
+#line 30 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+void loop();
+#line 6 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void startSerial();
+#line 15 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+byte bitsPerChar();
+#line 25 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+uint32_t charTimeOut();
+#line 34 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+uint32_t frameDelay();
+#line 48 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void startEthernet();
+#line 90 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void checkEthernet();
+#line 143 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+bool rollover();
+#line 168 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void resetStats();
+#line 183 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void generateMac();
+#line 200 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void updateEeprom();
+#line 218 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void manageSockets();
+#line 321 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void disconSocket(byte s);
+#line 337 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
+void CreateTrulyRandomSeed();
+#line 47 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+void recvUdp();
+#line 93 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+void recvTcp(EthernetClient &client);
+#line 135 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+void scanRequest();
+#line 176 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+byte checkRequest(byte inBuffer[], uint16_t msgLength, const uint32_t remoteIP, const uint16_t remotePort, byte requestType);
+#line 230 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+void deleteRequest();
+#line 242 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+void clearQueue();
+#line 252 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+bool getSlaveStatus(const byte slave, const byte status);
+#line 257 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
+void setSlaveStatus(const byte slave, byte status, const bool value, const bool isScan);
+#line 20 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
+void sendSerial();
+#line 125 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
+void recvSerial();
+#line 167 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
+void sendResponse(const byte MBAP[], const byte PDU[], const uint16_t pduLength);
+#line 206 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
+bool checkCRC(byte buf[], int16_t len);
+#line 218 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
+void calculateCRC(byte b);
+#line 113 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
+void recvWeb(EthernetClient &client);
+#line 194 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
+void processPost(EthernetClient &client);
+#line 390 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
+byte strToByte(const char myStr[]);
+#line 417 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
+char * hex(byte val);
+#line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void sendPage(EthernetClient &client, byte reqPage);
+#line 182 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void contentInfo(ChunkedPrint &chunked);
+#line 245 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void contentStatus(ChunkedPrint &chunked);
+#line 305 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void contentIp(ChunkedPrint &chunked);
+#line 363 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void contentTcp(ChunkedPrint &chunked);
+#line 420 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void contentRtu(ChunkedPrint &chunked);
+#line 508 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void contentTools(ChunkedPrint &chunked);
+#line 521 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void contentWait(ChunkedPrint &chunked);
+#line 539 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void tagInputNumber(ChunkedPrint &chunked, const byte name, const byte min, uint16_t max, uint16_t value, const __FlashStringHelper *units);
+#line 566 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void tagInputIp(ChunkedPrint &chunked, const byte name, byte ip[]);
+#line 589 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void tagInputHex(ChunkedPrint &chunked, const byte name, const bool required, const bool printVal, const byte value);
+#line 610 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void tagLabelDiv(ChunkedPrint &chunked, const __FlashStringHelper *label);
+#line 629 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void tagButton(ChunkedPrint &chunked, const __FlashStringHelper *flashString, byte value);
+#line 646 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void tagDivClose(ChunkedPrint &chunked);
+#line 659 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void tagSpan(ChunkedPrint &chunked, const byte JSONKEY);
+#line 675 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void stringPageName(ChunkedPrint &chunked, byte item);
+#line 700 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void stringStats(ChunkedPrint &chunked, const byte stat);
+#line 738 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
+void jsonVal(ChunkedPrint &chunked, const byte JSONKEY);
+#line 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+void setup() {
+  modbus.begin(9600);
+  Serial.begin(9600); // For Debuging
+  delay(5000);        // For Debuging
+}
+
+void loop() {
+Serial.println(modbus.writeSingleCoil(1,0,1));
+delay(3000);
+Serial.println(modbus.readInputRegisters(1, 0, InputRegisters,1));
+Serial.print("InputRegisters: "); Serial.println(InputRegisters[0]);
+delay(1000);
+}
+#line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\!Primary.ino"
 /* Arduino-based Modbus RTU (slaves) to Modbus TCP/UDP (master) gateway with web interface
 
   Version history
@@ -230,107 +368,6 @@ uint32_t seed2 = 17111989;  // seed2 is static
 
 /****** SETUP: RUNS ONCE ******/
 
-#line 231 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-void setup();
-#line 249 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-void loop();
-#line 6 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void startSerial();
-#line 15 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-byte bitsPerChar();
-#line 25 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-uint32_t charTimeOut();
-#line 34 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-uint32_t frameDelay();
-#line 48 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void startEthernet();
-#line 90 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void checkEthernet();
-#line 143 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-bool rollover();
-#line 168 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void resetStats();
-#line 183 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void generateMac();
-#line 200 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void updateEeprom();
-#line 218 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void manageSockets();
-#line 321 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void disconSocket(byte s);
-#line 337 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\01-interfaces.ino"
-void CreateTrulyRandomSeed();
-#line 47 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-void recvUdp();
-#line 93 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-void recvTcp(EthernetClient &client);
-#line 135 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-void scanRequest();
-#line 176 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-byte checkRequest(byte inBuffer[], uint16_t msgLength, const uint32_t remoteIP, const uint16_t remotePort, byte requestType);
-#line 230 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-void deleteRequest();
-#line 242 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-void clearQueue();
-#line 252 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-bool getSlaveStatus(const byte slave, const byte status);
-#line 257 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\02-modbus-tcp.ino"
-void setSlaveStatus(const byte slave, byte status, const bool value, const bool isScan);
-#line 20 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
-void sendSerial();
-#line 125 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
-void recvSerial();
-#line 167 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
-void sendResponse(const byte MBAP[], const byte PDU[], const uint16_t pduLength);
-#line 206 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
-bool checkCRC(byte buf[], int16_t len);
-#line 218 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\03-modbus-rtu.ino"
-void calculateCRC(byte b);
-#line 113 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
-void recvWeb(EthernetClient &client);
-#line 194 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
-void processPost(EthernetClient &client);
-#line 390 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
-byte strToByte(const char myStr[]);
-#line 417 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\04-webserver.ino"
-char * hex(byte val);
-#line 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void sendPage(EthernetClient &client, byte reqPage);
-#line 182 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void contentInfo(ChunkedPrint &chunked);
-#line 245 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void contentStatus(ChunkedPrint &chunked);
-#line 305 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void contentIp(ChunkedPrint &chunked);
-#line 363 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void contentTcp(ChunkedPrint &chunked);
-#line 420 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void contentRtu(ChunkedPrint &chunked);
-#line 508 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void contentTools(ChunkedPrint &chunked);
-#line 521 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void contentWait(ChunkedPrint &chunked);
-#line 539 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void tagInputNumber(ChunkedPrint &chunked, const byte name, const byte min, uint16_t max, uint16_t value, const __FlashStringHelper *units);
-#line 566 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void tagInputIp(ChunkedPrint &chunked, const byte name, byte ip[]);
-#line 589 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void tagInputHex(ChunkedPrint &chunked, const byte name, const bool required, const bool printVal, const byte value);
-#line 610 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void tagLabelDiv(ChunkedPrint &chunked, const __FlashStringHelper *label);
-#line 629 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void tagButton(ChunkedPrint &chunked, const __FlashStringHelper *flashString, byte value);
-#line 646 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void tagDivClose(ChunkedPrint &chunked);
-#line 659 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void tagSpan(ChunkedPrint &chunked, const byte JSONKEY);
-#line 675 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void stringPageName(ChunkedPrint &chunked, byte item);
-#line 700 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void stringStats(ChunkedPrint &chunked, const byte stat);
-#line 738 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\05-pages.ino"
-void jsonVal(ChunkedPrint &chunked, const byte JSONKEY);
-#line 231 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
   CreateTrulyRandomSeed();
   EEPROM.get(DATA_START, data);
