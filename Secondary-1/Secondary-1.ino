@@ -1,8 +1,9 @@
 #include <SoftwareSerial.h>
-#include <ModbusRTUMaster.h>
+#include <ModbusRTUSlave.h>
+
 // Pins List
-#define SoftTX 16 // A2
-#define SoftRX 17 // A3
+#define SoftDI 16 // A2
+#define SoftRO 17 // A3
 #define LED 2
 #define DHT22 4
 #define Motion 5
@@ -14,23 +15,29 @@
 #define ID 1
 
 // Initialize Libaries
-SoftwareSerial modbusSerial(SoftRX, SoftTX);
-ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object
+SoftwareSerial modbusSerial(SoftRO, SoftDI); // RX TX
+ModbusRTUSlave modbus(modbusSerial, DERE); // Create Modbus Object
 
 bool coils[1] = {1};
 uint16_t InputRegisters[1];
 
 
 void setup() {
-  modbus.begin(9600);
-  Serial.begin(9600); // For Debuging
-  delay(5000);        // For Debuging
+  modbus.configureCoils(coils, 1);
+  modbus.configureInputRegisters(InputRegisters, 1);
+  modbus.begin(ID, 9600);          // ID | Baud Rate
+  Serial.begin(9600);              // For Debuging
 }
 
 void loop() {
-Serial.println(modbus.writeSingleCoil(1,0,1));
-delay(3000);
-Serial.println(modbus.readInputRegisters(1, 0, InputRegisters,1));
-Serial.print("InputRegisters: "); Serial.println(InputRegisters[0]);
-delay(1000);
+modbus.poll();
+// Serial.println(Serial.available());
+// Serial.println(modbusSerial.available());
+    if (coils[0] == 1) {
+        coils[0] = 0;
+        InputRegisters[0] = random(0, 65536);
+        Serial.print("Changed to: "); // Debugging Line
+        Serial.println(InputRegisters[0]);
+    }
+delay(500);
 }
