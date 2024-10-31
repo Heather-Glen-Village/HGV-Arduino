@@ -2,8 +2,8 @@
 #include <ModbusRTUSlave.h>
 
 // Pins List
-#define SoftTX 16 // A2
-#define SoftRX 17 // A3
+#define SoftDI 16 // A2
+#define SoftRO 17 // A3
 #define LED 2
 #define DHT22 4
 #define Motion 5
@@ -15,7 +15,7 @@
 #define ID 1
 
 // Initialize Libaries
-SoftwareSerial modbusSerial(SoftRX, SoftTX);
+SoftwareSerial modbusSerial(SoftRO, SoftDI);
 ModbusRTUSlave modbus(Serial, DERE); // Create Modbus Object
 
 bool coils[1] = {1};
