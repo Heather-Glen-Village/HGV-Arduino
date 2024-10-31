@@ -1,5 +1,6 @@
 #include <SoftwareSerial.h>
 #include <ModbusRTUSlave.h>
+
 // Pins List
 #define SoftTX 16 // A2
 #define SoftRX 17 // A3
@@ -22,8 +23,6 @@ uint16_t InputRegisters[1];
 
 
 void setup() {
-  pinMode(LED, OUTPUT);
-
   modbus.configureCoils(coils, 1);
   modbus.configureInputRegisters(InputRegisters, 1);
   modbus.begin(ID, 9600);          // ID | Baud Rate

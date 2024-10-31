@@ -31,6 +31,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
+    "Include": "ModbusRTUMaster.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -51,6 +56,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src\\ModbusRTUComm.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src\\ModbusRTUMaster.cpp",
     "Include": "",
     "Includepath": null
   }
