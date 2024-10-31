@@ -28,9 +28,9 @@ void setup() {
 }
 
 void loop() {
-modbus.writeSingleCoil(1,0,1);
+Serial.println(modbus.writeSingleCoil(1,0,1));
 delay(3000);
-modbus.readInputRegisters(1, 0, InputRegisters,1);
+Serial.println(modbus.readInputRegisters(1, 0, InputRegisters,1));
 Serial.print("InputRegisters: "); Serial.println(InputRegisters[0]);
 delay(1000);
 }
