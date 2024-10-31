@@ -1,43 +1,31 @@
 #include <SoftwareSerial.h>
-#include <ModbusRTUSlave.h>
 
-// Pins List
 #define SoftDI 16 // A2
 #define SoftRO 17 // A3
+//#define DI 0
+//#define RO 1
 #define LED 2
-#define DHT22 4
-#define Motion 5
-#define Vibration 6
-#define DS18B20 7
 #define DERE 9
 
-// Defines the ID for the Secondary Board from 1-246
-#define ID 1
 
-// Initialize Libaries
-SoftwareSerial modbusSerial(SoftRO, SoftDI); // RX TX
-ModbusRTUSlave modbus(modbusSerial, DERE); // Create Modbus Object
+SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
 
-bool coils[1] = {1};
-uint16_t InputRegisters[1];
-
-
+#define DERE_POWER HIGH
 void setup() {
-  modbus.configureCoils(coils, 1);
-  modbus.configureInputRegisters(InputRegisters, 1);
-  modbus.begin(ID, 9600);          // ID | Baud Rate
-  Serial.begin(9600);              // For Debuging
+    pinMode(LED, OUTPUT);
+    pinMode(DERE, OUTPUT);
+    Serial.begin(9600);
+    
+    digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, HIGH);
 }
 
-void loop() {
-modbus.poll();
-// Serial.println(Serial.available());
-// Serial.println(modbusSerial.available());
-    if (coils[0] == 1) {
-        coils[0] = 0;
-        InputRegisters[0] = random(0, 65536);
-        Serial.print("Changed to: "); // Debugging Line
-        Serial.println(InputRegisters[0]);
-    }
-delay(500);
+void loop(){
+  Serial.print("Test"); // send a message 
+  Serial.flush(); // wait till Primary get the message
+  delay(1000);
+  RS485Serial.print("Test"); // send a message
+  RS485Serial.flush(); // wait till Primary get the message
+  delay(5000);
+
 }
