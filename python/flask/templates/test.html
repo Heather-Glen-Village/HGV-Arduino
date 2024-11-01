@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{{url_for("static",filename="styles.css")}}" />
+        <title>My App</title>
+    </head>
+    <body>
+        <div class="Content">
+            <h1>Sensor Data</h1>
+            <table>
+                <tr>
+                    <th>Sensor ID</th>
+                    <th>Value</th>
+                    <th>Timestamp</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>25</td>
+                    <td>2022-01-01 12:00:00</td>
+                </tr>
+            </table>
+            <form action="">
+                <input type="text" name"content" id="content">
+                <input type="submit" value="Add Task", id="btn_add">
+            </form>
+        </div>
+    </body>
+</html>

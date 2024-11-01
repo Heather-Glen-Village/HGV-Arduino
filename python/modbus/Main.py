@@ -1,10 +1,12 @@
 from unit16_converters import floatConvertion, floatToUint16
 from Sqlite import Sensor, initDB, addReading
-from ModbusTCPClient import Modbus
+from python.modbus.ModbusTCPClient import Modbus
 from decimal import Decimal, ROUND_UP
 from time import sleep
 from datetime import datetime
 
+
+app.run(host="127.0.0.1", port=80)
 host = '192.168.3.126'
 port = 1562
 unitID = 1
