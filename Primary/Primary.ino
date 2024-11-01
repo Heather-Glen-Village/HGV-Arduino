@@ -34,7 +34,7 @@ void loop()
     }
     else if (RS485Serial.available() > 0)
     {
-        String IncomingMessage = Serial.readString();
+        String IncomingMessage = RS485Serial.readString();
         Serial.print("Received: ");
         Serial.println(IncomingMessage);
         if (IncomingMessage == "Test")
