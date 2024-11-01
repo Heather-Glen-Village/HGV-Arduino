@@ -22,6 +22,8 @@ void setup()
 
 void loop()
 {
+    Serial.print(Serial.available());
+    Serial.print(RS485Serial.available());
     if (Serial.available() > 0)
     {
         String IncomingMessage = Serial.readString();
