@@ -22,15 +22,6 @@ void setup()
 
 void loop()
 {
-    Serial.print("Serial Available: ");
-    Serial.println(Serial.available());
-    Serial.print("Software Serial Available: ");
-    Serial.println(RS485Serial.available());
-    delay(1000);
-}
-
-void loop()
-{
     if (Serial.available() > 0)
     {
         String IncomingMessage = Serial.readString();
