@@ -18,6 +18,7 @@ void setup()
   RS485Serial.begin(9600);
   digitalWrite(DERE, DERE_POWER);
   digitalWrite(LED, HIGH);
+  delay(5000);
 }
 
 void loop()
