@@ -1,7 +1,7 @@
-//#define DI 0
-//#define RO 1
+// #define DI 0
+// #define RO 1
 
-#include<SoftwareSerial.h>
+#include <SoftwareSerial.h>
 
 #define SoftDI 14 // A0
 #define SoftRO 15 // A1
@@ -11,15 +11,17 @@
 
 SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
 
-
-void setup() {
+void setup()
+{
     pinMode(LED, OUTPUT);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
+    RS485Serial.begin(9600);
     digitalWrite(DERE, DERE_POWER);
 }
 
-void loop(){
+void loop()
+{
     Serial.print("Serial Available: ");
     Serial.println(Serial.available());
     Serial.print("Software Serial Available: ");
