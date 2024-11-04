@@ -27,7 +27,8 @@ void loop() {
     String IncomingMessage = Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
-    if (IncomingMessage == "Test")
+    Serial.println(IncomingMessage == "a");
+    if (IncomingMessage == "a")
     {
       bool led_power = !digitalRead(LED);
       Serial.println(led_power);
