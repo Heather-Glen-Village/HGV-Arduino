@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title>Turning Float into 2 Uint_16 </title>
+{% endblock %}
+
+
+{% block body %}
+<div class="Content">
+    <h1>Sensor Data</h1>
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="convert", id="btn_add">
+    </form>
+</div>
+{% endblock %}

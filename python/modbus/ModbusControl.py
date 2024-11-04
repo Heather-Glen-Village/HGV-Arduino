@@ -1,6 +1,6 @@
 from unit16_converters import floatConvertion, floatToUint16
 from Sqlite import Sensor, initDB, addReading
-from python.modbus.ModbusTCPClient import Modbus
+from modbus.ModbusTCPClient import Modbus
 from decimal import Decimal, ROUND_UP
 from time import sleep
 from datetime import datetime
@@ -19,6 +19,8 @@ session = initDB()
 while connection:
     inputRegisters = modbusClient.modbusRead('ir',0,6)
     discreteInputs = modbusClient.modbusRead('di',0,4)
+    wantedtemp = 22
+    modbusClient.modbusWrite('hr',0,wantedtemp)
     #Turn Unit16 into floats and rounds to 2 Decimals
     convertedDHT22= Decimal(str(floatConvertion(inputRegisters[0], inputRegisters[1]))).quantize(Decimal('.01'), rounding=ROUND_UP)
     convertedDS18B20 = Decimal(str(floatConvertion(inputRegisters[2], inputRegisters[3]))).quantize(Decimal('.01'), rounding=ROUND_UP) 

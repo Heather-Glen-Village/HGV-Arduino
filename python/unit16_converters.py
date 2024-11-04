@@ -18,3 +18,5 @@ def floatToUint16(val):
     return uint16_list[0], uint16_list[1]
 
 
+
+print(floatConvertion(11639, 16709))
