@@ -8,7 +8,6 @@
 
 SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
 
-#define DERE_POWER HIGH
 void setup()
 {
     pinMode(LED, OUTPUT);
