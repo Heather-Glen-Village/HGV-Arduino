@@ -17,11 +17,12 @@ void setup()
   digitalWrite(DERE, DERE_POWER);
 }
 
-void loop()
-{
-  Serial.print(Serial.available());
-  Serial.print(RS485Serial.available());
-  if (Serial.available() > 0)
+void loop() {
+  int Serial_A = Serial.available();
+  int Soft_A = RS485Serial.available();
+  Serial.print(Serial_A);
+  Serial.print(Soft_A);
+  if (Serial_A > 0)
   {
     String IncomingMessage = Serial.readString();
     Serial.print("Received: ");
@@ -31,7 +32,7 @@ void loop()
       digitalWrite(LED, !digitalRead(LED));
     }
   }
-  else if (RS485Serial.available() > 0)
+  else if (Soft_A > 0)
   {
     String IncomingMessage = RS485Serial.readString();
     Serial.print("Received: ");
