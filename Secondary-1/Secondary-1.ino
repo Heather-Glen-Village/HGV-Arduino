@@ -41,4 +41,5 @@ void loop()
       digitalWrite(LED, !digitalRead(LED));
     }
   }
+  delay(500);
 }

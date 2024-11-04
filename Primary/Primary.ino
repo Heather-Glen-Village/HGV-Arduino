@@ -28,5 +28,4 @@ void loop()
     RS485Serial.print("Test"); // send a message
     RS485Serial.flush();       // wait till Primary get the message
     delay(5000);
-    
 }
