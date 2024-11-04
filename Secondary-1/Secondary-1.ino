@@ -4,7 +4,7 @@
 #define SoftRO 17 // A3
 #define LED 2
 #define DERE 9
-#define DERE_POWER HIGH
+#define DERE_POWER LOW
 
 SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
 
@@ -17,29 +17,31 @@ void setup()
   digitalWrite(DERE, DERE_POWER);
 }
 
-void loop()
-{
-  Serial.print(Serial.available());
-  Serial.print(RS485Serial.available());
-  if (Serial.available() > 0)
+void loop() {
+  int Serial_A = Serial.available();
+  int Soft_A = RS485Serial.available();
+  Serial.print(Serial_A);
+  Serial.print(Soft_A);
+  if (Serial_A > 0)
   {
     String IncomingMessage = Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
-    if (IncomingMessage == "Test")
-    {
-      digitalWrite(LED, !digitalRead(LED));
-    }
+    
+    bool led_power = !digitalRead(LED);
+    Serial.println(led_power);
+    digitalWrite(LED, led_power);
+
   }
-  else if (RS485Serial.available() > 0)
+  else if (Soft_A > 0)
   {
     String IncomingMessage = RS485Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
-    if (IncomingMessage == "Test")
-    {
-      digitalWrite(LED, !digitalRead(LED));
-    }
+    
+    bool led_power = !digitalRead(LED);
+    Serial.println(led_power);
+    digitalWrite(LED, led_power);
   }
   delay(500);
 }

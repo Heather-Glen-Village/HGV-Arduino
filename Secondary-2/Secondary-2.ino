@@ -2,46 +2,30 @@
 
 #define SoftDI 16 // A2
 #define SoftRO 17 // A3
+//#define DI 0
+//#define RO 1
 #define LED 2
 #define DERE 9
-#define DERE_POWER LOW
+#define DERE_POWER HIGH
 
 SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
 
-void setup()
-{
-  pinMode(LED, OUTPUT);
-  pinMode(DERE, OUTPUT);
-  Serial.begin(9600);
-  RS485Serial.begin(9600);
-  digitalWrite(DERE, DERE_POWER);
+
+void setup() {
+    pinMode(LED, OUTPUT);
+    pinMode(DERE, OUTPUT);
+    Serial.begin(9600);
+    
+    digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, HIGH);
 }
 
-void loop() {
-  int Serial_A = Serial.available();
-  int Soft_A = RS485Serial.available();
-  Serial.print(Serial_A);
-  Serial.print(Soft_A);
-  if (Serial_A > 0)
-  {
-    String IncomingMessage = Serial.readString();
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-    
-    bool led_power = !digitalRead(LED);
-    Serial.println(led_power);
-    digitalWrite(LED, led_power);
+void loop(){
+  Serial.print("Test"); // send a message 
+  Serial.flush(); // wait till Primary get the message
+  delay(1000);
+  RS485Serial.print("Test"); // send a message
+  RS485Serial.flush(); // wait till Primary get the message
+  delay(5000);
 
-  }
-  else if (Soft_A > 0)
-  {
-    String IncomingMessage = RS485Serial.readString();
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-    
-    bool led_power = !digitalRead(LED);
-    Serial.println(led_power);
-    digitalWrite(LED, led_power);
-  }
-  delay(500);
 }
