@@ -27,25 +27,21 @@ void loop() {
     String IncomingMessage = Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
-    Serial.println(IncomingMessage == "a");
-    if (IncomingMessage == "a")
-    {
-      bool led_power = !digitalRead(LED);
-      Serial.println(led_power);
-      digitalWrite(LED, led_power);
-    }
+    
+    bool led_power = !digitalRead(LED);
+    Serial.println(led_power);
+    digitalWrite(LED, led_power);
+
   }
   else if (Soft_A > 0)
   {
     String IncomingMessage = RS485Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
-    if (IncomingMessage == "Test")
-    {
-      bool led_power = !digitalRead(LED);
-      Serial.println(led_power);
-      digitalWrite(LED, !digitalRead(LED));
-    }
+    
+    bool led_power = !digitalRead(LED);
+    Serial.println(led_power);
+    digitalWrite(LED, led_power);
   }
   delay(500);
 }
