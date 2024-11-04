@@ -29,7 +29,9 @@ void loop() {
     Serial.println(IncomingMessage);
     if (IncomingMessage == "Test")
     {
-      digitalWrite(LED, !digitalRead(LED));
+      bool led_power = !digitalRead(LED);
+      Serial.println(led_power);
+      digitalWrite(LED, led_power);
     }
   }
   else if (Soft_A > 0)
@@ -39,6 +41,8 @@ void loop() {
     Serial.println(IncomingMessage);
     if (IncomingMessage == "Test")
     {
+      bool led_power = !digitalRead(LED);
+      Serial.println(led_power);
       digitalWrite(LED, !digitalRead(LED));
     }
   }

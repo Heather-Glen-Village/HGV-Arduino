@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
-#define SoftDI 16 // A2
-#define SoftRO 17 // A3
+#define SoftDI 14 // A0
+#define SoftRO 15 // A1
 #define LED 2
 #define DERE 9
 #define DERE_POWER LOW
@@ -29,7 +29,9 @@ void loop() {
     Serial.println(IncomingMessage);
     if (IncomingMessage == "Test")
     {
-      digitalWrite(LED, !digitalRead(LED));
+      bool led_power = !digitalRead(LED);
+      Serial.println(led_power);
+      digitalWrite(LED, led_power);
     }
   }
   else if (Soft_A > 0)
@@ -39,6 +41,8 @@ void loop() {
     Serial.println(IncomingMessage);
     if (IncomingMessage == "Test")
     {
+      bool led_power = !digitalRead(LED);
+      Serial.println(led_power);
       digitalWrite(LED, !digitalRead(LED));
     }
   }
