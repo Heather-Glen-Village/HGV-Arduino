@@ -13,6 +13,12 @@ void loop() {
   if (Serial.available() > 0)  { 
     digitalWrite(LED, !digitalRead(LED));
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    if(digitalRead(LED) == HIGH) {
+        Serial.println("LED is Now Enabled");
+    }
+    else {
+        Serial.println("LED is Now Disable");
+    }
   }
   delay(500);
 }
