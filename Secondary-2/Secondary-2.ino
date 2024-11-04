@@ -1,43 +1,30 @@
+// #define DI 0
+// #define RO 1
+
 #include <SoftwareSerial.h>
-#include <ModbusRTUSlave.h>
 
-// Pins List
-#define SoftDI 16 // A2
-#define SoftRO 17 // A3
+#define SoftDI 14 // A0
+#define SoftRO 15 // A1
 #define LED 2
-#define DHT22 4
-#define Motion 5
-#define Vibration 6
-#define DS18B20 7
 #define DERE 9
+#define DERE_POWER LOW
 
-// Defines the ID for the Secondary Board from 1-246
-#define ID 1
+SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
 
-// Initialize Libaries
-SoftwareSerial modbusSerial(SoftRO, SoftDI); // RX TX
-ModbusRTUSlave modbus(modbusSerial, DERE); // Create Modbus Object
-
-bool coils[1] = {1};
-uint16_t InputRegisters[1];
-
-
-void setup() {
-  modbus.configureCoils(coils, 1);
-  modbus.configureInputRegisters(InputRegisters, 1);
-  modbus.begin(ID, 9600);          // ID | Baud Rate
-  Serial.begin(9600);              // For Debuging
+void setup()
+{
+  pinMode(LED, OUTPUT);
+  pinMode(DERE, OUTPUT);
+  Serial.begin(9600);
+  RS485Serial.begin(9600);
+  digitalWrite(DERE, DERE_POWER);
 }
 
-void loop() {
-modbus.poll();
-// Serial.println(Serial.available());
-// Serial.println(modbusSerial.available());
-    if (coils[0] == 1) {
-        coils[0] = 0;
-        InputRegisters[0] = random(0, 65536);
-        Serial.print("Changed to: "); // Debugging Line
-        Serial.println(InputRegisters[0]);
-    }
-delay(500);
+void loop()
+{
+  Serial.print("Serial Available: ");
+  Serial.println(Serial.available());
+  Serial.print("Software Serial Available: ");
+  Serial.println(RS485Serial.available());
+  delay(1000);
 }
