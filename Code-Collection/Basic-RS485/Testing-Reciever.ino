@@ -2,6 +2,8 @@
 
 #define SoftDI 16 // A2
 #define SoftRO 17 // A3
+//#define DI 0
+//#define RO 1
 #define LED 2
 #define DERE 9
 #define DERE_POWER LOW
@@ -20,11 +22,11 @@ void setup()
 void loop() {
   int Serial_A = Serial.available();
   int Soft_A = RS485Serial.available();
-  Serial.print(Serial_A);
-  Serial.print(Soft_A);
-  if (Serial_A > 0)
-  {
-    String IncomingMessage = Serial.readString();
+
+  if (Serial_A > 0) {
+    Serial.println(Serial_A);
+    char IncomingMessage = Serial.read();
+
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
     
@@ -33,8 +35,8 @@ void loop() {
     digitalWrite(LED, led_power);
 
   }
-  else if (Soft_A > 0)
-  {
+  else if (Soft_A > 0) {
+    Serial.println(Soft_A);
     String IncomingMessage = RS485Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);

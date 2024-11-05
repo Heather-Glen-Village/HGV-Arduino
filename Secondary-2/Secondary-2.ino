@@ -23,6 +23,6 @@ void loop(){
   digitalWrite(DERE, DERE_POWER);
   RS485Serial.print("test"); // send a message
   digitalWrite(DERE, !DERE_POWER);
-  delay(1000);
+  delay(10000);
 
 }
