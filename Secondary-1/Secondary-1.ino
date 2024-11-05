@@ -22,11 +22,10 @@ void setup()
 void loop() {
   int Serial_A = Serial.available();
   int Soft_A = RS485Serial.available();
-  Serial.print(Serial_A);
-  Serial.print(Soft_A);
-  if (Serial_A > 0)
-  {
-    String IncomingMessage = Serial.readString();
+
+  if (Serial_A > 0) {
+    Serial.print(Serial_A);
+    char IncomingMessage = RS485Serial.read();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
     
@@ -35,9 +34,9 @@ void loop() {
     digitalWrite(LED, led_power);
 
   }
-  else if (Soft_A > 0)
-  {
-    String IncomingMessage = RS485Serial.readString();
+  else if (Soft_A > 0) {
+    Serial.print(Soft_A);
+    char IncomingMessage = RS485Serial.read();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
     
