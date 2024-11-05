@@ -25,7 +25,8 @@ void loop() {
 
   if (Serial_A > 0) {
     Serial.print(Serial_A);
-    char IncomingMessage = RS485Serial.readString();
+    char IncomingMessage = Serial.read();
+
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
     
@@ -36,7 +37,7 @@ void loop() {
   }
   else if (Soft_A > 0) {
     Serial.print(Soft_A);
-    char IncomingMessage = RS485Serial.readString();
+    char IncomingMessage = RS485Serial.read();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
     
