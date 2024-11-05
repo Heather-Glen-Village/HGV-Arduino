@@ -1,25 +1,31 @@
-#define LED 2
+#include <SoftwareSerial.h>
 
-void setup()
-{
-  pinMode(LED, OUTPUT);
-  pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(9600);
-  digitalWrite(LED, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);
+#define SoftDI 14 // A0
+#define SoftRO 15 // A1
+//#define DI 0
+//#define RO 1
+#define LED 2
+#define DERE 9
+#define DERE_POWER HIGH
+
+SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
+
+
+void setup() {
+    pinMode(LED, OUTPUT);
+    pinMode(DERE, OUTPUT);
+    Serial.begin(9600);
+    
+    digitalWrite(DERE, DERE_POWER);
+    digitalWrite(LED, HIGH);
 }
 
-void loop() {
-  Serial.read();
-  if (Serial.available() > 0)  { 
-    digitalWrite(LED, !digitalRead(LED));
-    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-    if(digitalRead(LED) == HIGH) {
-        Serial.println("LED is Now Enabled");
-    }
-    else {
-        Serial.println("LED is Now Disable");
-    }
-  }
-  delay(500);
+void loop(){
+  Serial.print("Test"); // send a message 
+  Serial.flush(); // wait till Primary get the message
+  delay(1000);
+  RS485Serial.print("Test"); // send a message
+  RS485Serial.flush(); // wait till Primary get the message
+  delay(5000);
+
 }

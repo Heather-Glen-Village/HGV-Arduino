@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
-#define SoftDI 14 // A0
-#define SoftRO 15 // A1
+#define SoftDI 16 // A2
+#define SoftRO 17 // A3
 #define LED 2
 #define DERE 9
 #define DERE_POWER LOW
