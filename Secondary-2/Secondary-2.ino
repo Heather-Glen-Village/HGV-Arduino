@@ -20,10 +20,8 @@ void setup() {
 }
 
 void loop(){
-  Serial.print("a"); // send a message 
-  delay(1000);
-  RS485Serial.print('a'); // send a message
+  RS485Serial.print("a"); // send a message
   RS485Serial.flush();
-  delay(10000);
+  delay(1000);
 
 }
