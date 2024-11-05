@@ -35,6 +35,8 @@ void loop() {
   // }
   if (Soft_A > 0)
   {
+    Serial.println("We Got Something on Soft Serial");
+    Serial.println(RS485Serial.readString());
     String IncomingMessage = RS485Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
