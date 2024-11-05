@@ -8,12 +8,14 @@ void setup()
   digitalWrite(LED, HIGH);
   digitalWrite(LED_BUILTIN, HIGH);
   Serial.println("Board Finder Started!");
-  Serial.println("Enter Something into the Terminal To changed the LED");
+  Serial.println("Press Enter into the Terminal to Switch LED");
+  Serial.println("Enter Character To cause the LED to Flash");
 }
 
 void loop() {
-  Serial.read();
-  if (Serial.available() > 0)  { 
+  
+  if (Serial.available() > 0)  {
+    Serial.read();
     digitalWrite(LED, !digitalRead(LED));
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
     if(digitalRead(LED) == HIGH) {
