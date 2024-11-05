@@ -20,8 +20,9 @@ void setup() {
 }
 
 void loop(){
+  digitalWrite(DERE, DERE_POWER);
   RS485Serial.print("a"); // send a message
-  RS485Serial.flush();
+  digitalWrite(DERE, !DERE_POWER);
   delay(1000);
 
 }
