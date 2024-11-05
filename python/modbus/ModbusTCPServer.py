@@ -38,16 +38,16 @@ class piDataBank(DataBank):
         print(f'humidity = {humidity}')
         print()
         #Enter Data into a list
-        self._h_regs[0] = DHT22_1
-        self._h_regs[1] = DHT22_2
-        self._h_regs[2] = DS18B20_1
-        self._h_regs[3] = DS18B20_2
-        self._h_regs[4] = humidity_1
-        self._h_regs[5] = humidity_2
+        self._i_regs[0] = DHT22_1
+        self._i_regs[1] = DHT22_2
+        self._i_regs[2] = DS18B20_1
+        self._i_regs[3] = DS18B20_2
+        self._i_regs[4] = humidity_1
+        self._i_regs[5] = humidity_2
         #Add Input Registe data to the Base data structure 
 
         try: 
-            return[self._h_regs[i] for i in range(address, address+number)]
+            return[self._i_regs[i] for i in range(address, address+number)]
         except KeyError:
             return
     
@@ -80,6 +80,8 @@ class piDataBank(DataBank):
             return[self._d_inputs[i] for i in range(address, address+number)]
         except KeyError:
             return
+    def get_holding_registers(self, address, number=1, srv_info=None):
+        return super().get_holding_registers(address, number, srv_info)
         
 if __name__ == '__main__':
     Server = ModbusServer(host=host, port=port, data_bank=piDataBank())

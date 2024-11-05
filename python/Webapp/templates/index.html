@@ -13,7 +13,7 @@
         <input type="submit" value="convert", id="btn_add">
     </form>
     {% if tasks | length < 1%}
-    <h3>Currently No Sensor Data</h3>
+    <h3>Currently No Sensor Data {{roomTemp}} {{roomHimid}} {{wantedTemp}} </h3>
     {% else %}
     <table>
         <tr>

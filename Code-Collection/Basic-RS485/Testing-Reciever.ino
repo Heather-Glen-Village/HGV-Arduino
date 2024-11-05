@@ -42,7 +42,6 @@ void loop() {
     Serial.println(IncomingMessage);
     
     bool led_power = !digitalRead(LED);
-    Serial.println(led_power);
     digitalWrite(LED, led_power);
   }
   delay(500);

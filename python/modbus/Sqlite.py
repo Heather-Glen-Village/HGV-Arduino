@@ -15,8 +15,9 @@ class Sensor(Base):
     smoke = Column("smoke", Boolean)
     waterLeak = Column("waterLeak", Boolean) # Don't Know what Datatype this should be
     vibration = Column("vibration", Boolean) # Don't Know what Datatype this should be
+    wantedTemperature = Column("wantedTemperature", Float) # Comes from Webapp sending to Arduino and then coming back to DB
     
-    def __init__(self, time, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, vibration):
+    def __init__(self, time, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, vibration, wantedTemperature):
         self.time = time
         self.temperature_DHT22 = temperature_DHT22
         self.temperature_DS18B20 = temperature_DS18B20
@@ -25,19 +26,21 @@ class Sensor(Base):
         self.smoke = smoke
         self.waterLeak = waterLeak
         self.vibration = vibration
+        self.wantedTemperature = wantedTemperature
         
     def __repr__(self):
-        return f'time={self.time}, temperature_DHT22={self.temperature_DHT22}, temperature_DS18B20={self.temperature_DS18B20} humidity_DHT22={self.humidity_DHT22}, motion={self.motion}, smoke={self.smoke}, waterLeak={self.waterLeak}, vibration={self.vibration}'
+        return f'time={self.time}, temperature_DHT22={self.temperature_DHT22}, temperature_DS18B20={self.temperature_DS18B20} humidity_DHT22={self.humidity_DHT22}, motion={self.motion}, smoke={self.smoke}, waterLeak={self.waterLeak}, vibration={self.vibration}, wantedTemperature={self.wantedTemperature}'
     
 
-def initDB():
-    engine = create_engine("sqlite:///HGV_Sensor.db", echo=True)
+def initDB(db_uri):
+    #Changed this to the Right Dir
+    engine = create_engine(f"sqlite:///{db_uri}", echo=False) 
     Base.metadata.create_all(bind=engine)
     Session = sessionmaker(bind=engine)
     return Session()
 
-def addReading(session, time, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, Vibration):
-    newReading = Sensor(time, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, Vibration)
+def addReading(session, time, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, Vibration, wantedTemperature):
+    newReading = Sensor(time, temperature_DHT22, temperature_DS18B20, humidity_DHT22, motion, smoke, waterLeak, Vibration, wantedTemperature)
     session.add(newReading)
     session.commit()
 # Adding Data into the Database Can be remove later
