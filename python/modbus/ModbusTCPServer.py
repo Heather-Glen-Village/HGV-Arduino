@@ -5,7 +5,7 @@ import random
 #Create a Random Seed for Random Sensor Data
 random.seed()
 # Server parmaters
-host = '192.168.3.126'
+host = 'localhost'
 port = 1562
 
 

@@ -10,8 +10,8 @@ void setup()
 }
 
 void loop() {
-  Serial.readString();
   if (Serial.available() > 0)  { 
+    Serial.read();
     digitalWrite(LED, !digitalRead(LED));
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
     if(digitalRead(LED) == HIGH) {
