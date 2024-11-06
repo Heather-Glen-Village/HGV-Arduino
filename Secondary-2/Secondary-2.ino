@@ -13,7 +13,7 @@ void setup() {
     pinMode(LED, OUTPUT);
     pinMode(DERE, OUTPUT);
     Serial.begin(9600);
-    RS485Serial.begin(9600);
+    RS485Serial.begin(19200);
     
     digitalWrite(DERE, DERE_POWER);
     digitalWrite(LED, HIGH);
@@ -23,7 +23,8 @@ void loop(){
   bool message = true;
   digitalWrite(DERE, DERE_POWER);
   RS485Serial.print(message); // send a message
-  //RS485Serial.flush(); //s
+  Serial.print(message); // send a message
+  RS485Serial.flush(); //s
   digitalWrite(DERE, !DERE_POWER);
   delay(5000);
 

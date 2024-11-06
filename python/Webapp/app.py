@@ -19,12 +19,15 @@ connection = modbusClient.modbusConnect()
 @app.route('/',methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        wantedTemp = request.form['New Temp']
+        wantedTemp = request.form['wantedTemp']
+        wantedHimid = request.form['wantedHumidity']
         
         try:
-            WT_Unit16 = floatToUint16(float(wantedTemp))
-            modbusClient.modbusWrite('hr',0,WT_Unit16, True)
-            return redirect('/')
+            print(wantedHimid, wantedTemp)
+            return wantedHimid+wantedTemp
+            # WT_Unit16 = floatToUint16(float(wantedTemp))
+            # modbusClient.modbusWrite('hr',0,WT_Unit16, True)
+            # return redirect('/')
         except Exception as e:
             print(f"ERROR: {e}")
             return redirect('/')

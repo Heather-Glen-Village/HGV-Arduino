@@ -15,7 +15,7 @@ void setup()
   pinMode(LED, OUTPUT);
   pinMode(DERE, OUTPUT);
   Serial.begin(9600);
-  RS485Serial.begin(9600);
+  RS485Serial.begin(19200);
   digitalWrite(DERE, DERE_POWER);
 }
 
@@ -41,8 +41,7 @@ void loop() {
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
     if (IncomingMessage == 1) {
-      bool led_power = !digitalRead(LED);
-      digitalWrite(LED, led_power);
+      digitalWrite(LED, !digitalRead(LED));
     }
     else {
       Serial.println("Unknown message");
