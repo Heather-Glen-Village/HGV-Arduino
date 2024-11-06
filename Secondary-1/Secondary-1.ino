@@ -44,5 +44,5 @@ void loop() {
     bool led_power = !digitalRead(LED);
     digitalWrite(LED, led_power);
   }
-  delay(500);
+
 }
