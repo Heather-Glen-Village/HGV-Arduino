@@ -37,7 +37,7 @@ void loop() {
   }
   else if (Soft_A > 0) {
     Serial.println(Soft_A);
-    int IncomingMessage = RS485Serial.read();
+    bool IncomingMessage = RS485Serial.read();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
     if (IncomingMessage == 1) {

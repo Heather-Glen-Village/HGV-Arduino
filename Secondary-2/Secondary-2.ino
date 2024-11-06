@@ -20,7 +20,7 @@ void setup() {
 }
 
 void loop(){
-  int message = 1;
+  bool message = true;
   digitalWrite(DERE, DERE_POWER);
   RS485Serial.print(message); // send a message
   RS485Serial.flush(); //s
