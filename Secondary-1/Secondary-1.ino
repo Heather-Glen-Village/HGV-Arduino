@@ -38,6 +38,8 @@ void loop() {
   else if (Soft_A > 0) {
     Serial.println(Soft_A);
     int IncomingMessage = RS485Serial.read();
+    Serial.print("Received: ");
+    Serial.println(IncomingMessage);
     if (IncomingMessage == 1) {
       bool led_power = !digitalRead(LED);
       digitalWrite(LED, led_power);
@@ -45,9 +47,6 @@ void loop() {
     else {
       Serial.println("Unknown message");
     }
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-
   }
 
 }
