@@ -15,7 +15,7 @@ void setup()
   pinMode(LED, OUTPUT);
   pinMode(DERE, OUTPUT);
   Serial.begin(9600);
-  RS485Serial.begin(9600);
+  RS485Serial.begin(19200);
   digitalWrite(DERE, DERE_POWER);
 }
 

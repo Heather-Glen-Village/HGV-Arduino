@@ -19,7 +19,7 @@ connection = modbusClient.modbusConnect()
 @app.route('/',methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        wantedTemp = request.form['content']
+        wantedTemp = request.form['New Temp']
         
         try:
             WT_Unit16 = floatToUint16(float(wantedTemp))
@@ -31,11 +31,12 @@ def index():
     # See all current tasks
     else:
         IR = modbusClient.modbusRead('ir',0,6)
-        HR = modbusClient.modbusRead('hr',0,2)
-        wantedTemp = floatConvertion(HR[0], HR[1]) 
+        HR = modbusClient.modbusRead('hr',0,4)
+        wantedTemp = floatConvertion(HR[0], HR[1])
+        wantedHimid = floatConvertion(HR[2], HR[3]) 
         roomTemp = floatConvertion(IR[0], IR[1])
         roomHimid = floatConvertion(IR[4], IR[5])
-        return render_template('index.html',roomTemp=roomTemp, roomHimid=roomHimid, wantedTemp=wantedTemp)
+        return render_template('index.html',roomTemp=roomTemp, roomHimid=roomHimid, wantedTemp=wantedTemp, wantedHimid=wantedHimid)
 
 # Runner and Dubgger
 if __name__ == '__main__':
