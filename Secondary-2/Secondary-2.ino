@@ -3,7 +3,7 @@
 #define SoftDI 16 // A2
 #define SoftRO 17 // A3
 #define LED 2
-#define DERE 9
+#define DERE 8
 #define DERE_POWER HIGH
 
 SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX

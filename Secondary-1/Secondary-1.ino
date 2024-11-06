@@ -5,7 +5,7 @@
 //#define DI 0
 //#define RO 1
 #define LED 2
-#define DERE 9
+#define DERE 8
 #define DERE_POWER LOW
 
 SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
@@ -20,6 +20,8 @@ void setup()
 }
 
 void loop() {
+  digitalWrite(DERE, DERE_POWER);
+
   int Serial_A = Serial.available();
   int Soft_A = RS485Serial.available();
 
