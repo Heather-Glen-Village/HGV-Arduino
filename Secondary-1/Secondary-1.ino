@@ -37,8 +37,8 @@ void loop() {
   }
   else if (Soft_A > 0) {
     Serial.println(Soft_A);
-    String IncomingMessage = RS485Serial.readString();
-    if (IncomingMessage == "test") {
+    int IncomingMessage = RS485Serial.read();
+    if (IncomingMessage == 1) {
       bool led_power = !digitalRead(LED);
       digitalWrite(LED, led_power);
     }
