@@ -8,11 +8,11 @@ from datetime import datetime
 host = 'localhost'
 port = 1562
 unitID = 1
-db_uri = "C://Users//Zach_//Documents//Code//HGV-Coop//Rems006//python//HGV_DB.db"
+db_uri = "HGV_DB.db"
 
 modbusClient = Modbus(host,port,unitID)
 connection = modbusClient.modbusConnect()
-session = initDB("C://Users//Zach_//Documents//Code//HGV-Coop//Rems006//python//HVG_DB.db")
+session = initDB(db_uri)
 
 
 while connection:
@@ -27,7 +27,9 @@ while connection:
     wantedtemp = 22
     wantedtemp_unit16 = floatToUint16(wantedtemp)
     modbusClient.modbusWrite('hr',0,wantedtemp_unit16,True)
-    
+    wantedhimid = 22
+    wantedhimid_unit16 = floatToUint16(wantedhimid)
+    modbusClient.modbusWrite('hr',2,wantedhimid_unit16,True)
     #Turn Unit16 into floats and rounds to 2 Decimals
     
     convertedDHT22= Decimal(str(floatConvertion(inputRegisters[0], inputRegisters[1]))).quantize(Decimal('.01'), rounding=ROUND_UP)
@@ -37,5 +39,5 @@ while connection:
     print("Writing To DB")
     print(f"Time: {datetime.now()} DHT22: {convertedDHT22}, DS18B20: {convertedDS18B20}, Humidity: {convertedHumidity}, Motion: {discreteInputs[0]},  Smoke: {discreteInputs[1]}, Water Leak: {discreteInputs[2]}, Vibtation: {discreteInputs[3]}")
     #Adding Data to DB
-    addReading(session, datetime.now(), convertedDHT22, convertedDS18B20, convertedHumidity, discreteInputs[0], discreteInputs[1], discreteInputs[2], discreteInputs[3],wantedtemp)
+    addReading(session, datetime.now(), convertedDHT22, convertedDS18B20, convertedHumidity, discreteInputs[0], discreteInputs[1], discreteInputs[2], discreteInputs[3],22, 64)
     sleep(5)
