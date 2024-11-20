@@ -1,30 +1,77 @@
-# 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-# 2 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-# 3 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-# 4 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-// Pins List
-# 14 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-// Defines the ID for the Secondary Board from 1-246
+# 1 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 
 
-// Initialize Libaries
-SoftwareSerial modbusSerial(15 /* A3*/, 14 /* A2*/); // RX TX
-ModbusRTUMaster modbus(modbusSerial, 9); // Create Modbus Object
+/*
 
-bool coils[1] = {1};
-uint16_t InputRegisters[1];
+  Primary Arduino Control
 
 
-void setup() {
-  modbus.begin(9600);
-  Serial.begin(9600); // For Debuging
-  delay(5000); // For Debuging
+
+  This sketch is the Code That lets the Priamry Act as a RTC Master, TCP Server, and Control All Sensor and System Connected
+
+
+
+  Pin List
+
+    - D2 LED
+
+    - D3 Smoke
+
+    - D4 Heat On
+
+    - D5 Water Off
+
+    - D6 Power Off
+
+    - D7 Cool On
+
+    - D8 Eth-Int?
+
+    - D9 Dere Power (Unused)
+
+    - D10 Eth-CSN
+
+    - D11 Eth-MOSI
+
+    - D12 Eth-MISO
+
+    - D13 Eth-SCK
+
+    - D16(A2) SoftRX
+
+    - D17(A3) SoftTX
+
+
+
+  Created on November 11, 2024
+
+  By Zachary Schultz
+
+
+
+*/
+# 28 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+// Initializing libraries
+# 30 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
+# 31 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
+# 32 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
+# 33 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
+// #include <ModbusRTUServer.h>
+// #include <ModbusServer.h>
+// #include <ModbusTCPServer.h>
+
+// Initializing pins
+
+
+
+
+
+SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
+
+void setup()
+{
 }
 
-void loop() {
-Serial.println(modbus.writeSingleCoil(1,0,1));
-delay(3000);
-Serial.println(modbus.readInputRegisters(1, 0, InputRegisters,1));
-Serial.print("InputRegisters: "); Serial.println(InputRegisters[0]);
-delay(1000);
+void loop()
+{
 }

@@ -1,49 +1,57 @@
+
+
+/*
+  Primary Arduino Control
+
+  This sketch is the Code That lets the Priamry Act as a RTC Master, TCP Server, and Control All Sensor and System Connected
+
+  Pin List
+    - D2 LED
+    - D3 Smoke
+    - D4 Heat On
+    - D5 Water Off
+    - D6 Power Off
+    - D7 Cool On
+    - D8 Eth-Int?
+    - D9 Dere Power (Unused)
+    - D10 Eth-CSN
+    - D11 Eth-MOSI
+    - D12 Eth-MISO
+    - D13 Eth-SCK
+    - D16(A2) SoftRX
+    - D17(A3) SoftTX
+
+  Created on November 11, 2024
+  By Zachary Schultz
+
+*/
+// Initializing libraries
 #include <SoftwareSerial.h>
+#include <ArduinoRS485.h>
+#include <ArduinoModbus.h>
+#include <SPI.h>
+#include <Ethernet.h>
+// #include <ModbusRTUServer.h>
+// #include <ModbusServer.h>
+// #include <ModbusTCPServer.h>
 
-#define SoftDI 14 // A0
-#define SoftRO 15 // A1
-//#define DI 0
-//#define RO 1
+// Initializing pins
+
+#define rxPin 16 // A2
+#define txPin 17 // A3
 #define LED 2
-#define DERE 9
-#define DERE_POWER LOW
-
-SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
+// Initializing the uses of SoftwareSerial
+// SoftwareSerial modbusSerial(rxPin, txPin); // RX TX
 
 void setup()
 {
-  pinMode(LED, OUTPUT);
-  pinMode(DERE, OUTPUT);
-  Serial.begin(9600);
-  RS485Serial.begin(9600);
-  digitalWrite(DERE, DERE_POWER);
+  Serial.begin(9600);               // for Debug
+  RS485.setPins(txPin, rxPin, LED); // Board don't Use RE pin so set it to LED so it lights up while Sending
+  if (!ModbusRTUServer.begin(1, 9600))
+  {
+  }
 }
 
-void loop() {
-  int Serial_A = Serial.available();
-  int Soft_A = RS485Serial.available();
-  Serial.print(Serial_A);
-  Serial.print(Soft_A);
-  if (Serial_A > 0)
-  {
-    String IncomingMessage = Serial.readString();
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-    
-    bool led_power = !digitalRead(LED);
-    Serial.println(led_power);
-    digitalWrite(LED, led_power);
-
-  }
-  else if (Soft_A > 0)
-  {
-    String IncomingMessage = RS485Serial.readString();
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-    
-    bool led_power = !digitalRead(LED);
-    Serial.println(led_power);
-    digitalWrite(LED, led_power);
-  }
-  delay(500);
+void loop()
+{
 }

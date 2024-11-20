@@ -1,44 +1,59 @@
 #include <Arduino.h>
-#line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 1 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+
+
+/*
+  Primary Arduino Control
+
+  This sketch is the Code That lets the Priamry Act as a RTC Master, TCP Server, and Control All Sensor and System Connected
+
+  Pin List
+    - D2 LED
+    - D3 Smoke
+    - D4 Heat On
+    - D5 Water Off
+    - D6 Power Off
+    - D7 Cool On
+    - D8 Eth-Int?
+    - D9 Dere Power (Unused)
+    - D10 Eth-CSN
+    - D11 Eth-MOSI
+    - D12 Eth-MISO
+    - D13 Eth-SCK
+    - D16(A2) SoftRX
+    - D17(A3) SoftTX
+
+  Created on November 11, 2024
+  By Zachary Schultz
+
+*/
+// Initializing libraries
 #include <SoftwareSerial.h>
-#include <ModbusRTUMaster.h>
-#include <ModbusRTUSlave.h>
-// Pins List
-#define SoftDI 14 // A2
-#define SoftRO 15 // A3
+#include <ArduinoRS485.h>
+#include <ArduinoModbus.h>
+#include <Ethernet.h>
+// #include <ModbusRTUServer.h>
+// #include <ModbusServer.h>
+// #include <ModbusTCPServer.h>
+
+// Initializing pins
+
+#define rxPin 16 // A2
+#define txPin 17 // A3
 #define LED 2
-#define DHT22 4
-#define Motion 5
-#define Vibration 6
-#define DS18B20 7
-#define DERE 9
 
-// Defines the ID for the Secondary Board from 1-246
-#define ID 1
+SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
 
-// Initialize Libaries
-SoftwareSerial modbusSerial(SoftRO, SoftDI); // RX TX
-ModbusRTUMaster modbus(modbusSerial, DERE); // Create Modbus Object
-
-bool coils[1] = {1};
-uint16_t InputRegisters[1];
-
-
-#line 25 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 45 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 void setup();
-#line 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 49 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 void loop();
-#line 25 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
-void setup() {
-  modbus.begin(9600);
-  Serial.begin(9600); // For Debuging
-  delay(5000);        // For Debuging
+#line 45 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+void setup()
+{
 }
 
-void loop() {
-Serial.println(modbus.writeSingleCoil(1,0,1));
-delay(3000);
-Serial.println(modbus.readInputRegisters(1, 0, InputRegisters,1));
-Serial.print("InputRegisters: "); Serial.println(InputRegisters[0]);
-delay(1000);
+void loop()
+{
 }
+

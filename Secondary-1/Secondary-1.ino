@@ -1,11 +1,11 @@
 #include <SoftwareSerial.h>
 
-#define SoftDI 16 // A2
-#define SoftRO 17 // A3
-//#define DI 0
-//#define RO 1
+#define SoftDI 17 // A2
+#define SoftRO 16 // A3
+// #define DI 0
+// #define RO 1
 #define LED 2
-#define DERE 8
+#define DERE 9
 #define DERE_POWER LOW
 
 SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
@@ -15,39 +15,31 @@ void setup()
   pinMode(LED, OUTPUT);
   pinMode(DERE, OUTPUT);
   Serial.begin(9600);
-  RS485Serial.begin(19200);
+  RS485Serial.begin(9600);
   digitalWrite(DERE, DERE_POWER);
 }
 
-void loop() {
+void loop()
+{
   digitalWrite(DERE, DERE_POWER);
 
   int Serial_A = Serial.available();
   int Soft_A = RS485Serial.available();
 
-  if (Serial_A > 0) {
+  if (Serial_A > 0)
+  {
     Serial.println(Serial_A);
-    char IncomingMessage = Serial.read();
+    String IncomingMessage = Serial.readString();
 
-    Serial.print("Received: ");
+    Serial.print("Received Hardware: ");
     Serial.println(IncomingMessage);
-    
-    bool led_power = !digitalRead(LED);
-    Serial.println(led_power);
-    digitalWrite(LED, led_power);
-
   }
-  else if (Soft_A > 0) {
+  else if (Soft_A > 0)
+  {
     Serial.println(Soft_A);
-    bool IncomingMessage = RS485Serial.read();
+    String IncomingMessage = RS485Serial.readString();
     Serial.print("Received: ");
     Serial.println(IncomingMessage);
-    if (IncomingMessage == 1) {
-      digitalWrite(LED, !digitalRead(LED));
-    }
-    else {
-      Serial.println("Unknown message");
-    }
+    RS485Serial.flush();
   }
-
 }
