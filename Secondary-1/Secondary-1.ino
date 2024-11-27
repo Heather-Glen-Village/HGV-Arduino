@@ -1,45 +1,42 @@
+
+
+/*
+  Secondary Arduino 
+
+  Code to Send Over Sensor Information to the Primary Arduino Using ModbusRTU
+
+  Pin List
+
+  Created on November 11, 2024
+  By Zachary Schultz
+
+*/
+// Initializing libraries
 #include <SoftwareSerial.h>
+#include <ArduinoRS485.h>
+#include <ArduinoModbus.h>
+#include <SPI.h>
+#include <Ethernet.h>
 
-#define SoftDI 17 // A2
-#define SoftRO 16 // A3
-// #define DI 0
-// #define RO 1
-#define LED 2
-#define DERE 9
-#define DERE_POWER LOW
+// Initializing pins
 
-SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
+#define rxPin 16 // A2
+#define txPin 17 // A3
+#define LED 8
+// Initializing the uses of SoftwareSerial
+// SoftwareSerial modbusSerial(rxPin, txPin); // RX TX
 
 void setup()
 {
-  pinMode(LED, OUTPUT);
-  pinMode(DERE, OUTPUT);
-  Serial.begin(9600);
-  RS485Serial.begin(9600);
-  digitalWrite(DERE, DERE_POWER);
+  Serial.begin(9600);               // for Debug
+  RS485.setPins(txPin, rxPin, LED); // Board don't Use RE pin so set it to LED so it lights up while Sending
+  ModbusRTUServer.configureCoils(0, 10);
+  ModbusRTUServer.configureHoldingRegisters(0, 10);
+  if (!ModbusRTUServer.begin(1, 9600))
+  {
+  }
 }
 
 void loop()
 {
-  digitalWrite(DERE, DERE_POWER);
-
-  int Serial_A = Serial.available();
-  int Soft_A = RS485Serial.available();
-
-  if (Serial_A > 0)
-  {
-    Serial.println(Serial_A);
-    String IncomingMessage = Serial.readString();
-
-    Serial.print("Received Hardware: ");
-    Serial.println(IncomingMessage);
-  }
-  else if (Soft_A > 0)
-  {
-    Serial.println(Soft_A);
-    String IncomingMessage = RS485Serial.readString();
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-    RS485Serial.flush();
-  }
 }
