@@ -37,7 +37,7 @@ float *FloatRegisters = (float*)PreFloat;
 
 void setup(){
   Serial.begin(9600);
-  Serial.println("Secondary Board Sketch");
+  Serial.println("Secondary-2 Board Sketch");
 
 
   // start the Modbus RTU client
