@@ -5,19 +5,19 @@
 
 
 byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF 
 };
+EthernetClient client;
+
 void setup()
 {
   pinMode(LED, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
-  digitalWrite(LED, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);
   while (!Serial);
   Serial.println("Board Finder Started!");
+  delay(1000);
 
-  Serial.println("Testing for Ethernet...");
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
@@ -31,8 +31,12 @@ void setup()
     Serial.println(Ethernet.localIP());
     Serial.println("This is a Priamry Board");
   }
+
+
   Serial.println("Press Enter into the Terminal to Switch LED");
   Serial.println("Enter Character To cause the LED to Flash");
+  digitalWrite(LED, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
 
 }
 
