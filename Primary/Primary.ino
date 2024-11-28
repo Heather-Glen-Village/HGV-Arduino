@@ -36,8 +36,9 @@
 #define LED 2
 
 byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF 
 };
+EthernetClient client;
 
 uint16_t PreFloat[2];
 float *FloatRegisters = (float*)PreFloat;
@@ -53,6 +54,7 @@ float *FloatRegisters = (float*)PreFloat;
 void setup() {
   Serial.begin(9600);
   Serial.println("Primary Board Sketch");
+  delay(1000);
 
 
   // start the Modbus RTU client
@@ -63,7 +65,7 @@ void setup() {
   }
 
     //check if We can get internet connection Just for testing will want a static IP Later
-    if (Ethernet.begin(mac) == 0) {
+  if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
       Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
@@ -71,14 +73,14 @@ void setup() {
       Serial.println("Ethernet cable is not connected.");
     }
     // no point in carrying on, so do nothing forevermore:
-    while (true) {
-      delay(100);
-      Serial.println("Most Likely Not Upload to Right Board Please Connect to the Primary");
-    }
+      while(true){
+        Serial.println("Board is most likely not the Priamry Board");
+        delay(1000);
+      }    
+  } else {
+    Serial.println(Ethernet.localIP());
+    Serial.println("This is a Priamry Board");
   }
-  // print your local IP address:
-  Serial.print("My IP address: ");
-  Serial.println(Ethernet.localIP());
 }
 
 void loop() {

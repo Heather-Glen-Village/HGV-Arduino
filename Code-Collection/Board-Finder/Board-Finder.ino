@@ -25,7 +25,6 @@ void setup()
     } else if (Ethernet.linkStatus() == LinkOFF) {
       Serial.println("Ethernet cable is not connected.");
     }
-    // no point in carrying on, so do nothing forevermore:
       Serial.println("Board is most likely not the Priamry Board");
   } else {
     Serial.println(Ethernet.localIP());
