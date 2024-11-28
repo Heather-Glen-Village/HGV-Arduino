@@ -1,42 +1,85 @@
-
-
 /*
-  Secondary Arduino 
+  Secondary Sensors Sender
 
-  Code to Send Over Sensor Information to the Primary Arduino Using ModbusRTU
+  The Skectch Made for Secondarys that collect Data from Sensors and Send them to the Priamry to be send to other locations.
 
   Pin List
+    - D0 RX
+    - D1 TX
+    - D2 LED
+    - D3 
+    - D4 
+    - D5 
+    - D6 
+    - D7 
+    - D8 
+    - D9 
+    - D10 
+    - D11 
+    - D12 
+    - D13 
 
   Created on November 11, 2024
   By Zachary Schultz
 
 */
-// Initializing libraries
-#include <SoftwareSerial.h>
+
 #include <ArduinoRS485.h>
 #include <ArduinoModbus.h>
-#include <SPI.h>
-#include <Ethernet.h>
 
-// Initializing pins
+#define ID 1
+#define LED 2
+#define Float 1.532
 
-#define rxPin 16 // A2
-#define txPin 17 // A3
-#define LED 8
-// Initializing the uses of SoftwareSerial
-// SoftwareSerial modbusSerial(rxPin, txPin); // RX TX
 
-void setup()
-{
-  Serial.begin(9600);               // for Debug
-  RS485.setPins(txPin, rxPin, LED); // Board don't Use RE pin so set it to LED so it lights up while Sending
-  ModbusRTUServer.configureCoils(0, 10);
-  ModbusRTUServer.configureHoldingRegisters(0, 10);
-  if (!ModbusRTUServer.begin(1, 9600))
-  {
+uint16_t PreFloat[2];
+float *FloatRegisters = (float*)PreFloat;
+
+void setup(){
+  Serial.begin(9600);
+  Serial.println("Secondary Board Sketch");
+
+
+  // start the Modbus RTU client
+  RS485.setPins(1,0,-1);
+  
+  if (!ModbusRTUServer.begin(ID,9600)) {
+    
+    while (true)
+    {
+      Serial.println("Failed to start Modbus RTU Server!");
+    }
+    
   }
+
+  FloatRegisters[0] = Float;
+
+  ModbusRTUServer.configureCoils(0,1);
+  ModbusRTUServer.configureDiscreteInputs(0,3);
+  ModbusRTUServer.discreteInputWrite(0,ID);
+  ModbusRTUServer.discreteInputWrite(1,PreFloat[0]);
+  ModbusRTUServer.discreteInputWrite(2,PreFloat[1]);
+
+  
 }
 
-void loop()
-{
+
+void loop() {
+  // poll for Modbus RTU requests
+  int packetReceived = ModbusRTUServer.poll();
+
+  if(packetReceived) {
+    // read the current value of the coil
+    bool coilValue = ModbusRTUServer.coilRead(0x00);
+  
+    if (coilValue == 1) {
+      // coil value set, turn LED on
+      digitalWrite(LED, HIGH);
+      digitalWrite(LED_BUILTIN, HIGH);
+    } else {
+      // coil value clear, turn LED off
+      digitalWrite(LED, LOW);
+      digitalWrite(LED_BUILTIN, LOW);
+    }
+  }
 }
