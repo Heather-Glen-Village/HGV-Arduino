@@ -13,6 +13,7 @@ void setup()
   Serial.begin(9600);
   digitalWrite(LED, HIGH);
   digitalWrite(LED_BUILTIN, HIGH);
+  while (!Serial);
   Serial.println("Board Finder Started!");
 
   Serial.println("Testing for Ethernet...");
