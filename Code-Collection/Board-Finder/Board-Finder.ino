@@ -25,7 +25,7 @@ void setup()
       Serial.println("Ethernet cable is not connected.");
     }
     // no point in carrying on, so do nothing forevermore:
-      Serial.println("Board is most likely not the Priamry One");
+      Serial.println("Board is most likely not the Priamry Board");
   } else {
     Serial.println(Ethernet.localIP());
     Serial.println("This is a Priamry Board");
