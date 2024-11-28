@@ -1,3 +1,4 @@
+#include <SPI.h>
 #include <Ethernet.h>
 
 #define LED 2
