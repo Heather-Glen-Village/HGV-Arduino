@@ -96,6 +96,7 @@ void loop(){
 
   for (int i = 0; i < NumSecondary; i++) {
     errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRColumns));
+    Serial.println(InputRegister[i][0]);
     Serial.println(FloatRegisters[i][0]);
     delay(100);
   }
