@@ -12,8 +12,7 @@ uint16_t InputRegisters[2];
 float *FloatRegisters = (float*)InputRegisters; // Usable Address is from 0-99? Temperature: 0-49, Humidity 50-99 
 
 
-void setup()
-{
+void setup() {
   pinMode(LED, OUTPUT);
 
   modbus.begin(19200);

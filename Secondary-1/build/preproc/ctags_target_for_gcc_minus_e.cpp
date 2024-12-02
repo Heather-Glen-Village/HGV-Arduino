@@ -1,54 +1,71 @@
 # 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
-# 2 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+/*
+
+  Secondary Sensors Sender
 
 
 
-//#define DI 0
-//#define RO 1
+  The Skectch Made for Secondarys that collect Data from Sensors and Send them to the Priamry to be send to other locations.
 
 
 
+  Pin List
 
-SoftwareSerial RS485Serial(17 /* A3*/, 16 /* A2*/); // RX TX
+    - D0 RX
 
-void setup()
-{
-  pinMode(2, 0x1);
-  pinMode(8, 0x1);
-  Serial.begin(9600);
-  RS485Serial.begin(19200);
-  digitalWrite(8, 0x0);
+    - D1 TX
+
+    - D2 LED
+
+    - D3 
+
+    - D4 
+
+    - D5 
+
+    - D6 
+
+    - D7 
+
+    - D8 
+
+    - D9 
+
+    - D10 
+
+    - D11 
+
+    - D12 
+
+    - D13 
+
+
+
+  Created on November 11, 2024
+
+  By Zachary Schultz
+
+
+
+*/
+# 27 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+//Creating Modbus Connection
+# 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+ModbusRTUSlave modbus(Serial); // No DERE Pins Used
+# 40 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+bool discreteInputs[5 /* Amount of Sensors Using Discrete Inputs*/]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+// 0=Motion, 1=Water?, 2=... 
+uint16_t InputRegister[6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/];
+// 0-1=Temperature
+float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+// 0=Tempature
+
+//Modbus Arrays
+
+
+void setup(){
+
 }
 
-void loop() {
-  digitalWrite(8, 0x0);
-
-  int Serial_A = Serial.available();
-  int Soft_A = RS485Serial.available();
-
-  if (Serial_A > 0) {
-    Serial.println(Serial_A);
-    char IncomingMessage = Serial.read();
-
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-
-    bool led_power = !digitalRead(2);
-    Serial.println(led_power);
-    digitalWrite(2, led_power);
-
-  }
-  else if (Soft_A > 0) {
-    Serial.println(Soft_A);
-    bool IncomingMessage = RS485Serial.read();
-    Serial.print("Received: ");
-    Serial.println(IncomingMessage);
-    if (IncomingMessage == 1) {
-      digitalWrite(2, !digitalRead(2));
-    }
-    else {
-      Serial.println("Unknown message");
-    }
-  }
-
+void loop(){
 }

@@ -24,62 +24,55 @@
 
 */
 
-#include <ArduinoRS485.h>
-#include <ArduinoModbus.h>
+//Creating Modbus Connection
+#include <ModbusRTUSlave.h>
+ModbusRTUSlave modbus(Serial); // No DERE Pins Used
+
+// Initializing Pins
+#define LED 2
+
+// Modbus Settingss
 
 #define ID 4
-#define LED 2
-#define Float 1.532
 
+#define CoilColumns 1 
+#define DIColumns 5 // Amount of Sensors Using Discrete Inputs
+#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
 
-uint16_t PreFloat[2];
-float *FloatRegisters = (float*)PreFloat;
+//Modbus Arrays
+
+bool Coils[CoilColumns];
+
+bool discreteInputs[DIColumns]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+// 0=Motion, 1=Water?, 2=... 
+uint16_t InputRegister[IRColumns];
+// 0-1=Temperature
+float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+// 0=Tempature
+
+//Default Values
+
+bool discreteInputs[] = {0,1,0,1,0};
+
+float FloatRegisters[] = {1.44,2.44,3.44};
+
 
 void setup(){
+  modbus.configureCoils(Coils,CoilColumns);
+  modbus.configureDiscreteInputs(discreteInputs,DIColumns);
+  //modbus.configureHoldingRegisters();
+  modbus.configureInputRegisters(InputRegister,IRColumns);
+
   Serial.begin(9600);
-  Serial.println("Secondary-4 Board Sketch");
-
-
-  // start the Modbus RTU client
-  RS485.setPins(1,0,-1);
-  
-  if (!ModbusRTUServer.begin(ID,9600)) {
-    
-    while (true)
-    {
-      Serial.println("Failed to start Modbus RTU Server!");
-    }
-    
-  }
-
-  FloatRegisters[0] = Float;
-
-  ModbusRTUServer.configureCoils(0,1);
-  ModbusRTUServer.configureDiscreteInputs(0,3);
-  ModbusRTUServer.discreteInputWrite(0,ID);
-  ModbusRTUServer.discreteInputWrite(1,PreFloat[0]);
-  ModbusRTUServer.discreteInputWrite(2,PreFloat[1]);
-
-  
+  modbus.begin(ID, 9600);
 }
 
-
 void loop() {
-  // poll for Modbus RTU requests
-  int packetReceived = ModbusRTUServer.poll();
-
-  if(packetReceived) {
-    // read the current value of the coil
-    bool coilValue = ModbusRTUServer.coilRead(0x00);
-  
-    if (coilValue == 1) {
-      // coil value set, turn LED on
-      digitalWrite(LED, HIGH);
-      digitalWrite(LED_BUILTIN, HIGH);
-    } else {
-      // coil value clear, turn LED off
-      digitalWrite(LED, LOW);
-      digitalWrite(LED_BUILTIN, LOW);
+  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
+    modbus.poll(); // Checks for changes
+    if (Coils[0] == 1) {
+      Coils[0] = 0;
+      digitalWrite(LED, !digitalRead(LED));
     }
   }
 }

@@ -1,59 +1,105 @@
 #include <Arduino.h>
-#line 1 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
-
-
+#line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 /*
   Primary Arduino Control
 
   This sketch is the Code That lets the Priamry Act as a RTC Master, TCP Server, and Control All Sensor and System Connected
 
   Pin List
+    - D0 RX
+    - D1 TX
     - D2 LED
     - D3 Smoke
     - D4 Heat On
     - D5 Water Off
     - D6 Power Off
     - D7 Cool On
-    - D8 Eth-Int?
-    - D9 Dere Power (Unused)
+    - D8 Eth-Int
     - D10 Eth-CSN
     - D11 Eth-MOSI
     - D12 Eth-MISO
     - D13 Eth-SCK
-    - D16(A2) SoftRX
-    - D17(A3) SoftTX
 
   Created on November 11, 2024
   By Zachary Schultz
 
 */
 // Initializing libraries
-#include <SoftwareSerial.h>
-#include <ArduinoRS485.h>
-#include <ArduinoModbus.h>
+
+#include <SPI.h>
 #include <Ethernet.h>
-// #include <ModbusRTUServer.h>
-// #include <ModbusServer.h>
-// #include <ModbusTCPServer.h>
+#include <ModbusRTUMaster.h>
+#include <PubSubClient.h>
 
-// Initializing pins
 
-#define rxPin 16 // A2
-#define txPin 17 // A3
+#include "./errorcheck.h"
+// Initializing Values
+
 #define LED 2
 
-SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
+#define NumSecondary 4
+#define DIColumns 5 // Amount of Sensors Using Discrete Inputs
+#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors*2
 
-#line 45 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+//Ethernet Setup
+byte mac[] = {
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF 
+};
+EthernetClient client;
+//Modbus Arrays
+
+bool discreteInputs[NumSecondary][DIColumns]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+// 0=Motion, 1=Water?, 2=... 
+uint16_t InputRegister[NumSecondary][IRColumns];
+// 0-1=Temperature
+float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+// 0=Tempature
+
+
+
+
+// Creating Modbus Connection
+ModbusRTUMaster modbus(Serial); // No DERE Pins Used
+
+
+#line 63 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 49 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 88 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 45 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
-void setup()
-{
+#line 63 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+void setup() {
+  Serial.begin(9600); // Could be remove after everything is wokring? It might only be needed for Debuging
+  modbus.begin(9600);
+  Serial.println("Primary Board Sketch");
+  delay(1000);
+
+  //check if We can get internet connection Just for testing will want a static IP Later
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+    } else if (Ethernet.linkStatus() == LinkOFF) {
+      Serial.println("Ethernet cable is not connected.");
+    }
+    // no point in carrying on, so do nothing forevermore:
+      while(true){
+        Serial.println("Board is most likely not the Priamry Board");
+        delay(1000);
+      }    
+  } else {
+    Serial.println(Ethernet.localIP());
+    Serial.println("This is a Priamry Board");
+  }
 }
 
-void loop()
-{
-}
+void loop(){
+  for (int i = 0; i < 5; i++) {
+    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],5));
+    Serial.println(discreteInputs[i][0]);
+  }
+  
+ 
+  
 
+
+}
