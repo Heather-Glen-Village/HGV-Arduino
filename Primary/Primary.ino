@@ -122,6 +122,7 @@ void loop(){
   delay(5000);
   Serial.println("Writing to Coils");
   errorCheck(modbus.writeSingleCoil(0,0,1));
+  delay(100);
   Serial.println("Writing to Holding Register");
   errorCheck(modbus.writeSingleHoldingRegister(0,0,175));
   delay(3000);
