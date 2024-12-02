@@ -54,8 +54,9 @@
 # 30 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 # 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 
-
+// Imports from other Files
 # 34 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+
 // Initializing Values
 
 
@@ -71,11 +72,11 @@ byte mac[] = {
 EthernetClient client;
 //Modbus Arrays
 
-bool discreteInputs[4][5 /* Amount of Sensors Using Discrete Inputs*/]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+bool discreteInputs[4][5 /* Amount of Sensors Using Discrete Inputs*/];
 // 0=Motion, 1=Water?, 2=... 
-uint16_t InputRegister[4][6 /* Number of Input Register Column so Amount of Float Sensors*2*/];
+uint16_t InputRegister[4][6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/];
 // 0-1=Temperature
-float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+float (*FloatRegisters)[6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/] = (float(*)[6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 // 0=Tempature
 
 
@@ -96,28 +97,33 @@ void setup() {
     Serial.println("Failed to configure Ethernet using DHCP");
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
       Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-    } else if (Ethernet.linkStatus() == LinkOFF) {
+    }
+    else if (Ethernet.linkStatus() == LinkOFF) {
       Serial.println("Ethernet cable is not connected.");
     }
-    // no point in carrying on, so do nothing forevermore:
-      while(true){
+      while(true) { // no point in carrying on, so do nothing forevermore:
         Serial.println("Board is most likely not the Priamry Board");
         delay(1000);
       }
-  } else {
+  }
+  else {
     Serial.println(Ethernet.localIP());
     Serial.println("This is a Priamry Board");
   }
 }
 
 void loop(){
-  for (int i = 0; i < 5; i++) {
-    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],5));
+  for (int i = 0; i < 4; i++) {
+    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],5 /* Amount of Sensors Using Discrete Inputs*/));
     Serial.println(discreteInputs[i][0]);
+    delay(100);
   }
 
-
-
-
-
+  for (int i = 0; i < 4; i++) {
+    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/));
+    Serial.println(FloatRegisters[i][0]);
+    delay(100);
+  }
+  errorCheck(modbus.writeSingleCoil(0,0,1));
+  delay(3000);
 }

@@ -61,6 +61,11 @@ void setup(){
 
   Serial.begin(9600);
   modbus.begin(ID, 9600);
+
+  Serial.println("Secondary Board Sketch");
+  Serial.print("Board ID: "); 
+  Serial.println(ID);
+  delay(1000);
 }
 
 void loop() {

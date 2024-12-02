@@ -31,15 +31,16 @@
 #include <ModbusRTUMaster.h>
 #include <PubSubClient.h>
 
-
+// Imports from other Files
 #include "./errorcheck.h"
+
 // Initializing Values
 
 #define LED 2
 
 #define NumSecondary 4
 #define DIColumns 5 // Amount of Sensors Using Discrete Inputs
-#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors*2
+#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
 
 //Ethernet Setup
 byte mac[] = {
@@ -48,11 +49,11 @@ byte mac[] = {
 EthernetClient client;
 //Modbus Arrays
 
-bool discreteInputs[NumSecondary][DIColumns]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+bool discreteInputs[NumSecondary][DIColumns];
 // 0=Motion, 1=Water?, 2=... 
 uint16_t InputRegister[NumSecondary][IRColumns];
 // 0-1=Temperature
-float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+float (*FloatRegisters)[IRColumns] = (float(*)[IRColumns])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 // 0=Tempature
 
 
@@ -62,11 +63,11 @@ float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into 
 ModbusRTUMaster modbus(Serial); // No DERE Pins Used
 
 
-#line 63 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 64 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup();
-#line 88 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 90 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void loop();
-#line 63 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+#line 64 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 void setup() {
   Serial.begin(9600); // Could be remove after everything is wokring? It might only be needed for Debuging
   modbus.begin(9600);
@@ -78,28 +79,33 @@ void setup() {
     Serial.println("Failed to configure Ethernet using DHCP");
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
       Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-    } else if (Ethernet.linkStatus() == LinkOFF) {
+    } 
+    else if (Ethernet.linkStatus() == LinkOFF) {
       Serial.println("Ethernet cable is not connected.");
     }
-    // no point in carrying on, so do nothing forevermore:
-      while(true){
+      while(true) { // no point in carrying on, so do nothing forevermore:
         Serial.println("Board is most likely not the Priamry Board");
         delay(1000);
       }    
-  } else {
+  } 
+  else {
     Serial.println(Ethernet.localIP());
     Serial.println("This is a Priamry Board");
   }
 }
 
 void loop(){
-  for (int i = 0; i < 5; i++) {
-    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],5));
+  for (int i = 0; i < NumSecondary; i++) {
+    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIColumns));
     Serial.println(discreteInputs[i][0]);
+    delay(100);
   }
-  
- 
-  
 
-
+  for (int i = 0; i < NumSecondary; i++) {
+    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRColumns));
+    Serial.println(FloatRegisters[i][0]);
+    delay(100);
+  }
+  errorCheck(modbus.writeSingleCoil(0,0,1));
+  delay(3000);
 }
