@@ -43,7 +43,7 @@ ModbusRTUSlave modbus(Serial); // No DERE Pins Used
 
 bool Coils[CoilColumns];
 
-bool discreteInputs[DIColumns]= {1,1,0,1,0};
+bool discreteInputs[DIColumns]= {1,0,0,1,0};
 // 0=Motion, 1=Water?, 2=... 
 uint16_t InputRegister[IRColumns] = {1.22,2.22,3.22};
 // 0-1=Temperature
