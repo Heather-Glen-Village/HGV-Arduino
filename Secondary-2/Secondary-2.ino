@@ -43,19 +43,12 @@ ModbusRTUSlave modbus(Serial); // No DERE Pins Used
 
 bool Coils[CoilColumns];
 
-bool discreteInputs[DIColumns]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+bool discreteInputs[DIColumns]= {0,1,0,1,0};
 // 0=Motion, 1=Water?, 2=... 
-uint16_t InputRegister[IRColumns];
+uint16_t InputRegister[IRColumns] = {1.22,2.22,3.22};
 // 0-1=Temperature
 float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 // 0=Tempature
-
-//Default Values
-
-bool discreteInputs[] = {0,1,0,1,0};
-
-float FloatRegisters[] = {1.22,2.22,3.22};
-
 
 void setup(){
   modbus.configureCoils(Coils,CoilColumns);

@@ -1,51 +1,85 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
-#include <SoftwareSerial.h>
+/*
+  Secondary Sensors Sender
+
+  The Skectch Made for Secondarys that collect Data from Sensors and Send them to the Priamry to be send to other locations.
+
+  Pin List
+    - D0 RX
+    - D1 TX
+    - D2 LED
+    - D3 
+    - D4 
+    - D5 
+    - D6 
+    - D7 
+    - D8 
+    - D9 
+    - D10 
+    - D11 
+    - D12 
+    - D13 
+
+  Created on November 11, 2024
+  By Zachary Schultz
+
+*/
+
+//Creating Modbus Connection
 #include <ModbusRTUSlave.h>
-#include <ModbusRTUMaster.h>
+ModbusRTUSlave modbus(Serial); // No DERE Pins Used
 
-// Pins List
-#define SoftTX 16 // A2
-#define SoftRX 17 // A3
+// Initializing Pins
 #define LED 2
-#define DHT22 4
-#define Motion 5
-#define Vibration 6
-#define DS18B20 7
-#define DERE 9
 
-// Defines the ID for the Secondary Board from 1-246
+// Modbus Settingss
+
 #define ID 2
 
-// Initialize Libaries
-SoftwareSerial modbusSerial(SoftRX, SoftTX);
-ModbusRTUSlave modbus(modbusSerial, DERE); // Create Modbus Object
+#define CoilColumns 1 
+#define DIColumns 5 // Amount of Sensors Using Discrete Inputs
+#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
 
-bool coils[1] = {1};
-uint16_t InputRegisters[1];
+//Modbus Arrays
+
+bool Coils[CoilColumns];
+
+bool discreteInputs[DIColumns]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+// 0=Motion, 1=Water?, 2=... 
+uint16_t InputRegister[IRColumns];
+// 0-1=Temperature
+float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+// 0=Tempature
+
+//Default Values
+
+bool discreteInputs[] = {0,1,0,1,0};
+
+float FloatRegisters[] = {1.22,2.22,3.22};
 
 
-#line 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup();
-#line 35 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 70 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void loop();
-#line 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
-void setup() {
-  pinMode(LED, OUTPUT);
+#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+void setup(){
+  modbus.configureCoils(Coils,CoilColumns);
+  modbus.configureDiscreteInputs(discreteInputs,DIColumns);
+  //modbus.configureHoldingRegisters();
+  modbus.configureInputRegisters(InputRegister,IRColumns);
 
-  modbus.configureCoils(coils, 1);
-  modbus.configureInputRegisters(InputRegisters, 1);
-  modbus.begin(ID, 9600);          // ID | Baud Rate
-  Serial.begin(9600);              // For Debuging
+  Serial.begin(9600);
+  modbus.begin(ID, 9600);
 }
 
 void loop() {
-modbus.poll();
-    if (coils[0] == 1) {
-        coils[0] = 0;
-        InputRegisters[0] = random(0, 65536);
-        Serial.print("Changed to: "); // Debugging Line
-        Serial.println(InputRegisters[0]);
+  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
+    modbus.poll(); // Checks for changes
+    if (Coils[0] == 1) {
+      Coils[0] = 0;
+      digitalWrite(LED, !digitalRead(LED));
     }
-delay(500);
+  }
 }
