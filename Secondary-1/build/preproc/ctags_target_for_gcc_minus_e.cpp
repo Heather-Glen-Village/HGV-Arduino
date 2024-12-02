@@ -52,20 +52,51 @@
 //Creating Modbus Connection
 # 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 ModbusRTUSlave modbus(Serial); // No DERE Pins Used
-# 40 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
-bool discreteInputs[5 /* Amount of Sensors Using Discrete Inputs*/]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
+
+// Initializing Pins
+
+
+// Modbus Settingss
+# 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+//Modbus Arrays
+
+bool Coils[1];
+
+bool discreteInputs[5 /* Amount of Sensors Using Discrete Inputs*/] = {1,0,0,0,1};
 // 0=Motion, 1=Water?, 2=... 
-uint16_t InputRegister[6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/];
+uint16_t HoldingRegister[1];
+uint16_t InputRegister[6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/] = {1.11,2.11,3.11};
 // 0-1=Temperature
 float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 // 0=Tempature
 
-//Modbus Arrays
+
 
 
 void setup(){
+  modbus.configureCoils(Coils,1);
+  modbus.configureDiscreteInputs(discreteInputs,5 /* Amount of Sensors Using Discrete Inputs*/);
+  //modbus.configureHoldingRegisters();
+  modbus.configureInputRegisters(InputRegister,6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/);
 
+  Serial.begin(9600);
+  modbus.begin(1, 9600);
+
+  Serial.println("Secondary Board Sketch");
+  Serial.print("Board ID: ");
+  Serial.println(1);
+  delay(1000);
 }
 
-void loop(){
+void loop() {
+  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
+    modbus.poll(); // Checks for changes
+    if (Coils[0] == 1) {
+      Coils[0] = 0;
+      digitalWrite(2, !digitalRead(2));
+      Serial.println("LED Changed");
+    }
+    Serial.print("Holding Register: ");
+    Serial.println(HoldingRegister[0]);
+  }
 }

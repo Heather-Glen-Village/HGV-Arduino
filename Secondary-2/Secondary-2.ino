@@ -37,14 +37,16 @@ ModbusRTUSlave modbus(Serial); // No DERE Pins Used
 
 #define CoilColumns 1 
 #define DIColumns 5 // Amount of Sensors Using Discrete Inputs
+#define HRColumns 1
 #define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
 
 //Modbus Arrays
 
 bool Coils[CoilColumns];
 
-bool discreteInputs[DIColumns]= {1,0,0,1,0};
+bool DiscreteInputs[DIColumns] = {1,0,0,1,0}; 
 // 0=Motion, 1=Water?, 2=... 
+uint16_t HoldingRegister[HRColumns];
 uint16_t InputRegister[IRColumns] = {1.22,2.22,3.22};
 // 0-1=Temperature
 float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
@@ -52,8 +54,8 @@ float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into 
 
 void setup(){
   modbus.configureCoils(Coils,CoilColumns);
-  modbus.configureDiscreteInputs(discreteInputs,DIColumns);
-  //modbus.configureHoldingRegisters();
+  modbus.configureDiscreteInputs(DiscreteInputs,DIColumns);
+  modbus.configureHoldingRegisters(HoldingRegister,HRColumns);
   modbus.configureInputRegisters(InputRegister,IRColumns);
 
   Serial.begin(9600);
