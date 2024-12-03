@@ -24,4 +24,5 @@ C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Primary\build\sketch\Primary.ino.
  C:\Users\Zach_\Documents\Arduino\libraries\ModbusADU\src/ModbusADU.h \
  C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUComm\src/ModbusRTUComm.h \
  C:\Users\Zach_\Documents\Arduino\libraries\PubSubClient\src/PubSubClient.h \
- c:\users\zach_\documents\code\hgv-coop\rems006\primary\build\sketch\errorcheck.h
+ c:\users\zach_\documents\code\hgv-coop\rems006\primary\build\sketch\errorcheck.h \
+ c:\users\zach_\documents\code\hgv-coop\rems006\primary\build\sketch\conf.h

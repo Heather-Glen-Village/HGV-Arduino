@@ -18,52 +18,51 @@
     - D12 Eth-MISO
     - D13 Eth-SCK
 
+
+    Modbus Address
+    Coils:
+      Currently Just for Testing
+    discreteInputs:
+      - 0=Motion
+      - 1=Water?
+      - 2=...
+    Holding Register:
+      Currently Just for Testing
+    Input Register:
+    - 0-1=Temperature
+    - 2-3=Humidity
+
   Created on November 11, 2024
   By Zachary Schultz
 
 */
-// Initializing libraries
 
+// Initializing libraries
 #include <SPI.h>
 #include <Ethernet.h>
 #include <ModbusRTUMaster.h>
 #include <PubSubClient.h>
 
-// Imports from other Files
+//Importing .h files
 #include "./errorcheck.h"
+#include "./conf.h"
 
-// Initializing Values
+//EthernetClient client; //IDK What this Does or if it needed Probably Later
 
-#define LED 2
-
-#define NumSecondary 4
-#define DIColumns 5 // Amount of Sensors Using Discrete Inputs
-#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
-
-//Ethernet Setup
-byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF 
-};
-EthernetClient client;
 //Modbus Arrays
-
-bool discreteInputs[NumSecondary][DIColumns];
-// 0=Motion, 1=Water?, 2=... 
-uint16_t InputRegister[NumSecondary][IRColumns];
-// 0-1=Temperature
-float (*FloatRegisters)[IRColumns] = (float(*)[IRColumns])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-// 0=Tempature
-
-
-
+// bool Coils[NumSecondary][CoilAddress];
+bool discreteInputs[NumSecondary][DIAddress];
+// uint16_t HoldingRegisters[NumSecondary][HRAddress];
+uint16_t InputRegister[NumSecondary][IRAddress];
+float (*FloatRegisters)[IRAddress] = (float(*)[IRAddress])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
-ModbusRTUMaster modbus(Serial); // No DERE Pins Used
+ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
 
 
 void setup() {
-  Serial.begin(9600); // Could be remove after everything is wokring? It might only be needed for Debuging
-  modbus.begin(9600);
+  Serial.begin(baud); // Could be remove after everything is wokring? It might only be needed for Debuging
+  modbus.begin(baud);
   Serial.println("Primary Board Sketch");
   delay(1000);
 
@@ -91,7 +90,7 @@ void loop(){
   Serial.println();
   Serial.println("----------------------------------------------------------------");
   for (int i = 0; i < NumSecondary; i++) {
-    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIColumns));
+    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress));
     delay(100);
   }
   Serial.println();
@@ -104,7 +103,7 @@ void loop(){
   
 
   for (int i = 0; i < NumSecondary; i++) {
-    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRColumns));
+    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress));
     delay(100);
   }
   Serial.println();

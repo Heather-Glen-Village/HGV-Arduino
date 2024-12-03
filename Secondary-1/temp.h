@@ -1,9 +1,7 @@
-#include <OneWire.h>
-#include <DallasTemperature.h>
 
-#define ONE_WIRE_BUS 7
 
-OneWire oneWire(ONE_WIRE_BUS);
+
+OneWire oneWire(DS18B20);
 DallasTemperature DS18B20(&oneWire);
 
 void setup() {

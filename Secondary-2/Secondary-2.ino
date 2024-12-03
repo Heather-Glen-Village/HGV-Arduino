@@ -7,17 +7,14 @@
     - D0 RX
     - D1 TX
     - D2 LED
-    - D3 
-    - D4 
-    - D5 
-    - D6 
-    - D7 
-    - D8 
-    - D9 
-    - D10 
-    - D11 
-    - D12 
-    - D13 
+    - D4 AM2302 Heat/DHT22
+    - D5 SR-HC 50x Motion
+    - D6 SW-1815P Vibration Sensor
+    - D7 DS18B20 Heat
+    - D14/A0 Water Leak Set 1 (Digital)
+    - D15/A1 Water Leak Set 2 (Digital)
+    - D18/A6 Water Leak Set 1 (Analog)
+    - D19/A7 Water Leak Set 2 (Analog)
 
   Created on November 11, 2024
   By Zachary Schultz
