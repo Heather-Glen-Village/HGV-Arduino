@@ -84,7 +84,5 @@ void loop() {
       digitalWrite(2, !digitalRead(2));
       Serial.println("LED Changed");
     }
-    Serial.print("Holding Register: ");
-    Serial.println(HoldingRegister[0]);
   }
 }

@@ -39,6 +39,34 @@
 
 
 
+
+
+    Modbus Address
+
+    Coils:
+
+      Currently Just for Testing
+
+    discreteInputs:
+
+      - 0=Motion
+
+      - 1=Water?
+
+      - 2=...
+
+    Holding Register:
+
+      Currently Just for Testing
+
+    Input Register:
+
+    - 0-1=Temperature
+
+    - 2-3=Humidity
+
+
+
   Created on November 11, 2024
 
   By Zachary Schultz
@@ -46,45 +74,28 @@
 
 
 */
-# 25 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
+# 40 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino"
 // Initializing libraries
+# 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 44 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 45 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 
-# 28 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-# 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-# 30 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-# 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+//Importing .h files
+# 48 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+# 49 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
 
-// Imports from other Files
-# 34 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
-# 35 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Primary\\Primary.ino" 2
+//EthernetClient client; //IDK What this Does or if it needed Probably Later
 
-// Initializing Values
-
-
-
-
-
-
-
-//Ethernet Setup
-byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF
-};
-EthernetClient client;
 //Modbus Arrays
-
-bool discreteInputs[4][5 /* Amount of Sensors Using Discrete Inputs*/];
-// 0=Motion, 1=Water?, 2=... 
-uint16_t InputRegister[4][6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/];
-// 0-1=Temperature
-float (*FloatRegisters)[6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/] = (float(*)[6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-// 0=Tempature
-
-
-
+// bool Coils[NumSecondary][CoilAddress];
+bool discreteInputs[4 /* Amount of Secondary Boards Being Used*/][5 /* Number of used Discrete Inputs Address*/];
+// uint16_t HoldingRegisters[NumSecondary][HRAddress];
+uint16_t InputRegister[4 /* Amount of Secondary Boards Being Used*/][6 /* Number of used Input Register Addresss*/];
+float (*FloatRegisters)[6 /* Number of used Input Register Addresss*/] = (float(*)[6 /* Number of used Input Register Addresss*/])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
-ModbusRTUMaster modbus(Serial); // No DERE Pins Used
+ModbusRTUMaster modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins Used
 
 
 void setup() {
@@ -116,21 +127,21 @@ void setup() {
 void loop(){
   Serial.println();
   Serial.println("----------------------------------------------------------------");
-  for (int i = 0; i < 4; i++) {
-    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],5 /* Amount of Sensors Using Discrete Inputs*/));
+  for (int i = 0; i < 4 /* Amount of Secondary Boards Being Used*/; i++) {
+    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],5 /* Number of used Discrete Inputs Address*/));
     delay(100);
   }
   Serial.println();
   Serial.println("-----Discrete Input-----");
-  Serial.println(discreteInputs[0][0]+discreteInputs[0][1]+discreteInputs[0][2]+discreteInputs[0][3]+discreteInputs[0][4]);
+  Serial.println(String(discreteInputs[0][0])+String(discreteInputs[0][1])+discreteInputs[0][2]+discreteInputs[0][3]+discreteInputs[0][4]);
   Serial.println(discreteInputs[1][0]+discreteInputs[1][1]+discreteInputs[1][2]+discreteInputs[1][3]+discreteInputs[1][4]);
   Serial.println(discreteInputs[2][0]+discreteInputs[2][1]+discreteInputs[2][2]+discreteInputs[2][3]+discreteInputs[2][4]);
   Serial.println(discreteInputs[3][0]+discreteInputs[3][1]+discreteInputs[3][2]+discreteInputs[3][3]+discreteInputs[3][4]);
   delay(5000);
 
 
-  for (int i = 0; i < 4; i++) {
-    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],6 /* Number of Input Register Column so Amount of Float Sensors Needed *2*/));
+  for (int i = 0; i < 4 /* Amount of Secondary Boards Being Used*/; i++) {
+    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],6 /* Number of used Input Register Addresss*/));
     delay(100);
   }
   Serial.println();
