@@ -74,5 +74,7 @@ void loop() {
       Coils[0] = 0;
       digitalWrite(LED, !digitalRead(LED));
     }
+    Serial.print("Holding Register: ");
+    Serial.println(HoldingRegister[0]);
   }
 }

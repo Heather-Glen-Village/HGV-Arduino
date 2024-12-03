@@ -39,33 +39,30 @@ ModbusRTUSlave modbus(Serial); // No DERE Pins Used
 
 #define CoilColumns 1 
 #define DIColumns 5 // Amount of Sensors Using Discrete Inputs
-#define HRColums 1
+#define HRColumns 1
 #define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
 
 //Modbus Arrays
 
 bool Coils[CoilColumns];
 
-bool discreteInputs[DIColumns] = {1,0,0,0,1}; 
+bool DiscreteInputs[DIColumns] = {1,0,0,0,1}; 
 // 0=Motion, 1=Water?, 2=... 
-uint16_t HoldingRegister[HRColums];
+uint16_t HoldingRegister[HRColumns];
 uint16_t InputRegister[IRColumns] = {1.11,2.11,3.11};
 // 0-1=Temperature
 float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 // 0=Tempature
 
-
-
-
-#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 55 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 73 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 70 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 55 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilColumns);
-  modbus.configureDiscreteInputs(discreteInputs,DIColumns);
-  //modbus.configureHoldingRegisters();
+  modbus.configureDiscreteInputs(DiscreteInputs,DIColumns);
+  modbus.configureHoldingRegisters(HoldingRegister,HRColumns);
   modbus.configureInputRegisters(InputRegister,IRColumns);
 
   Serial.begin(9600);
