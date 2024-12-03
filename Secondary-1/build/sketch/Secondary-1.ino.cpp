@@ -37,15 +37,16 @@ bool DiscreteInputs[DIAddress];
 uint16_t HoldingRegister[HRAddress];
 uint16_t InputRegister[IRAddress];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 68 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 71 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -70,15 +71,23 @@ void setup(){
   FloatRegister[0] = 1.11f;
   FloatRegister[1] = 2.11f;
   FloatRegister[2] = 3.11f;
+
+  
 }
 
 void loop() {
   if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
     modbus.poll(); // Checks for changes
+    Serial.println();
     if (Coils[0] == 1) {
       Coils[0] = 0;
       digitalWrite(LED, !digitalRead(LED));
-      Serial.println("LED Changed");
+      Serial.println("Coil Changed");
+    }
+    if (LastHolding = HoldingRegister[0]) {
+      Serial.print("Holding Register Changed: ");
+      Serial.println(HoldingRegister[0]);
+      LastHolding = HoldingRegister[0];
     }
   }
 }

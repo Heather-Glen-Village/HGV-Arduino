@@ -66,19 +66,16 @@ void setup(){
   FloatRegister[2] = 3.44f;
 }
 
-void loop() {
-  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
-    modbus.poll(); // Checks for changes
-    Serial.println();
-    if (Coils[0] == 1) {
-      Coils[0] = 0;
-      digitalWrite(LED, !digitalRead(LED));
-      Serial.println("Coil Changed");
-    }
-    if (LastHolding = HoldingRegister[0]) {
-      Serial.print("Holding Register Changed: ");
-      Serial.println(HoldingRegister[0]);
-      LastHolding = HoldingRegister[0];
-    }
+void loop() {    
+  modbus.poll(); // Checks for changes
+  if (Coils[0] == 1) {
+    Coils[0] = 0;
+    digitalWrite(LED, !digitalRead(LED));
+    Serial.println("Coil Changed");
+  }
+  if (LastHolding = HoldingRegister[0]) {
+    Serial.print("Holding Register Changed: ");
+    Serial.println(HoldingRegister[0]);
+    LastHolding = HoldingRegister[0];
   }
 }
