@@ -9,69 +9,67 @@
     - D0 RX
     - D1 TX
     - D2 LED
-    - D3 
-    - D4 
-    - D5 
-    - D6 
-    - D7 
-    - D8 
-    - D9 
-    - D10 
-    - D11 
-    - D12 
-    - D13 
+    - D4 AM2302 Heat/DHT22
+    - D5 SR-HC 50x Motion
+    - D6 SW-1815P Vibration Sensor
+    - D7 DS18B20 Heat
+    - D14/A0 Water Leak Set 1 (Digital)
+    - D15/A1 Water Leak Set 2 (Digital)
+    - D18/A6 Water Leak Set 1 (Analog)
+    - D19/A7 Water Leak Set 2 (Analog)
 
   Created on November 11, 2024
   By Zachary Schultz
 
 */
 
-//Creating Modbus Connection
+// Initializing libraries
 #include <ModbusRTUSlave.h>
-ModbusRTUSlave modbus(Serial); // No DERE Pins Used
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
-// Initializing Pins
-#define LED 2
-
-// Modbus Settingss
-
-#define ID 2
-
-#define CoilColumns 1 
-#define DIColumns 5 // Amount of Sensors Using Discrete Inputs
-#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
+//Importing .h files
+#include "./conf.h"
 
 //Modbus Arrays
+bool Coils[CoilAddress];
+bool DiscreteInputs[DIAddress];
+uint16_t HoldingRegister[HRAddress];
+uint16_t InputRegister[IRAddress];
+float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
-bool Coils[CoilColumns];
+// Creating Modbus Connection
+ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-bool discreteInputs[DIColumns]; //Creates a 2d Array of NumSecondary rows for 4 Secondarys and DIColumns Columns 
-// 0=Motion, 1=Water?, 2=... 
-uint16_t InputRegister[IRColumns];
-// 0-1=Temperature
-float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-// 0=Tempature
-
-//Default Values
-
-bool discreteInputs[] = {0,1,0,1,0};
-
-float FloatRegisters[] = {1.22,2.22,3.22};
-
-
-#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup();
-#line 70 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 68 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void loop();
-#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup(){
-  modbus.configureCoils(Coils,CoilColumns);
-  modbus.configureDiscreteInputs(discreteInputs,DIColumns);
-  //modbus.configureHoldingRegisters();
-  modbus.configureInputRegisters(InputRegister,IRColumns);
+  modbus.configureCoils(Coils,CoilAddress);
+  modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
+  modbus.configureHoldingRegisters(HoldingRegister,HRAddress);
+  modbus.configureInputRegisters(InputRegister,IRAddress);
 
-  Serial.begin(9600);
-  modbus.begin(ID, 9600);
+  Serial.begin(baud);
+  modbus.begin(ID, baud);
+
+  Serial.println("Secondary Board Sketch");
+  Serial.print("Board ID: "); 
+  Serial.println(ID);
+  delay(1000);
+
+  //test data
+  DiscreteInputs[0] = 0;
+  DiscreteInputs[1] = 0;
+  DiscreteInputs[2] = 0;
+  DiscreteInputs[3] = 1;
+  DiscreteInputs[4] = 0;
+
+  FloatRegister[0] = 1.22f;
+  FloatRegister[1] = 2.22f;
+  FloatRegister[2] = 3.22f;
 }
 
 void loop() {
@@ -80,6 +78,7 @@ void loop() {
     if (Coils[0] == 1) {
       Coils[0] = 0;
       digitalWrite(LED, !digitalRead(LED));
+      Serial.println("LED Changed");
     }
   }
 }

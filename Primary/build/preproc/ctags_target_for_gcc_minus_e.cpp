@@ -90,7 +90,7 @@
 //Modbus Arrays
 // bool Coils[NumSecondary][CoilAddress];
 bool discreteInputs[4 /* Amount of Secondary Boards Being Used*/][5 /* Number of used Discrete Inputs Address*/];
-// uint16_t HoldingRegisters[NumSecondary][HRAddress];
+uint16_t HoldingRegisters[4 /* Amount of Secondary Boards Being Used*/][1 /* Number of used Holding Register Address*/];
 uint16_t InputRegister[4 /* Amount of Secondary Boards Being Used*/][6 /* Number of used Input Register Addresss*/];
 float (*FloatRegisters)[6 /* Number of used Input Register Addresss*/] = (float(*)[6 /* Number of used Input Register Addresss*/])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
@@ -133,10 +133,10 @@ void loop(){
   }
   Serial.println();
   Serial.println("-----Discrete Input-----");
-  Serial.println(String(discreteInputs[0][0])+String(discreteInputs[0][1])+discreteInputs[0][2]+discreteInputs[0][3]+discreteInputs[0][4]);
-  Serial.println(discreteInputs[1][0]+discreteInputs[1][1]+discreteInputs[1][2]+discreteInputs[1][3]+discreteInputs[1][4]);
-  Serial.println(discreteInputs[2][0]+discreteInputs[2][1]+discreteInputs[2][2]+discreteInputs[2][3]+discreteInputs[2][4]);
-  Serial.println(discreteInputs[3][0]+discreteInputs[3][1]+discreteInputs[3][2]+discreteInputs[3][3]+discreteInputs[3][4]);
+  Serial.println(String(discreteInputs[0][0])+String(discreteInputs[0][1])+String(discreteInputs[0][2])+String(discreteInputs[0][3])+String(discreteInputs[0][4]));
+  Serial.println(String(discreteInputs[1][0])+String(discreteInputs[1][1])+String(discreteInputs[1][2])+String(discreteInputs[1][3])+String(discreteInputs[1][4]));
+  Serial.println(String(discreteInputs[2][0])+String(discreteInputs[2][1])+String(discreteInputs[2][2])+String(discreteInputs[2][3])+String(discreteInputs[2][4]));
+  Serial.println(String(discreteInputs[3][0])+String(discreteInputs[3][1])+String(discreteInputs[3][2])+String(discreteInputs[3][3])+String(discreteInputs[3][4]));
   delay(5000);
 
 
@@ -146,22 +146,30 @@ void loop(){
   }
   Serial.println();
   Serial.println("-----Input Register Raw-----");
-  Serial.println(InputRegister[0][0]+InputRegister[0][1]+InputRegister[0][2]+InputRegister[0][3]+InputRegister[0][4]+InputRegister[0][5]);
-  Serial.println(InputRegister[1][0]+InputRegister[1][1]+InputRegister[1][2]+InputRegister[1][3]+InputRegister[1][4]+InputRegister[1][5]);
-  Serial.println(InputRegister[2][0]+InputRegister[2][1]+InputRegister[2][2]+InputRegister[2][3]+InputRegister[2][4]+InputRegister[2][5]);
-  Serial.println(InputRegister[3][0]+InputRegister[3][1]+InputRegister[3][2]+InputRegister[3][3]+InputRegister[3][4]+InputRegister[3][5]);
-  Serial.println();
+  Serial.println(String(InputRegister[0][0])+String(InputRegister[0][1])+String(InputRegister[0][2])+String(InputRegister[0][3])+String(InputRegister[0][4])+String(InputRegister[0][5]));
+  Serial.println(String(InputRegister[1][0])+String(InputRegister[1][1])+String(InputRegister[1][2])+String(InputRegister[1][3])+String(InputRegister[1][4])+String(InputRegister[1][5]));
+  Serial.println(String(InputRegister[2][0])+String(InputRegister[2][1])+String(InputRegister[2][2])+String(InputRegister[2][3])+String(InputRegister[2][4])+String(InputRegister[2][5]));
+  Serial.println(String(InputRegister[3][0])+String(InputRegister[3][1])+String(InputRegister[3][2])+String(InputRegister[3][3])+String(InputRegister[3][4])+String(InputRegister[3][5]));
   Serial.println("-----Input Register Float-----");
-  Serial.println(FloatRegisters[0][0]+FloatRegisters[0][1]+FloatRegisters[0][2]);
-  Serial.println(FloatRegisters[1][0]+FloatRegisters[1][1]+FloatRegisters[1][2]);
-  Serial.println(FloatRegisters[2][0]+FloatRegisters[2][1]+FloatRegisters[2][2]);
-  Serial.println(FloatRegisters[3][0]+FloatRegisters[3][1]+FloatRegisters[3][2]);
+  Serial.println(String(FloatRegisters[0][0])+String(FloatRegisters[0][1])+String(FloatRegisters[0][2]));
+  Serial.println(String(FloatRegisters[1][0])+String(FloatRegisters[1][1])+String(FloatRegisters[1][2]));
+  Serial.println(String(FloatRegisters[2][0])+String(FloatRegisters[2][1])+String(FloatRegisters[2][2]));
+  Serial.println(String(FloatRegisters[3][0])+String(FloatRegisters[3][1])+String(FloatRegisters[3][2]));
   delay(5000);
   Serial.println("Writing to Coils");
   errorCheck(modbus.writeSingleCoil(0,0,1));
   delay(100);
   Serial.println("Writing to Holding Register");
   errorCheck(modbus.writeSingleHoldingRegister(0,0,175));
+  delay(1000);
+  for (int i = 0; i < 4 /* Amount of Secondary Boards Being Used*/; i++) {
+    errorCheck(modbus.readHoldingRegisters(i+1,0,HoldingRegisters[i],1 /* Number of used Holding Register Address*/));
+    delay(100);
+  }
+  Serial.println(HoldingRegisters[0][0]);
+  Serial.println(HoldingRegisters[1][0]);
+  Serial.println(HoldingRegisters[2][0]);
+  Serial.println(HoldingRegisters[3][0]);
   delay(3000);
 
 

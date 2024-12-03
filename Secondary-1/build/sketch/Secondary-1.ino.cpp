@@ -33,17 +33,17 @@
 
 //Modbus Arrays
 bool Coils[CoilAddress];
-bool DiscreteInputs[DIAddress] = {1,0,0,0,1}; 
+bool DiscreteInputs[DIAddress];
 uint16_t HoldingRegister[HRAddress];
-uint16_t InputRegister[IRAddress] = {1.11,2.11,3.11};
-float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+uint16_t InputRegister[IRAddress];
+float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
 #line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 57 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 68 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
 #line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup(){
@@ -59,6 +59,17 @@ void setup(){
   Serial.print("Board ID: "); 
   Serial.println(ID);
   delay(1000);
+
+  //test data
+  DiscreteInputs[0] = 0;
+  DiscreteInputs[1] = 0;
+  DiscreteInputs[2] = 0;
+  DiscreteInputs[3] = 0;
+  DiscreteInputs[4] = 1;
+
+  FloatRegister[0] = 1.11f;
+  FloatRegister[1] = 2.11f;
+  FloatRegister[2] = 3.11f;
 }
 
 void loop() {

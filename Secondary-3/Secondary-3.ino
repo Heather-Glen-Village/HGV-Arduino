@@ -21,55 +21,64 @@
 
 */
 
-//Creating Modbus Connection
+// Initializing libraries
 #include <ModbusRTUSlave.h>
-ModbusRTUSlave modbus(Serial); // No DERE Pins Used
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
-// Initializing Pins
-#define LED 2
-
-// Modbus Settingss
-
-#define ID 3
-
-#define CoilColumns 1 
-#define DIColumns 5 // Amount of Sensors Using Discrete Inputs
-#define HRColumns 1
-#define IRColumns 6 // Number of Input Register Column so Amount of Float Sensors Needed *2
+//Importing .h files
+#include "./conf.h"
 
 //Modbus Arrays
+bool Coils[CoilAddress];
+bool DiscreteInputs[DIAddress];
+uint16_t HoldingRegister[HRAddress];
+uint16_t InputRegister[IRAddress];
+float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+uint16_t LastHolding = HoldingRegister[0];
 
-bool Coils[CoilColumns];
-
-bool DiscreteInputs[DIColumns] = {1,0,0,1,1}; 
-// 0=Motion, 1=Water?, 2=... 
-uint16_t HoldingRegister[HRColumns];
-uint16_t InputRegister[IRColumns] = {1.33,2.33,3.33};
-// 0-1=Temperature
-float *FloatRegisters = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-// 0=Tempature
+// Creating Modbus Connection
+ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
 void setup(){
-  modbus.configureCoils(Coils,CoilColumns);
-  modbus.configureDiscreteInputs(DiscreteInputs,DIColumns);
-  modbus.configureHoldingRegisters(HoldingRegister,HRColumns);
-  modbus.configureInputRegisters(InputRegister,IRColumns);
+  modbus.configureCoils(Coils,CoilAddress);
+  modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
+  modbus.configureHoldingRegisters(HoldingRegister,HRAddress);
+  modbus.configureInputRegisters(InputRegister,IRAddress);
 
-  Serial.begin(9600);
-  modbus.begin(ID, 9600);
+  Serial.begin(baud);
+  modbus.begin(ID, baud);
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: "); 
   Serial.println(ID);
   delay(1000);
+
+  //test data
+  DiscreteInputs[0] = 0;
+  DiscreteInputs[1] = 0;
+  DiscreteInputs[2] = 0;
+  DiscreteInputs[3] = 1;
+  DiscreteInputs[4] = 1;
+
+  FloatRegister[0] = 1.33f;
+  FloatRegister[1] = 2.33f;
+  FloatRegister[2] = 3.33f;
 }
 
 void loop() {
   if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
     modbus.poll(); // Checks for changes
+    Serial.println();
     if (Coils[0] == 1) {
       Coils[0] = 0;
       digitalWrite(LED, !digitalRead(LED));
+      Serial.println("Coil Changed");
+    }
+    if (LastHolding = HoldingRegister[0]) {
+      Serial.print("Holding Register Changed: ");
+      Serial.println(HoldingRegister[0]);
+      LastHolding = HoldingRegister[0];
     }
   }
 }
