@@ -16,12 +16,13 @@ void loop() {
   DS18B20.requestTemperatures();
   Serial.print("DS18B20 Temperature: ");
   float temp = DS18B20.getTempCByIndex(0);
-  if (temp == DEVICE_DISCONNECTED_C) {
-    Serial.println("ERROR");
-  }
-  else {
-    Serial.print(temp);
-    Serial.println(" °C");
-  }
+  Serial.println(temp);
+  // if (temp == DEVICE_DISCONNECTED_C) {
+  //   Serial.println("ERROR");
+  // }
+  // else {
+  //   Serial.print(temp);
+  //   Serial.println(" °C");
+  // }
   delay(2000);
 }
