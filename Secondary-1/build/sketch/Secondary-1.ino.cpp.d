@@ -12,9 +12,5 @@ C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-1\build\sketch\Secondar
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Zach_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs/pins_arduino.h \
  c:\users\zach_\appdata\local\arduino15\packages\arduino\hardware\avr\1.8.6\variants\standard\pins_arduino.h \
- C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUSlave\src/ModbusRTUSlave.h \
- C:\Users\Zach_\Documents\Arduino\libraries\ModbusADU\src/ModbusADU.h \
- C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUComm\src/ModbusRTUComm.h \
  C:\Users\Zach_\Documents\Arduino\libraries\MAX31850_OneWire/OneWire.h \
- C:\Users\Zach_\Documents\Arduino\libraries\MAX31850_DallasTemp/DallasTemperature.h \
- c:\users\zach_\documents\code\hgv-coop\rems006\secondary-1\build\sketch\conf.h
+ C:\Users\Zach_\Documents\Arduino\libraries\MAX31850_DallasTemp/DallasTemperature.h

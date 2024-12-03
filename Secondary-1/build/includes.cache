@@ -11,21 +11,6 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\sketch\\Secondary-1.ino.cpp",
-    "Include": "ModbusRTUSlave.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\sketch\\Secondary-1.ino.cpp",
-    "Include": "ModbusADU.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusADU\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\sketch\\Secondary-1.ino.cpp",
-    "Include": "ModbusRTUComm.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\sketch\\Secondary-1.ino.cpp",
     "Include": "OneWire.h",
     "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_OneWire"
   },
@@ -36,21 +21,6 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\sketch\\Secondary-1.ino.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src\\ModbusRTUSlave.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusADU\\src\\ModbusADU.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src\\ModbusRTUComm.cpp",
     "Include": "",
     "Includepath": null
   },
