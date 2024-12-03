@@ -7,7 +7,7 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature DS18B20(&oneWire);
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   DS18B20.begin();
   delay(2000);
 }
