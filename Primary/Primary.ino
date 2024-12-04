@@ -54,7 +54,7 @@
 bool discreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegister[NumSecondary][IRAddress];
-float (*FloatRegisters)[IRAddress] = (float(*)[IRAddress])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
 ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
