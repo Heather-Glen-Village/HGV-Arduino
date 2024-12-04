@@ -39,6 +39,7 @@ float (*Floattest)[4] = (float(*)[4])test;
 //Row Col
 
 void setup(){
+  while (!Serial);
   Serial.begin(9600);
   for (int i = 0; i < 4; i++)
   {
@@ -58,6 +59,9 @@ void setup(){
 }
 
 
+void loop(){
+
+}
 
 
 
