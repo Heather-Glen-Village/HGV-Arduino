@@ -23,11 +23,9 @@
 
 // Initializing libraries
 #include <ModbusRTUSlave.h>
-#include <OneWire.h>
-#include <DallasTemperature.h>
 
 //Importing .h files
-#include "./conf.h"
+#include "conf.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];

@@ -47,9 +47,9 @@
 # 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 # 27 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 # 28 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-
 //Importing .h files
-# 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 30 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -61,6 +61,11 @@ uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins Used
+
+
+//Sensor Setup 
+OneWire oneWire(7);
+DallasTemperature DS18B20(&oneWire);
 
 void setup(){
   modbus.configureCoils(Coils,1 /* Number of used Coil Address*/);
@@ -91,18 +96,15 @@ void setup(){
 }
 
 void loop() {
-  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
-    modbus.poll(); // Checks for changes
-    Serial.println();
-    if (Coils[0] == 1) {
-      Coils[0] = 0;
-      digitalWrite(2, !digitalRead(2));
-      Serial.println("Coil Changed");
-    }
-    if (LastHolding = HoldingRegister[0]) {
-      Serial.print("Holding Register Changed: ");
-      Serial.println(HoldingRegister[0]);
-      LastHolding = HoldingRegister[0];
-    }
+  modbus.poll(); // Checks for changes
+  if (Coils[0] == 1) {
+    Coils[0] = 0;
+    digitalWrite(2, !digitalRead(2));
+    Serial.println("Coil Changed");
+  }
+  if (LastHolding = HoldingRegister[0]) {
+    Serial.print("Holding Register Changed: ");
+    Serial.println(HoldingRegister[0]);
+    LastHolding = HoldingRegister[0];
   }
 }

@@ -23,11 +23,12 @@
 
 // Initializing libraries
 #include <ModbusRTUSlave.h>
+//Could to remove?
 #include <OneWire.h>
 #include <DallasTemperature.h>
-
 //Importing .h files
-#include "./conf.h"
+#include "conf.h"
+#include "DS18B20_Sensor.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -49,8 +50,11 @@ void setup(){
   Serial.begin(baud);
   modbus.begin(ID, baud);
 
+  initializeDS18B20();
+
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: "); 
+  Serial.println(getTemperature());
   Serial.println(ID);
   delay(1000);
 

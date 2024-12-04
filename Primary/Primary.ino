@@ -44,8 +44,8 @@
 #include <PubSubClient.h>
 
 //Importing .h files
-#include "./errorcheck.h"
-#include "./conf.h"
+#include "conf.h"
+#include "errorcheck.h"
 
 //EthernetClient client; //IDK What this Does or if it needed Probably Later
 
@@ -65,7 +65,7 @@ void setup() {
   modbus.begin(baud);
   Serial.println("Primary Board Sketch");
   delay(1000);
-
+  
   //check if We can get internet connection Just for testing will want a static IP Later
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
@@ -101,7 +101,6 @@ void loop(){
   Serial.println(String(discreteInputs[3][0])+String(discreteInputs[3][1])+String(discreteInputs[3][2])+String(discreteInputs[3][3])+String(discreteInputs[3][4]));
   delay(5000);
   
-
   for (int i = 0; i < NumSecondary; i++) {
     errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress));
     delay(100);

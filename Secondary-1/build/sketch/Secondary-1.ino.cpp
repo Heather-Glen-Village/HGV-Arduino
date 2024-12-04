@@ -27,9 +27,9 @@
 #include <ModbusRTUSlave.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
-
 //Importing .h files
 #include "./conf.h"
+#
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -42,11 +42,16 @@ uint16_t LastHolding = HoldingRegister[0];
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+
+//Sensor Setup 
+OneWire oneWire(DS18B20_PIN);
+DallasTemperature DS18B20(&oneWire);
+
+#line 48 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 71 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 76 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 48 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -75,19 +80,17 @@ void setup(){
   
 }
 
-void loop() {
-  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
-    modbus.poll(); // Checks for changes
-    Serial.println();
-    if (Coils[0] == 1) {
-      Coils[0] = 0;
-      digitalWrite(LED, !digitalRead(LED));
-      Serial.println("Coil Changed");
-    }
-    if (LastHolding = HoldingRegister[0]) {
-      Serial.print("Holding Register Changed: ");
-      Serial.println(HoldingRegister[0]);
-      LastHolding = HoldingRegister[0];
-    }
+void loop() {    
+  modbus.poll(); // Checks for changes
+  if (Coils[0] == 1) {
+    Coils[0] = 0;
+    digitalWrite(LED, !digitalRead(LED));
+    Serial.println("Coil Changed");
+  }
+  if (LastHolding = HoldingRegister[0]) {
+    Serial.print("Holding Register Changed: ");
+    Serial.println(HoldingRegister[0]);
+    LastHolding = HoldingRegister[0];
   }
 }
+

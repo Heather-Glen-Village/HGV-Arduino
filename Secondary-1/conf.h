@@ -1,13 +1,13 @@
 // Defining Pins 
 #define LED 2
-#define DHT22 4 //Also Known as AM2302
-#define Motion 5
-#define Vibration 6
-#define DS18B20 7 // WE TESTING THIS ONE USB3
-#define WL1D 14
-#define WL2D 15
-#define WL1A A6 //18?
-#define WL2A A7 //19?
+#define DHT22_PIN 4 //Also Known as AM2302
+#define Motion_PIN 5
+#define Vibration_PIN 6
+#define DS18B20_PIN 7
+#define WL1D_PIN 14
+#define WL2D_PIN 15
+#define WL1A_PIN A6 //18?
+#define WL2A_PIN A7 //19?
 
 // General Modbus Configuration 
 #define RS485Serial Serial // Which Serial Is being Used
