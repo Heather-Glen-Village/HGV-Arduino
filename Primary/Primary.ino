@@ -119,11 +119,17 @@ void loop(){
   delay(5000);
   Serial.println();
   Serial.println("Writing to Coils");
-  errorCheck(modbus.writeSingleCoil(0,0,1));
+  for (int i = 0; i < NumSecondary; i++) {
+    errorCheck(modbus.writeSingleCoil(i+1,0,1));
+    delay(100);
+  }  
   delay(5000);
   Serial.println();
   Serial.println("Writing to Holding Register");
-  errorCheck(modbus.writeSingleHoldingRegister(0,0,5));
+  for (int i = 0; i < NumSecondary; i++) {
+    errorCheck(modbus.writeSingleHoldingRegister(i+1,0,5));
+    delay(100);
+  }
   // delay(1000);
   // for (int i = 0; i < NumSecondary; i++) {
   //   errorCheck(modbus.readHoldingRegisters(i+1,0,HoldingRegisters[i],HRAddress));
