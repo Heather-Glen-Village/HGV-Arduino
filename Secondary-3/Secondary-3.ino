@@ -53,7 +53,7 @@ void setup(){
   delay(1000);
 
   //test data
-  DiscreteInputs[0] = 0;
+  DiscreteInputs[0] = 1;
   DiscreteInputs[1] = 0;
   DiscreteInputs[2] = 0;
   DiscreteInputs[3] = 1;
