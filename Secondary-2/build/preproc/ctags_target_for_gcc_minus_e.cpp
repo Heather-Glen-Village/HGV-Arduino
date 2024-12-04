@@ -48,6 +48,7 @@
 
 //Importing .h files
 # 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
+# 30 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -69,6 +70,8 @@ uint16_t LastHolding = HoldingRegister[0];
 
   Serial.begin(9600);
   modbus.begin(2, 9600);
+
+  initializeDS18B20();
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: ");

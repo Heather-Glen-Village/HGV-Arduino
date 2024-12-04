@@ -28,6 +28,7 @@
 
 //Importing .h files
 #include "conf.h"
+#include "DS18B20_Sensor.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -40,11 +41,11 @@ uint16_t LastHolding = HoldingRegister[0];
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup();
-#line 68 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 71 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void loop();
-#line 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -54,6 +55,8 @@ uint16_t LastHolding = HoldingRegister[0];
 
   Serial.begin(baud);
   modbus.begin(ID, baud);
+
+  initializeDS18B20();
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: "); 
