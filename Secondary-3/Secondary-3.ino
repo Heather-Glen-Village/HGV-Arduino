@@ -36,7 +36,7 @@ uint16_t test[4][6] =
 
 uint16_t test2[6] = {5243, 16270, 2621, 16391, 2621, 16455};
 
-float (*Floattest)[6] = (float (*)[6])test;
+float (*Floattest)[3] = (float (*)[3])test;
 //Row Col
 
 void setup(){
