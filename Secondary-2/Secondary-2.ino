@@ -26,6 +26,7 @@
 
 //Importing .h files
 #include "conf.h"
+#include "DS18B20_Sensor.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -47,6 +48,8 @@ uint16_t LastHolding = HoldingRegister[0];
 
   Serial.begin(baud);
   modbus.begin(ID, baud);
+
+  initializeDS18B20();
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: "); 

@@ -34,7 +34,9 @@ uint16_t test[4][6] =
 {15729, 16298, 7864, 16405, 7864, 16469},
 {20972, 16312, 10486, 16412, 10486, 16476}};
 
-float (*Floattest)[4] = (float(*)[4])test;
+uint16_t test2[6] = {5243, 16270, 2621, 16391, 2621, 16455};
+
+float (*Floattest) = (float(*))test2;
 
 //Row Col
 
@@ -50,9 +52,10 @@ void setup(){
    Serial.println(test[i][4]);
    Serial.println(test[i][5]); 
    Serial.println("-------------");
-   Serial.println(Floattest[i][0]);
-   Serial.println(Floattest[i][1]);
-   Serial.println(Floattest[i][2]);
+   Serial.println(Floattest[0]);
+   Serial.println(Floattest[1]);
+   Serial.println(Floattest[2]);
+   Serial.println("-------------");
   }
   
 

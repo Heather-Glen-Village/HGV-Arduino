@@ -25,11 +25,9 @@
 
 // Initializing libraries
 #include <ModbusRTUSlave.h>
-#include <OneWire.h>
-#include <DallasTemperature.h>
 
 //Importing .h files
-#include "./conf.h"
+#include "conf.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -37,20 +35,22 @@ bool DiscreteInputs[DIAddress];
 uint16_t HoldingRegister[HRAddress];
 uint16_t InputRegister[IRAddress];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup();
 #line 68 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void loop();
-#line 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
   modbus.configureHoldingRegisters(HoldingRegister,HRAddress);
   modbus.configureInputRegisters(InputRegister,IRAddress);
+uint16_t LastHolding = HoldingRegister[0];
 
   Serial.begin(baud);
   modbus.begin(ID, baud);
@@ -72,13 +72,16 @@ void setup(){
   FloatRegister[2] = 3.22f;
 }
 
-void loop() {
-  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
-    modbus.poll(); // Checks for changes
-    if (Coils[0] == 1) {
-      Coils[0] = 0;
-      digitalWrite(LED, !digitalRead(LED));
-      Serial.println("LED Changed");
-    }
+void loop() {    
+  modbus.poll(); // Checks for changes
+  if (Coils[0] == 1) {
+    Coils[0] = 0;
+    digitalWrite(LED, !digitalRead(LED));
+    Serial.println("Coil Changed");
+  }
+  if (LastHolding = HoldingRegister[0]) {
+    Serial.print("Holding Register Changed: ");
+    Serial.println(HoldingRegister[0]);
+    LastHolding = HoldingRegister[0];
   }
 }

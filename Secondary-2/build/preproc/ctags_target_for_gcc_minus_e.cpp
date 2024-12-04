@@ -45,11 +45,9 @@
 # 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 // Initializing libraries
 # 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
-# 27 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
-# 28 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
 
 //Importing .h files
-# 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
+# 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -57,6 +55,7 @@ bool DiscreteInputs[5 /* Number of used Discrete Inputs Address*/];
 uint16_t HoldingRegister[1 /* Number of used Holding Register Address*/];
 uint16_t InputRegister[6 /* Number of used Input Register Address*/];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins Used
@@ -66,6 +65,7 @@ void setup(){
   modbus.configureDiscreteInputs(DiscreteInputs,5 /* Number of used Discrete Inputs Address*/);
   modbus.configureHoldingRegisters(HoldingRegister,1 /* Number of used Holding Register Address*/);
   modbus.configureInputRegisters(InputRegister,6 /* Number of used Input Register Address*/);
+uint16_t LastHolding = HoldingRegister[0];
 
   Serial.begin(9600);
   modbus.begin(2, 9600);
@@ -88,12 +88,15 @@ void setup(){
 }
 
 void loop() {
-  if (Serial.available() > 0) { //want to test if this isn't need anymore but that a later plan
-    modbus.poll(); // Checks for changes
-    if (Coils[0] == 1) {
-      Coils[0] = 0;
-      digitalWrite(2, !digitalRead(2));
-      Serial.println("LED Changed");
-    }
+  modbus.poll(); // Checks for changes
+  if (Coils[0] == 1) {
+    Coils[0] = 0;
+    digitalWrite(2, !digitalRead(2));
+    Serial.println("Coil Changed");
+  }
+  if (LastHolding = HoldingRegister[0]) {
+    Serial.print("Holding Register Changed: ");
+    Serial.println(HoldingRegister[0]);
+    LastHolding = HoldingRegister[0];
   }
 }

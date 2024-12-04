@@ -26,16 +26,6 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
-    "Include": "OneWire.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_OneWire"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
-    "Include": "DallasTemperature.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_DallasTemp"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -51,16 +41,6 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src\\ModbusRTUComm.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_OneWire\\OneWire.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_DallasTemp\\DallasTemperature.cpp",
     "Include": "",
     "Includepath": null
   }
