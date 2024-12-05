@@ -47,7 +47,7 @@
 # 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 //Importing .h files
 # 28 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-# 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+// #include "DS18B20_Sensor.h"
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -69,7 +69,7 @@ void setup(){
   Serial.begin(9600);
   modbus.begin(1, 9600);
 
-  initializeDS18B20();
+  // initializeDS18B20();
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: ");

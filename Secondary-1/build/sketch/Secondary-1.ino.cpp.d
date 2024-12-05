@@ -15,7 +15,4 @@ C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-1\build\sketch\Secondar
  C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUSlave\src/ModbusRTUSlave.h \
  C:\Users\Zach_\Documents\Arduino\libraries\ModbusADU\src/ModbusADU.h \
  C:\Users\Zach_\Documents\Arduino\libraries\ModbusRTUComm\src/ModbusRTUComm.h \
- C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-1\build\sketch\conf.h \
- C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-1\build\sketch\DS18B20_Sensor.h \
- C:\Users\Zach_\Documents\Arduino\libraries\MAX31850_OneWire/OneWire.h \
- C:\Users\Zach_\Documents\Arduino\libraries\MAX31850_DallasTemp/DallasTemperature.h
+ C:\Users\Zach_\Documents\Code\HGV-Coop\Rems006\Secondary-1\build\sketch\conf.h

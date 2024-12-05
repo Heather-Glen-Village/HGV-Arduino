@@ -90,7 +90,7 @@ void loop(){
   Serial.println();
   Serial.println("----------------------------------------------------------------");
   for (int i = 0; i < NumSecondary; i++) {
-    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress));
+    if(errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
     delay(100);
   }
   Serial.println();
@@ -140,8 +140,21 @@ void loop(){
   // Serial.println(HoldingRegisters[0][0]);
   // Serial.println(HoldingRegisters[1][0]);
   // Serial.println(HoldingRegisters[2][0]);
+  
   // Serial.println(HoldingRegisters[3][0]);
   delay(3000);
+  Serial.println("-----Restarting the Data-----");
+  for (int i = 0; i < NumSecondary; i++) {
+    for (int z = 0; z < DIAddress; z++) {
+      discreteInputs[i][z] = 0;
+    }
+    
+  }
 
-
+  for (int i = 0; i < NumSecondary; i++) {
+    for (int z = 0; z < IRAddress; z++) {
+      InputRegister[i][z] = 0;
+    }
+  }
+  
 }
