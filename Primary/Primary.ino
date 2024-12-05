@@ -50,7 +50,7 @@
 //EthernetClient client; //IDK What this Does or if it needed Probably Later
 
 //Modbus Arrays
-// bool Coils[NumSecondary][CoilAddress];
+bool Coils[NumSecondary][CoilAddress];
 bool discreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegister[NumSecondary][IRAddress];
@@ -97,7 +97,7 @@ void loop(){
   Serial.println();
   Serial.println("-----Coil-----");
   for (int i = 0; i < NumSecondary; i++) {
-    if(errorCheck(modbus.readCoils(i+1,0,CoilAddress[i],CoilAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
+    if(errorCheck(modbus.readCoils(i+1,0,Coils[i],CoilAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
     delay(100);
   }
 
