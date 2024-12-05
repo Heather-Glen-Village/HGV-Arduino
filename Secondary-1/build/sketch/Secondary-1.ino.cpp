@@ -25,6 +25,7 @@
 
 // Initializing libraries
 #include <ModbusRTUSlave.h>
+//Needed for .h Files
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
@@ -42,11 +43,11 @@ uint16_t LastHolding = HoldingRegister[0];
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 44 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 69 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 70 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 44 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -61,7 +62,7 @@ void setup(){
   Serial.println(ID);
   delay(1000);
 
-  //test data
+  //test data REMOVE
   DiscreteInputs[0] = 1;
   DiscreteInputs[1] = 0;
   DiscreteInputs[2] = 0;
@@ -75,6 +76,8 @@ void setup(){
 
 void loop() {    
   modbus.poll(); // Checks for changes
+  
+  //REMOVE LATER
   if (Coils[0] == 1) {
     Coils[0] = 0;
     digitalWrite(LED, !digitalRead(LED));

@@ -71,7 +71,7 @@ void loop() {
     digitalWrite(LED, !digitalRead(LED));
     Serial.println("Coil Changed");
   }
-  if (LastHolding = HoldingRegister[0]) {
+  if (LastHolding != HoldingRegister[0]) {
     Serial.print("Holding Register Changed: ");
     Serial.println(HoldingRegister[0]);
     LastHolding = HoldingRegister[0];

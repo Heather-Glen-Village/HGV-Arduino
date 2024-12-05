@@ -45,11 +45,12 @@
 # 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 // Initializing libraries
 # 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-# 27 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+//Needed for .h Files
 # 28 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 
 //Importing .h files
-# 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 32 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -69,14 +70,14 @@ void setup(){
   modbus.configureInputRegisters(InputRegister,6 /* Number of used Input Register Address*/);
 
   Serial.begin(9600);
-  modbus.begin(1, 9600);
+  modbus.begin(2, 9600);
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: ");
-  Serial.println(1);
+  Serial.println(2);
   delay(1000);
 
-  //test data
+  //test data REMOVE
   DiscreteInputs[0] = 1;
   DiscreteInputs[1] = 0;
   DiscreteInputs[2] = 0;
@@ -90,6 +91,8 @@ void setup(){
 
 void loop() {
   modbus.poll(); // Checks for changes
+
+  //REMOVE LATER
   if (Coils[0] == 1) {
     Coils[0] = 0;
     digitalWrite(2, !digitalRead(2));

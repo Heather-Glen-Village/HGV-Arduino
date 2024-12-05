@@ -89,23 +89,32 @@ void setup() {
 void loop(){
   Serial.println();
   Serial.println("----------------------------------------------------------------");
+  Serial.println("-----Discrete Input-----");
   for (int i = 0; i < NumSecondary; i++) {
     if(errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
     delay(100);
   }
   Serial.println();
-  Serial.println("-----Discrete Input-----");
+  Serial.println("-----Coil-----");
+  for (int i = 0; i < NumSecondary; i++) {
+    if(errorCheck(modbus.readCoils(i+1,0,CoilAddress[i],CoilAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
+    delay(100);
+  }
+
+  
+  
   // Serial.println(String(discreteInputs[0][0])+String(discreteInputs[0][1])+String(discreteInputs[0][2])+String(discreteInputs[0][3])+String(discreteInputs[0][4]));
   // Serial.println(String(discreteInputs[1][0])+String(discreteInputs[1][1])+String(discreteInputs[1][2])+String(discreteInputs[1][3])+String(discreteInputs[1][4]));
   // Serial.println(String(discreteInputs[2][0])+String(discreteInputs[2][1])+String(discreteInputs[2][2])+String(discreteInputs[2][3])+String(discreteInputs[2][4]));
   // Serial.println(String(discreteInputs[3][0])+String(discreteInputs[3][1])+String(discreteInputs[3][2])+String(discreteInputs[3][3])+String(discreteInputs[3][4]));
   delay(5000);
-  
+  Serial.println();
+  Serial.println("-----Input Register-----");
   for (int i = 0; i < NumSecondary; i++) {
     if(errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
     delay(100);
   }
-  Serial.println();
+  
   // Serial.println("-----Input Register Raw-----");
   // Serial.println(String(InputRegister[0][0])+String(InputRegister[0][1])+String(InputRegister[0][2])+String(InputRegister[0][3])+String(InputRegister[0][4])+String(InputRegister[0][5]));
   // Serial.println(String(InputRegister[1][0])+String(InputRegister[1][1])+String(InputRegister[1][2])+String(InputRegister[1][3])+String(InputRegister[1][4])+String(InputRegister[1][5]));
