@@ -129,7 +129,7 @@ void loop(){
   for (int i = 0; i < NumSecondary; i++) {
     errorCheck(modbus.writeSingleHoldingRegister(i+1,0,5));
     delay(100);
-  // }
+  }
   // delay(1000);
   // for (int i = 0; i < NumSecondary; i++) {
   //   errorCheck(modbus.readHoldingRegisters(i+1,0,HoldingRegisters[i],HRAddress));
@@ -148,7 +148,6 @@ void loop(){
     for (int z = 0; z < DIAddress; z++) {
       discreteInputs[i][z] = 0;
     }
-    
   }
 
   for (int i = 0; i < NumSecondary; i++) {
@@ -156,5 +155,4 @@ void loop(){
       InputRegister[i][z] = 0;
     }
   }
-  
 }
