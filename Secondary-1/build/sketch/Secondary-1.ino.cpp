@@ -25,9 +25,11 @@
 
 // Initializing libraries
 #include <ModbusRTUSlave.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
 //Importing .h files
 #include "conf.h"
-// #include "DS18B20_Sensor.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -40,11 +42,11 @@ uint16_t LastHolding = HoldingRegister[0];
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 71 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 69 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -54,25 +56,21 @@ void setup(){
   Serial.begin(baud);
   modbus.begin(ID, baud);
 
-  // initializeDS18B20();
-
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: "); 
   Serial.println(ID);
   delay(1000);
 
   //test data
-  DiscreteInputs[0] = 0;
+  DiscreteInputs[0] = 1;
   DiscreteInputs[1] = 0;
   DiscreteInputs[2] = 0;
-  DiscreteInputs[3] = 0;
+  DiscreteInputs[3] = 1;
   DiscreteInputs[4] = 1;
 
-  FloatRegister[0] = 1.11f;
-  FloatRegister[1] = 2.11f;
-  FloatRegister[2] = 3.11f;
-
-  
+  FloatRegister[0] = 1.33f;
+  FloatRegister[1] = 2.33f;
+  FloatRegister[2] = 3.33f;
 }
 
 void loop() {    
@@ -88,4 +86,3 @@ void loop() {
     LastHolding = HoldingRegister[0];
   }
 }
-

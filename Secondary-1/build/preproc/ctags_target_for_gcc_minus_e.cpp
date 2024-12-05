@@ -45,9 +45,11 @@
 # 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 // Initializing libraries
 # 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-//Importing .h files
+# 27 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 # 28 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-// #include "DS18B20_Sensor.h"
+
+//Importing .h files
+# 31 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -69,25 +71,21 @@ void setup(){
   Serial.begin(9600);
   modbus.begin(1, 9600);
 
-  // initializeDS18B20();
-
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: ");
   Serial.println(1);
   delay(1000);
 
   //test data
-  DiscreteInputs[0] = 0;
+  DiscreteInputs[0] = 1;
   DiscreteInputs[1] = 0;
   DiscreteInputs[2] = 0;
-  DiscreteInputs[3] = 0;
+  DiscreteInputs[3] = 1;
   DiscreteInputs[4] = 1;
 
-  FloatRegister[0] = 1.11f;
-  FloatRegister[1] = 2.11f;
-  FloatRegister[2] = 3.11f;
-
-
+  FloatRegister[0] = 1.33f;
+  FloatRegister[1] = 2.33f;
+  FloatRegister[2] = 3.33f;
 }
 
 void loop() {

@@ -118,18 +118,18 @@ void loop(){
   Serial.println(String(FloatRegisters[3][0])+String(FloatRegisters[3][1])+String(FloatRegisters[3][2]));
   delay(5000);
   Serial.println();
-  Serial.println("Writing to Coils");
-  for (int i = 0; i < NumSecondary; i++) {
-    if(errorCheck(modbus.writeSingleCoil(i+1,0,1)) == false) {Serial.println(modbus.getExceptionResponse());}
-    delay(100);
-  }  
-  delay(5000);
-  Serial.println();
-  Serial.println("Writing to Holding Register");
-  for (int i = 0; i < NumSecondary; i++) {
-    if(errorCheck(modbus.writeSingleHoldingRegister(i+1,0,5)) == false) {Serial.println(modbus.getExceptionResponse());}
-    delay(100);
-  }
+  // Serial.println("Writing to Coils");
+  // for (int i = 0; i < NumSecondary; i++) {
+  //   if(errorCheck(modbus.writeSingleCoil(i+1,0,1)) == false) {Serial.println(modbus.getExceptionResponse());}
+  //   delay(100);
+  // }  
+  // delay(5000);
+  // Serial.println();
+  // Serial.println("Writing to Holding Register");
+  // for (int i = 0; i < NumSecondary; i++) {
+  //   if(errorCheck(modbus.writeSingleHoldingRegister(i+1,0,5)) == false) {Serial.println(modbus.getExceptionResponse());}
+  //   delay(100);
+  // }
   // delay(1000);
   // for (int i = 0; i < NumSecondary; i++) {
   //   errorCheck(modbus.readHoldingRegisters(i+1,0,HoldingRegisters[i],HRAddress));

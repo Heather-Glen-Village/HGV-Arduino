@@ -23,6 +23,9 @@
 
 // Initializing libraries
 #include <ModbusRTUSlave.h>
+//Needed for .h Files
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 //Importing .h files
 #include "conf.h"
@@ -52,7 +55,7 @@ void setup(){
   Serial.println(ID);
   delay(1000);
 
-  //test data
+  //test data REMOVE
   DiscreteInputs[0] = 1;
   DiscreteInputs[1] = 0;
   DiscreteInputs[2] = 0;
@@ -66,6 +69,8 @@ void setup(){
 
 void loop() {    
   modbus.poll(); // Checks for changes
+  
+  //REMOVE LATER
   if (Coils[0] == 1) {
     Coils[0] = 0;
     digitalWrite(LED, !digitalRead(LED));

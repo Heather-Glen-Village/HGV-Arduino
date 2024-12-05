@@ -12,7 +12,7 @@
 // General Modbus Configuration 
 #define RS485Serial Serial // Which Serial Is being Used
 #define baud 9600
-#define ID 2
+#define ID 1
 
 // Modbus Array configuration (Should Match with Primary)
 
