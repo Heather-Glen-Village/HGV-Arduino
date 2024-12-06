@@ -59,14 +59,70 @@ float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // 
 // Creating Modbus Connection
 ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
 
+void readSensors() {
+  //Run RTC Comand to save when Signel Goes out to Read
+  errorCheck(modbus.writeSingleCoil(0,0,1)); //Tells All Secondary to Read Sensors
 
+  //Check any Sensors on Primary Such as Water and Smoke
+  delay(5000); //wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
+
+  //Read all sensor data from secondary
+  for (int i = 0; i < NumSecondary; i++) { 
+    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress));
+    delay(100);
+  }
+  for (int i = 0; i < NumSecondary; i++) {
+    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress));
+    delay(100);
+  }
+}
+
+void printdata() {
+  Serial.println("-----Discrete Input-----");
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    for (int z = 0; z < DIAddress; z++)
+    {
+      Serial.print(discreteInputs[i][z]);
+      Serial.print(",");
+      delay(100);
+    }
+    Serial.println();
+  }
+  delay(2000);
+  Serial.println("-----RAW Input Register-----");
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    for (int z = 0; z < IRAddress; z++)
+    {
+      Serial.print(InputRegister[i][z]);
+      Serial.print(",");
+      delay(100);
+    }
+    Serial.println();
+  }
+  delay(2000);
+  Serial.println("-----Float Register-----");
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    for (int z = 0; z < IRAddress/2; z++)
+    {
+      Serial.print(FloatRegisters[i][z]);
+      Serial.print(",");
+      delay(100);
+    }
+    Serial.println();
+  }
+}
+
+// ----------Basic Setup and Loop Start Here ----------
 void setup() {
-  Serial.begin(baud); // Could be remove after everything is wokring? It might only be needed for Debuging
+  Serial.begin(baud);
   modbus.begin(baud);
   Serial.println("Primary Board Sketch");
   delay(1000);
   
-  //check if We can get internet connection Just for testing will want a static IP Later
+  //check if We can get internet connection Just for testing 
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
@@ -87,81 +143,8 @@ void setup() {
 }
 
 void loop(){
-  Serial.println();
-  Serial.println("----------------------------------------------------------------");
-  Serial.println("-----Discrete Input-----");
-  for (int i = 0; i < NumSecondary; i++) {
-    if(errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
-    delay(100);
-  }
-  Serial.println();
-  Serial.println("-----Coil-----");
-  for (int i = 0; i < NumSecondary; i++) {
-    if(errorCheck(modbus.readCoils(i+1,0,Coils[i],CoilAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
-    delay(100);
-  }
-
-  
-  
-  // Serial.println(String(discreteInputs[0][0])+String(discreteInputs[0][1])+String(discreteInputs[0][2])+String(discreteInputs[0][3])+String(discreteInputs[0][4]));
-  // Serial.println(String(discreteInputs[1][0])+String(discreteInputs[1][1])+String(discreteInputs[1][2])+String(discreteInputs[1][3])+String(discreteInputs[1][4]));
-  // Serial.println(String(discreteInputs[2][0])+String(discreteInputs[2][1])+String(discreteInputs[2][2])+String(discreteInputs[2][3])+String(discreteInputs[2][4]));
-  // Serial.println(String(discreteInputs[3][0])+String(discreteInputs[3][1])+String(discreteInputs[3][2])+String(discreteInputs[3][3])+String(discreteInputs[3][4]));
+  readSensors();
   delay(5000);
-  Serial.println();
-  Serial.println("-----Input Register-----");
-  for (int i = 0; i < NumSecondary; i++) {
-    if(errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress)) == false) { Serial.println(modbus.getExceptionResponse());}
-    delay(100);
-  }
-  
-  // Serial.println("-----Input Register Raw-----");
-  // Serial.println(String(InputRegister[0][0])+String(InputRegister[0][1])+String(InputRegister[0][2])+String(InputRegister[0][3])+String(InputRegister[0][4])+String(InputRegister[0][5]));
-  // Serial.println(String(InputRegister[1][0])+String(InputRegister[1][1])+String(InputRegister[1][2])+String(InputRegister[1][3])+String(InputRegister[1][4])+String(InputRegister[1][5]));
-  // Serial.println(String(InputRegister[2][0])+String(InputRegister[2][1])+String(InputRegister[2][2])+String(InputRegister[2][3])+String(InputRegister[2][4])+String(InputRegister[2][5]));
-  // Serial.println(String(InputRegister[3][0])+String(InputRegister[3][1])+String(InputRegister[3][2])+String(InputRegister[3][3])+String(InputRegister[3][4])+String(InputRegister[3][5]));
-  // Serial.println("-----Input Register Float-----");
-  // Serial.println(String(FloatRegisters[0][0])+String(FloatRegisters[0][1])+String(FloatRegisters[0][2]));
-  // Serial.println(String(FloatRegisters[1][0])+String(FloatRegisters[1][1])+String(FloatRegisters[1][2]));
-  // Serial.println(String(FloatRegisters[2][0])+String(FloatRegisters[2][1])+String(FloatRegisters[2][2]));
-  // Serial.println(String(FloatRegisters[3][0])+String(FloatRegisters[3][1])+String(FloatRegisters[3][2]));
+  printdata();
   delay(5000);
-  Serial.println();
-  Serial.println("Writing to Coils");
-  for (int i = 0; i < NumSecondary; i++) {
-    if(errorCheck(modbus.writeSingleCoil(i+1,0,1)) == false) {Serial.println(modbus.getExceptionResponse());}
-    delay(100);
-  }  
-  delay(5000);
-  Serial.println();
-  Serial.println("Writing to Holding Register");
-  for (int i = 0; i < NumSecondary; i++) {
-    errorCheck(modbus.writeSingleHoldingRegister(i+1,0,5));
-    delay(100);
-  }
-  // delay(1000);
-  // for (int i = 0; i < NumSecondary; i++) {
-  //   errorCheck(modbus.readHoldingRegisters(i+1,0,HoldingRegisters[i],HRAddress));
-  //   delay(100);
-  // }
-  // Serial.println();
-  // Serial.println("-----Holding Register-----");
-  // Serial.println(HoldingRegisters[0][0]);
-  // Serial.println(HoldingRegisters[1][0]);
-  // Serial.println(HoldingRegisters[2][0]);
-  
-  // Serial.println(HoldingRegisters[3][0]);
-  delay(3000);
-  Serial.println("-----Restarting the Data-----");
-  for (int i = 0; i < NumSecondary; i++) {
-    for (int z = 0; z < DIAddress; z++) {
-      discreteInputs[i][z] = 0;
-    }
-  }
-
-  for (int i = 0; i < NumSecondary; i++) {
-    for (int z = 0; z < IRAddress; z++) {
-      InputRegister[i][z] = 0;
-    }
-  }
 }

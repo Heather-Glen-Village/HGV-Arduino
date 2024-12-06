@@ -18,6 +18,19 @@
     - D18/A6 Water Leak Set 1 (Analog)
     - D19/A7 Water Leak Set 2 (Analog)
 
+Coil Address Index
+ - (0) Command to Read Sensors
+
+Discrete Inputs Address Index 
+ - ()
+
+Input Register Address Index (InputRegister)[FloatRegister]
+ - (0-5): Placeholder Datetime Data (Could be remove or add depending on speed of modbus)
+ - (6-9)[4-5] DS18B20 Temperature and Humidity
+ - (10-13)[6-7] Temperature and Humidity from DHT22
+
+
+
   Created on November 11, 2024
   By Zachary Schultz
 
@@ -31,6 +44,7 @@
 
 //Importing .h files
 #include "conf.h"
+#include "DS18B20_Sensor.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -43,11 +57,11 @@ uint16_t LastHolding = HoldingRegister[0];
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 44 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 70 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 73 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 44 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -61,31 +75,12 @@ void setup(){
   Serial.print("Board ID: "); 
   Serial.println(ID);
   delay(1000);
-
-  //test data REMOVE
-  DiscreteInputs[0] = 1;
-  DiscreteInputs[1] = 0;
-  DiscreteInputs[2] = 0;
-  DiscreteInputs[3] = 1;
-  DiscreteInputs[4] = 1;
-
-  FloatRegister[0] = 1.33f;
-  FloatRegister[1] = 2.33f;
-  FloatRegister[2] = 3.33f;
 }
 
 void loop() {    
   modbus.poll(); // Checks for changes
-  
-  //REMOVE LATER
   if (Coils[0] == 1) {
+    FloatRegister[0] = DS18B20_Temp();
     Coils[0] = 0;
-    digitalWrite(LED, !digitalRead(LED));
-    Serial.println("Coil Changed");
-  }
-  if (LastHolding = HoldingRegister[0]) {
-    Serial.print("Holding Register Changed: ");
-    Serial.println(HoldingRegister[0]);
-    LastHolding = HoldingRegister[0];
   }
 }
