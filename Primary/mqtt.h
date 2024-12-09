@@ -35,12 +35,21 @@ void callback(char* topic, byte* message, unsigned int length) {
     command += (char)message[i];
   }
 
+// For Testing Remove Later so that modbus doesn't get messed Ups
   Serial.print("Command Received: ");
   Serial.println(command);
-
+  
   if (command == "LED") {
-    digitalWrite(2, !digitalRead(2));
+    digitalWrite(LED, !digitalRead(2));
   }
+  else if (command == "RELAY-ON")
+  {
+    digitalWrite(Relay, HIGH);
+  }
+  else if (command == "RELAY-OFF") {
+    digitalWrite(Relay, LOW);
+  }
+  
 
 }
 

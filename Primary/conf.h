@@ -5,6 +5,7 @@
 #define WaterOFF 5
 #define PowerOFF 6
 #define CoolON 7
+#define Relay 17 // Not Real
 
 // Ethernet Configuration
 #define MAC_ADDRESS {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF}

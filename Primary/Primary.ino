@@ -119,7 +119,10 @@ void printdata() {
 void setup() {
   Serial.begin(baud);
   modbus.begin(baud);
+  pinMode(LED, OUTPUT);
+  pinMode(Relay, OUTPUT);
   Serial.println("Primary Board Sketch");
+  
   delay(1000);
   EthConnect();
   }
