@@ -7,7 +7,7 @@
 #define CoolON 7
 
 // Ethernet Configuration
-byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF}; //Used Mac Address
+#define MAC_ADDRESS {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF}
 #define server { 192, 168, 3, 126 }
 // This stuff Might Not be Need if Using MQTT
 #define StaticIP { 192, 168, 3, 168 } 

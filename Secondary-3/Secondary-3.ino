@@ -55,6 +55,13 @@ uint16_t LastHolding = HoldingRegister[0];
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
+void readDebug() {
+      Serial.print("DS18B20 Temperature: ");
+      Serial.println( DS18B20_Temp());
+      delay(1000);
+}
+
+
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -77,5 +84,8 @@ void loop() {
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
     Coils[0] = 0;
+  } 
+  else {
+    readDebug();
   }
 }

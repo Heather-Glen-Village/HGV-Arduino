@@ -4,6 +4,7 @@
 #include "conf.h"
 
 void EthConnect() {
+  byte mac[] = MAC_ADDRESS;
   //check if We can get internet connection Just for testing 
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
