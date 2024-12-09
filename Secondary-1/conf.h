@@ -1,6 +1,6 @@
 // Defining Pins 
 #define LED 2
-#define DHT22_PIN 4 //Also Known as AM2302
+#define AM2302_PIN 4 //Also Known as DHT22
 #define Motion_PIN 5
 #define Vibration_PIN 6
 #define DS18B20_PIN 7
@@ -12,7 +12,7 @@
 // General Modbus Configuration 
 #define RS485Serial Serial // Which Serial Is being Used
 #define baud 9600
-#define ID 2
+#define ID 1
 
 // Modbus Array configuration (Should Match with Primary)
 

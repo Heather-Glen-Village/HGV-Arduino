@@ -46,8 +46,11 @@
 //Importing .h files
 #include "conf.h"
 #include "errorcheck.h"
+#include "mqtt.h"
 
-//EthernetClient client; //IDK What this Does or if it needed Probably Later
+ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
+EthernetClient ethClient;
+PubSubClient client(server, 1883, callback, ethClient);
 
 //Modbus Arrays
 bool Coils[NumSecondary][CoilAddress];
@@ -55,9 +58,6 @@ bool discreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegister[NumSecondary][IRAddress];
 float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-
-// Creating Modbus Connection
-ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
 
 void readSensors() {
   //Run RTC Comand to save when Signel Goes out to Read
@@ -121,30 +121,17 @@ void setup() {
   modbus.begin(baud);
   Serial.println("Primary Board Sketch");
   delay(1000);
-  
-  //check if We can get internet connection Just for testing 
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
-    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-    } 
-    else if (Ethernet.linkStatus() == LinkOFF) {
-      Serial.println("Ethernet cable is not connected.");
-    }
-      // while(true) { // no point in carrying on, so do nothing forevermore:
-        Serial.println("Board is most likely not the Priamry Board");
-        delay(1000);
-      // }    
-  } 
-  else {
-    Serial.println(Ethernet.localIP());
-    Serial.println("This is a Priamry Board");
+  EthConnect();
   }
-}
 
 void loop(){
+  if (!client.connected()) {
+    reconnected(client);
+  }
+  client.loop();
   readSensors();
   delay(5000);
   printdata();
   delay(5000);
+  
 }

@@ -21,6 +21,10 @@
 byte mac[] = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
 IPAddress server(192, 168, 3, 126);
 
+EthernetClient ethClient;
+PubSubClient client(server, 1883, callback, ethClient);
+
+
 void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Message received on topic: ");
   Serial.println(topic);
@@ -39,8 +43,8 @@ void callback(char* topic, byte* message, unsigned int length) {
 
 }
 
-EthernetClient ethClient;
-PubSubClient client(server, 1883, callback, ethClient);
+
+
 
 void reconnect() {
   // Loop until we're reconnected

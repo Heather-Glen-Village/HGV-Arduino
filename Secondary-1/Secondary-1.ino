@@ -64,6 +64,8 @@ void setup(){
   Serial.begin(baud);
   modbus.begin(ID, baud);
 
+  initializeDS18B20();
+
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: "); 
   Serial.println(ID);
@@ -72,7 +74,7 @@ void setup(){
 
 void loop() {    
   modbus.poll(); // Checks for changes
-  if (Coils[0] == 1) {
+  if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
     Coils[0] = 0;
   }

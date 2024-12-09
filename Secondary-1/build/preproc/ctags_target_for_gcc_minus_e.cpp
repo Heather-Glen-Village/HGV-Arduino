@@ -97,17 +97,19 @@ void setup(){
   modbus.configureInputRegisters(InputRegister,6 /* Number of used Input Register Address*/);
 
   Serial.begin(9600);
-  modbus.begin(2, 9600);
+  modbus.begin(1, 9600);
+
+  initializeDS18B20();
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: ");
-  Serial.println(2);
+  Serial.println(1);
   delay(1000);
 }
 
 void loop() {
   modbus.poll(); // Checks for changes
-  if (Coils[0] == 1) {
+  if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
     Coils[0] = 0;
   }
