@@ -132,9 +132,10 @@ void loop(){
     reconnected(client);
   }
   client.loop();
-  readSensors();
-  delay(5000);
-  printdata();
-  delay(5000);
+  client.publish("test","Loop Message");
+  // readSensors();
+  delay(2000);
+  // printdata();
+  // delay(5000);
   
 }

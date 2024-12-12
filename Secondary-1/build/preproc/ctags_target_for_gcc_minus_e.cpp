@@ -74,10 +74,12 @@ Input Register Address Index (InputRegister)[FloatRegister]
 //Needed for .h Files
 # 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 # 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+
 
 //Importing .h files
-# 45 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-# 46 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 47 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 48 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -89,6 +91,13 @@ uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins Used
+
+void readDebug() {
+      Serial.print("DS18B20 Temperature: ");
+      Serial.println( DS18B20_Temp());
+      delay(1000);
+}
+
 
 void setup(){
   modbus.configureCoils(Coils,1 /* Number of used Coil Address*/);
@@ -112,5 +121,8 @@ void loop() {
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
     Coils[0] = 0;
+  }
+  else {
+    readDebug();
   }
 }

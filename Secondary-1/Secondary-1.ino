@@ -39,6 +39,8 @@ Input Register Address Index (InputRegister)[FloatRegister]
 //Needed for .h Files
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <DHT.h>
+
 
 //Importing .h files
 #include "conf.h"

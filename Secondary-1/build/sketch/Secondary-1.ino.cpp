@@ -41,6 +41,8 @@ Input Register Address Index (InputRegister)[FloatRegister]
 //Needed for .h Files
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <DHT.h>
+
 
 //Importing .h files
 #include "conf.h"
@@ -57,11 +59,20 @@ uint16_t LastHolding = HoldingRegister[0];
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+void readDebug();
+#line 67 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 75 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 84 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+void readDebug() {
+      Serial.print("DS18B20 Temperature: ");
+      Serial.println( DS18B20_Temp());
+      delay(1000);
+}
+
+
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
@@ -84,5 +95,8 @@ void loop() {
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
     Coils[0] = 0;
+  } 
+  else {
+    readDebug();
   }
 }
