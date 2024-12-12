@@ -53,7 +53,7 @@ void callback(char* topic, byte* message, unsigned int length) {
 
 }
 
-void reconnected(PubSubClient client) {
+PubSubClient& reconnected(PubSubClient& client) {
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
@@ -61,6 +61,8 @@ void reconnected(PubSubClient client) {
     if (client.connect("arduinoClient", MQTTUser, MQTTPassword)) {
       Serial.println("connected");
       client.subscribe("arduinoCMD"); //Used to Send command to the Boards
+      client.publish("test", "Primary Board is Online");
+      return client;
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());

@@ -131,8 +131,9 @@ void loop(){
   if (!client.connected()) {
     reconnected(client);
   }
+  Serial.println("");
   client.loop();
-  client.publish("test","Loop Message");
+  sendData(client);
   // readSensors();
   delay(2000);
   // printdata();
