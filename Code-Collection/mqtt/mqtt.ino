@@ -1,28 +1,38 @@
-/*
- Basic MQTT example
-
- This sketch demonstrates the basic capabilities of the library.
- It connects to an MQTT server then:
-  - publishes "hello world" to the topic "outTopic"
-  - subscribes to the topic "inTopic", printing out any messages
-    it receives. NB - it assumes the received payloads are strings not binary
-
- It will reconnect to the server if the connection is lost using a blocking
- reconnect function. See the 'mqtt_reconnect_nonblocking' example for how to
- achieve the same result without blocking the main loop.
- 
-*/
-
+#include <ArduinoJson.h>
+#include <ArduinoJson.hpp>
 #include <SPI.h>
 #include <Ethernet.h>
 #include <PubSubClient.h>
 
-// Update these with values suitable for your network.
-byte mac[] = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
-IPAddress server(192, 168, 3, 126);
+#define MAC_ADDRESS {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF}
+#define server { 192, 168, 3, 126 }
+#define MQTTUser "arduino"
+#define MQTTPassword "arduino"
 
 EthernetClient ethClient;
 PubSubClient client(server, 1883, callback, ethClient);
+
+void EthConnect() {
+  byte mac[] = MAC_ADDRESS;
+  //check if We can get internet connection Just for testing 
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+    } 
+    else if (Ethernet.linkStatus() == LinkOFF) {
+      Serial.println("Ethernet cable is not connected.");
+    }
+      // while(true) { // no point in carrying on, so do nothing forevermore:
+        Serial.println("Board is most likely not the Priamry Board");
+        delay(1000);
+      // }  
+  }
+    else {
+    Serial.println(Ethernet.localIP());
+    Serial.println("This is a Priamry Board");
+  }
+}
 
 
 void callback(char* topic, byte* message, unsigned int length) {
@@ -34,29 +44,21 @@ void callback(char* topic, byte* message, unsigned int length) {
     command += (char)message[i];
   }
 
+// For Testing Remove Later so that modbus doesn't get messed Ups
   Serial.print("Command Received: ");
   Serial.println(command);
-
-  if (command == "LED") {
-    digitalWrite(2, !digitalRead(2));
-  }
-
 }
 
-
-
-
-void reconnect() {
+PubSubClient reconnected(PubSubClient client) {
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (client.connect("arduinoClient", "test", "test")) {
+    if (client.connect("arduinoClient", MQTTUser, MQTTPassword)) {
       Serial.println("connected");
-      // Once connected, publish an announcement...
-      client.publish("test","hello world");
-      // ... and resubscribe
-      client.subscribe("arduinoCMD");
+      client.subscribe("arduinoCMD"); //Used to Send command to the Boards
+      client.publish("test", "Primary Board is Online");
+      return client;
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -67,19 +69,42 @@ void reconnect() {
   }
 }
 
-void setup()
-{
-  Serial.begin(9600);
-
-  Ethernet.begin(mac);
-  // Allow the hardware to sort itself out
-  delay(1500);
+void sendData(PubSubClient client){
+    client.publish("room1","hello world");
 }
 
-void loop()
-{
+
+
+void callback(char* topic, byte* payload, unsigned int length) {
+
+}
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial);
+  Serial.println(F("MQTT test"));
+
+}
+
+void loop() {
+
   if (!client.connected()) {
-    reconnect();
+    reconnected(client);
   }
   client.loop();
-}
+  StaticJsonDocument<32> doc;
+  char output[55];
+
+  while(Serial.available() == 0) {
+    delay(100);
+  }
+  String test = Serial.readString();
+    doc["t"] = test;
+    Serial.println("Read");
+
+    serializeJson(doc, output);
+    Serial.println(output);
+    client.publish("/testasdf", output);
+    Serial.println("Sent");
+  }
+    

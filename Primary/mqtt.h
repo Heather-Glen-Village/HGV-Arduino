@@ -74,5 +74,5 @@ PubSubClient& reconnected(PubSubClient& client) {
 }
 
 void sendData(PubSubClient client){
-    client.publish("test","hello world");
+    client.publish("room1","hello world");
 }
