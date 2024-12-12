@@ -9,8 +9,7 @@
 #define MQTTUser "arduino"
 #define MQTTPassword "arduino"
 
-EthernetClient ethClient;
-PubSubClient client(server, 1883, callback, ethClient);
+
 
 void EthConnect() {
   byte mac[] = MAC_ADDRESS;
@@ -69,15 +68,9 @@ PubSubClient reconnected(PubSubClient client) {
   }
 }
 
-void sendData(PubSubClient client){
-    client.publish("room1","hello world");
-}
 
-
-
-void callback(char* topic, byte* payload, unsigned int length) {
-
-}
+EthernetClient ethClient;
+PubSubClient client(server, 1883, callback, ethClient);
 
 void setup() {
   Serial.begin(9600);
