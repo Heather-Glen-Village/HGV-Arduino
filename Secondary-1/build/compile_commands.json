@@ -252,11 +252,11 @@
    "-IC:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_DallasTemp",
    "-IC:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library",
    "-IC:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor",
-   "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT.cpp",
+   "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp",
    "-o",
-   "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\libraries\\DHT_sensor_library\\DHT.cpp.o"
+   "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\libraries\\DHT_sensor_library\\DHT_U.cpp.o"
   ],
-  "file": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT.cpp"
+  "file": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp"
  },
  {
   "directory": "c:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1",
@@ -289,11 +289,11 @@
    "-IC:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_DallasTemp",
    "-IC:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library",
    "-IC:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor",
-   "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp",
+   "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT.cpp",
    "-o",
-   "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\libraries\\DHT_sensor_library\\DHT_U.cpp.o"
+   "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\build\\libraries\\DHT_sensor_library\\DHT.cpp.o"
   ],
-  "file": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp"
+  "file": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT.cpp"
  },
  {
   "directory": "c:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1",
