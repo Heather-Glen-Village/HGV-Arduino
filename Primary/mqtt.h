@@ -83,8 +83,8 @@ void sendData(PubSubClient client, bool discreteInputs[NumSecondary][DIAddress],
   for (int i = 0; i < NumSecondary; i++) {
     String key = "secondary" + String(i + 1);  // Create keys like "secondary1", "secondary2", etc.
     JsonArray row = doc.createNestedArray(key);  // Add a nested array with the key
-    for (int j = 0; j < DIAddress; j++) {
-      row.add(discreteInputs[i][j]);  // Add values to the array
+    for (int j = 0; j < IRAddress/2; j++) {
+      row.add(FloatRegisters[i][j]);  // Add values to the array
     }
   }
 
