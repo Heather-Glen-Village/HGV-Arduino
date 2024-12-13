@@ -38,11 +38,9 @@ Input Register Address Index (InputRegister)[FloatRegister]
 
 // Initializing libraries
 #include <ModbusRTUSlave.h>
-//Needed for .h Files
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <DHT.h>
-
 
 //Importing .h files
 #include "conf.h"
@@ -54,18 +52,17 @@ bool DiscreteInputs[DIAddress];
 uint16_t HoldingRegister[HRAddress];
 uint16_t InputRegister[IRAddress];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 57 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void readDebug();
-#line 67 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 64 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 84 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 81 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 60 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 57 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void readDebug() {
       Serial.print("DS18B20 Temperature: ");
       Serial.println( DS18B20_Temp());
@@ -99,4 +96,5 @@ void loop() {
   else {
     readDebug();
   }
+  delay(1000);
 }

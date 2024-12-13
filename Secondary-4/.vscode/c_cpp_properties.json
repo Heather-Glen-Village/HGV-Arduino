@@ -23,6 +23,8 @@
                 "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUComm\\src",
                 "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_OneWire",
                 "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_DallasTemp",
+                "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library",
+                "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor",
                 "c:\\users\\zach_\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include",
                 "c:\\users\\zach_\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include-fixed",
                 "c:\\users\\zach_\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\avr\\include"

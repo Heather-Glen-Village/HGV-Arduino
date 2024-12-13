@@ -71,15 +71,13 @@ Input Register Address Index (InputRegister)[FloatRegister]
 # 37 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 // Initializing libraries
 # 39 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-//Needed for .h Files
+# 40 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 # 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 # 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-# 43 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-
 
 //Importing .h files
-# 47 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
-# 48 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 45 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 46 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -87,7 +85,6 @@ bool DiscreteInputs[5 /* Number of used Discrete Inputs Address*/];
 uint16_t HoldingRegister[1 /* Number of used Holding Register Address*/];
 uint16_t InputRegister[6 /* Number of used Input Register Address*/];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins Used
@@ -125,4 +122,5 @@ void loop() {
   else {
     readDebug();
   }
+  delay(1000);
 }

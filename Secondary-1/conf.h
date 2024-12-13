@@ -1,9 +1,9 @@
 // Defining Pins 
 #define LED 2
-#define AM2302_PIN 7 //Also Known as DHT22
+#define AM2302_PIN 4 //Also Known as DHT22
 #define Motion_PIN 5
 #define Vibration_PIN 6
-#define DS18B20_PIN 4
+#define DS18B20_PIN 7
 #define WL1D_PIN 14
 #define WL2D_PIN 15
 #define WL1A_PIN A6 //18?

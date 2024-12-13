@@ -9,6 +9,7 @@
 #define WL1A_PIN A6 //18?
 #define WL2A_PIN A7 //19?
 
+
 // General Modbus Configuration 
 #define RS485Serial Serial // Which Serial Is being Used
 #define baud 9600
