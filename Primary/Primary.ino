@@ -55,12 +55,7 @@ PubSubClient client(server, 1883, callback, ethClient);
 
 //Modbus Arrays
 bool Coils[NumSecondary][CoilAddress];
-bool discreteInputs[NumSecondary][DIAddress] = {
-      {true, false, true, false, true},
-      {false, true, false, true, false},
-      {true, true, false, false, true},
-      {false, false, true, true, false}
-  }; //test Data
+bool discreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegister[NumSecondary][IRAddress];
 float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
@@ -81,6 +76,28 @@ void readSensors() {
     errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress));
     delay(100);
   }
+}
+
+// ----------Basic Setup and Loop Start Here ----------
+void setup() {
+  Serial.begin(baud);
+  modbus.begin(baud);
+  pinMode(LED, OUTPUT);
+  pinMode(Relay, OUTPUT);
+  Serial.println("Primary Board Sketch");
+  
+  delay(1000);
+  EthConnect();
+  }
+
+void loop(){
+  if (!client.connected()) { // Reconnected if Connection is Lost, Should do the same with ethernet?
+    reconnected(client);
+  }
+  client.loop();
+  readSensors();
+  sendData(client, discreteInputs, FloatRegisters);
+  delay(5000);
 }
 
 void printdata() {
@@ -119,41 +136,4 @@ void printdata() {
     }
     Serial.println();
   }
-}
-
-// ----------Basic Setup and Loop Start Here ----------
-void setup() {
-  Serial.begin(baud);
-  modbus.begin(baud);
-  pinMode(LED, OUTPUT);
-  pinMode(Relay, OUTPUT);
-  Serial.println("Primary Board Sketch");
-  
-  delay(1000);
-  EthConnect();
-
-// TEST VALUES
-  for (int i = 0; i < NumSecondary; i++)
-  {
-    for (int z = 0; z < IRAddress/2; z++)
-    {
-      FloatRegisters[i][z] = random(100) / 10.0;
-    }
-  }
-  printdata();
-  delay(5000);
-  }
-
-void loop(){
-  if (!client.connected()) {
-    reconnected(client);
-  }
-  // Giving Fake Data
-  client.loop();
-  sendData(client, discreteInputs, FloatRegisters);
-  // readSensors();
-  delay(2000);
-  
-  // delay(5000);
-  
 }
