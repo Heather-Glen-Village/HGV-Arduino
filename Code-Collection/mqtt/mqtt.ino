@@ -10,6 +10,8 @@
 #define MQTTPassword "arduino"
 
 
+EthernetClient ethClient;
+
 
 void EthConnect() {
   byte mac[] = MAC_ADDRESS;
@@ -48,7 +50,7 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.println(command);
 }
 
-PubSubClient reconnected(PubSubClient client) {
+PubSubClient& reconnected(PubSubClient& client) {
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
@@ -69,12 +71,12 @@ PubSubClient reconnected(PubSubClient client) {
 }
 
 
-EthernetClient ethClient;
 PubSubClient client(server, 1883, callback, ethClient);
 
 void setup() {
   Serial.begin(9600);
   while (!Serial);
+  EthConnect();
   Serial.println(F("MQTT test"));
 
 }
@@ -88,16 +90,19 @@ void loop() {
   StaticJsonDocument<32> doc;
   char output[55];
 
+  Serial.println("Looping");
   while(Serial.available() == 0) {
     delay(100);
+    client.loop();
   }
-  String test = Serial.readString();
+  Serial.read();
+  int test = 5;
     doc["t"] = test;
     Serial.println("Read");
 
     serializeJson(doc, output);
     Serial.println(output);
-    client.publish("/testasdf", output);
+    client.publish("hello", output);
     Serial.println("Sent");
   }
     

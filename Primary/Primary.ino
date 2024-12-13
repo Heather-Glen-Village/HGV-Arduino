@@ -42,6 +42,7 @@
 #include <Ethernet.h>
 #include <ModbusRTUMaster.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 
 //Importing .h files
 #include "conf.h"
@@ -54,7 +55,12 @@ PubSubClient client(server, 1883, callback, ethClient);
 
 //Modbus Arrays
 bool Coils[NumSecondary][CoilAddress];
-bool discreteInputs[NumSecondary][DIAddress];
+bool discreteInputs[NumSecondary][DIAddress] = {
+      {true, false, true, false, true},
+      {false, true, false, true, false},
+      {true, true, false, false, true},
+      {false, false, true, true, false}
+  }; //test Data
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegister[NumSecondary][IRAddress];
 float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
@@ -125,18 +131,29 @@ void setup() {
   
   delay(1000);
   EthConnect();
+
+// TEST VALUES
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    for (int z = 0; z < IRAddress/2; z++)
+    {
+      FloatRegisters[i][z] = random(100) / 10.0;
+    }
+  }
+  printdata();
+  delay(5000);
   }
 
 void loop(){
   if (!client.connected()) {
     reconnected(client);
   }
-  Serial.println("");
+  // Giving Fake Data
   client.loop();
-  sendData(client);
+  sendData(client, discreteInputs, FloatRegisters);
   // readSensors();
   delay(2000);
-  // printdata();
+  
   // delay(5000);
   
 }

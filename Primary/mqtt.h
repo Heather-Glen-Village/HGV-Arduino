@@ -1,6 +1,7 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include "conf.h"
 
 void EthConnect() {
@@ -73,6 +74,20 @@ PubSubClient& reconnected(PubSubClient& client) {
   }
 }
 
-void sendData(PubSubClient client){
-    client.publish("room1","hello world");
+void sendData(PubSubClient client, bool discreteInputs[NumSecondary][DIAddress], float FloatRegisters[NumSecondary][IRAddress/2]) {
+  //turn data into a Json and Send it to NodeRed
+  StaticJsonDocument<256> doc; // We going to need a bigger Json
+  char output[300]; // should be like 10%  bigger then the JSON I Belive
+
+  // Populate the JSON object
+  for (int i = 0; i < NumSecondary; i++) {
+    String key = "secondary" + String(i + 1);  // Create keys like "secondary1", "secondary2", etc.
+    JsonArray row = doc.createNestedArray(key);  // Add a nested array with the key
+    for (int j = 0; j < DIAddress; j++) {
+      row.add(discreteInputs[i][j]);  // Add values to the array
+    }
+  }
+
+  serializeJson(doc, output);
+  client.publish("hello",output);
 }
