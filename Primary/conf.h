@@ -12,7 +12,7 @@
 
 
 //MQTT Config
-#define PrimaryNum 1 //Uused to Idenity Primary Might want to use Room Number Later
+#define PrimaryNum 2 //Uused to Idenity Primary Might want to use Room Number Later
 #define MQTTUser "arduino"
 #define MQTTPassword "arduino"
 
