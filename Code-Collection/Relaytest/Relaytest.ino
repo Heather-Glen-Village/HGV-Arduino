@@ -1,5 +1,5 @@
 #define LED 2
-#define RelayPin 21
+#define RelayPin 3
 
 void setup()
 {

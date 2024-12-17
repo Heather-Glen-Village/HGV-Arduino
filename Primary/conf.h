@@ -18,8 +18,8 @@
 
 #define SensorTopic "/sensor"
 #define ArduinoCMD "/CMDArduino"
-String TempRequest =  "/TempRequest/"+String(PrimaryNum);
-String BootMessage = "Primary"+String(PrimaryNum)+" Is Online!";
+#define temprequest "/temprequest/"
+#define bootmessage "/bootmessage"
 
 // General Modbus Configuration
 #define RS485Serial Serial // Which Serial Is being Used

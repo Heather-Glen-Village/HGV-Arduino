@@ -63,8 +63,8 @@ PubSubClient& reconnected(PubSubClient& client) {
     if (client.connect("arduinoClient", MQTTUser, MQTTPassword)) {
       Serial.println("connected");
       client.subscribe(ArduinoCMD); //Used to Send command to the Boards
-      client.subscribe(TempRequest.c_str());
-      client.publish("test", BootMessage.c_str());
+      client.subscribe(temprequest+PrimaryNum);
+      client.publish(bootmessage, "MQTT Is Made and Ready to Send Data - Primary "+(PrimaryNum));
       return client;
     } else {
       Serial.print("failed, rc=");
