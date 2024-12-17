@@ -45,6 +45,7 @@ Input Register Address Index (InputRegister)[FloatRegister]
 //Importing .h files
 #include "conf.h"
 #include "DS18B20_Sensor.h"
+#include "AM2302_Sensor.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -56,16 +57,22 @@ float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into f
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 57 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void readDebug();
-#line 64 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 71 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void setup();
-#line 81 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 88 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void loop();
-#line 57 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
+#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
 void readDebug() {
       Serial.print("DS18B20 Temperature: ");
       Serial.println( DS18B20_Temp());
+      delay(1000);
+      Serial.print("AM2302 Temperature: ");
+      Serial.println(AM2302_Temp());
+      delay(1000);
+      Serial.print("AM2302 Himidity: ");
+      Serial.println(AM2302_Humidity());
       delay(1000);
 }
 
@@ -91,6 +98,8 @@ void loop() {
   modbus.poll(); // Checks for changes
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
+    FloatRegister[1] = AM2302_Temp();
+    FloatRegister[2] = AM2302_Humidity();
     Coils[0] = 0;
   } 
   else {

@@ -78,6 +78,7 @@ Input Register Address Index (InputRegister)[FloatRegister]
 //Importing .h files
 # 45 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 # 46 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
+# 47 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
@@ -92,6 +93,12 @@ ModbusRTUSlave modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins U
 void readDebug() {
       Serial.print("DS18B20 Temperature: ");
       Serial.println( DS18B20_Temp());
+      delay(1000);
+      Serial.print("AM2302 Temperature: ");
+      Serial.println(AM2302_Temp());
+      delay(1000);
+      Serial.print("AM2302 Himidity: ");
+      Serial.println(AM2302_Humidity());
       delay(1000);
 }
 
@@ -117,6 +124,8 @@ void loop() {
   modbus.poll(); // Checks for changes
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
+    FloatRegister[1] = AM2302_Temp();
+    FloatRegister[2] = AM2302_Humidity();
     Coils[0] = 0;
   }
   else {

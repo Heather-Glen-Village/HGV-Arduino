@@ -62,7 +62,7 @@ PubSubClient& reconnected(PubSubClient& client) {
     if (client.connect("arduinoClient", MQTTUser, MQTTPassword)) {
       Serial.println("connected");
       client.subscribe("arduinoCMD"); //Used to Send command to the Boards
-      client.publish("test", "Primary Board is Online");
+      client.publish("test", BootMessage.c_str());
       return client;
     } else {
       Serial.print("failed, rc=");
@@ -76,18 +76,33 @@ PubSubClient& reconnected(PubSubClient& client) {
 
 void sendData(PubSubClient client, bool discreteInputs[NumSecondary][DIAddress], float FloatRegisters[NumSecondary][IRAddress/2]) {
   //turn data into a Json and Send it to NodeRed
+
   StaticJsonDocument<256> doc; // We going to need a bigger Json
-  char output[300]; // should be like 10%  bigger then the JSON I Belive
+  char SensorJson[300]; // should be like 10%  bigger then the JSON I Think
 
-  // Populate the JSON object
-  for (int i = 0; i < NumSecondary; i++) {
-    String key = "secondary" + String(i + 1);  // Create keys like "secondary1", "secondary2", etc.
-    JsonArray row = doc.createNestedArray(key);  // Add a nested array with the key
-    for (int j = 0; j < IRAddress/2; j++) {
-      row.add(FloatRegisters[i][j]);  // Add values to the array
-    }
+  // Populate the JSON document
+  for (int s = 1; s < NumSecondary+1; s++)
+  {
+    doc["Primary"] = PrimaryNum;
+    doc["Secondary"] = s;
+
+    // Add data to the Float FloatRegisters array
+    JsonArray FR = doc.createNestedArray("FR");
+    FR.add(FloatRegisters[s][0]);
+    FR.add(FloatRegisters[s][1]);
+    FR.add(FloatRegisters[s][2]);
+    FR.add(FloatRegisters[s][3]);
+
+    // Add data to the "DI" array
+    JsonArray DI = doc.createNestedArray("DI");
+    DI.add(discreteInputs[s][0]);
+    DI.add(discreteInputs[s][1]);
+    DI.add(discreteInputs[s][2]);
+    DI.add(discreteInputs[s][3]);
+
+    // Serialize JSON to a string and print it
+    serializeJson(doc, SensorJson);
+    client.publish(SensorTopic,SensorJson);
+    doc.clear();
   }
-
-  serializeJson(doc, output);
-  client.publish("hello",output);
 }

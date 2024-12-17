@@ -5,21 +5,19 @@
 #define WaterOFF 5
 #define PowerOFF 6
 #define CoolON 7
-#define Relay 17 // Not Real
+#define Relay 3 //?? Not Real
 
 // Ethernet Configuration
 #define MAC_ADDRESS {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF}
 #define server { 192, 168, 3, 126 }
-// This stuff Might Not be Need if Using MQTT
-#define StaticIP { 192, 168, 3, 168 } 
-#define Submask { 255, 255, 255, 0 }
-#define Gateway { 192, 168, 3, 1 }
-#define DNS { 192, 168, 3, 1 } 
+
 
 //MQTT Config
-#define Room 1 //Used to have different channel for everyroom (Might remove depeding on how Prometheus Works)
+#define PrimaryNum 1 //Uused to Idenity Primary Might want to use Room Number Later
 #define MQTTUser "arduino"
 #define MQTTPassword "arduino"
+#define SensorTopic "/sensor"
+String BootMessage = "Primary"+String(PrimaryNum)+" Is Online!";
 // General Modbus Configuration
 #define RS485Serial Serial // Which Serial Is being Used
 #define baud 9600
@@ -30,6 +28,6 @@
 #define CoilAddress 1 // Number of used Coil Address
 #define DIAddress 5 // Number of used Discrete Inputs Address
 #define HRAddress 1 // Number of used Holding Register Address
-#define IRAddress 6 // Number of used Input Register Addresss
+#define IRAddress 8 // Number of used Input Register Addresss
 
 
