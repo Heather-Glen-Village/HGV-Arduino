@@ -82,9 +82,9 @@ Input Register Address Index (InputRegister)[FloatRegister]
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
-bool DiscreteInputs[5 /* Number of used Discrete Inputs Address*/];
+bool DiscreteInputs[4 /* Number of used Discrete Inputs Address*/];
 uint16_t HoldingRegister[1 /* Number of used Holding Register Address*/];
-uint16_t InputRegister[6 /* Number of used Input Register Address*/];
+uint16_t InputRegister[8 /* Number of used Input Register Address*/];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
@@ -105,9 +105,9 @@ void readDebug() {
 
 void setup(){
   modbus.configureCoils(Coils,1 /* Number of used Coil Address*/);
-  modbus.configureDiscreteInputs(DiscreteInputs,5 /* Number of used Discrete Inputs Address*/);
+  modbus.configureDiscreteInputs(DiscreteInputs,4 /* Number of used Discrete Inputs Address*/);
   modbus.configureHoldingRegisters(HoldingRegister,1 /* Number of used Holding Register Address*/);
-  modbus.configureInputRegisters(InputRegister,6 /* Number of used Input Register Address*/);
+  modbus.configureInputRegisters(InputRegister,8 /* Number of used Input Register Address*/);
 
   Serial.begin(9600);
   modbus.begin(1, 9600);

@@ -40,17 +40,18 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Command Received: ");
   Serial.println(command);
   
-  if (command == "LED") {
-    digitalWrite(LED, !digitalRead(2));
+  if (topic == "ArduinoCMD") {
+    if (command == "LED") {
+      digitalWrite(LED, !digitalRead(2));
+    }
+    // else if (command == "RELAY-ON")
+    // {
+    //   digitalWrite(Relay, HIGH);
+    // }
+    // else if (command == "RELAY-OFF") {
+    //   digitalWrite(Relay, LOW);
+    // }
   }
-  else if (command == "RELAY-ON")
-  {
-    digitalWrite(Relay, HIGH);
-  }
-  else if (command == "RELAY-OFF") {
-    digitalWrite(Relay, LOW);
-  }
-  
 
 }
 
@@ -61,7 +62,8 @@ PubSubClient& reconnected(PubSubClient& client) {
     // Attempt to connect
     if (client.connect("arduinoClient", MQTTUser, MQTTPassword)) {
       Serial.println("connected");
-      client.subscribe("arduinoCMD"); //Used to Send command to the Boards
+      client.subscribe(ArduinoCMD); //Used to Send command to the Boards
+      client.subscribe(TempRequest.c_str());
       client.publish("test", BootMessage.c_str());
       return client;
     } else {

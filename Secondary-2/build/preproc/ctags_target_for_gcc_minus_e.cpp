@@ -35,6 +35,32 @@
 
 
 
+Coil Address Index
+
+ - (0) Command to Read Sensors
+
+
+
+Discrete Inputs Address Index 
+
+ - ()
+
+
+
+Input Register Address Index (InputRegister)[FloatRegister]
+
+ - (0-5): Placeholder Datetime Data (Could be remove or add depending on speed of modbus)
+
+ - (6-9)[4-5] DS18B20 Temperature and Humidity
+
+ - (10-13)[6-7] Temperature and Humidity from DHT22
+
+
+
+
+
+
+
   Created on November 11, 2024
 
   By Zachary Schultz
@@ -42,64 +68,59 @@
 
 
 */
-# 24 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+# 37 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 // Initializing libraries
-# 26 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
+# 39 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
+# 40 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
+# 41 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
+# 42 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
 
 //Importing .h files
-# 29 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
-// #include "DS18B20_Sensor.h"
+# 45 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
+# 46 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino" 2
 
 //Modbus Arrays
 bool Coils[1 /* Number of used Coil Address*/];
-bool DiscreteInputs[5 /* Number of used Discrete Inputs Address*/];
+bool DiscreteInputs[4 /* Number of used Discrete Inputs Address*/];
 uint16_t HoldingRegister[1 /* Number of used Holding Register Address*/];
-uint16_t InputRegister[6 /* Number of used Input Register Address*/];
+uint16_t InputRegister[8 /* Number of used Input Register Addresss*/];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
-uint16_t LastHolding = HoldingRegister[0];
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins Used
 
+void readDebug() {
+      Serial.print("DS18B20 Temperature: ");
+      Serial.println( DS18B20_Temp());
+      delay(1000);
+}
+
+
 void setup(){
   modbus.configureCoils(Coils,1 /* Number of used Coil Address*/);
-  modbus.configureDiscreteInputs(DiscreteInputs,5 /* Number of used Discrete Inputs Address*/);
+  modbus.configureDiscreteInputs(DiscreteInputs,4 /* Number of used Discrete Inputs Address*/);
   modbus.configureHoldingRegisters(HoldingRegister,1 /* Number of used Holding Register Address*/);
-  modbus.configureInputRegisters(InputRegister,6 /* Number of used Input Register Address*/);
-uint16_t LastHolding = HoldingRegister[0];
+  modbus.configureInputRegisters(InputRegister,8 /* Number of used Input Register Addresss*/);
 
   Serial.begin(9600);
   modbus.begin(2, 9600);
 
-  // initializeDS18B20();
+  initializeDS18B20();
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: ");
   Serial.println(2);
   delay(1000);
-
-  //test data
-  DiscreteInputs[0] = 0;
-  DiscreteInputs[1] = 0;
-  DiscreteInputs[2] = 0;
-  DiscreteInputs[3] = 1;
-  DiscreteInputs[4] = 0;
-
-  FloatRegister[0] = 1.22f;
-  FloatRegister[1] = 2.22f;
-  FloatRegister[2] = 3.22f;
 }
 
 void loop() {
   modbus.poll(); // Checks for changes
-  if (Coils[0] == 1) {
+  if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
+    FloatRegister[0] = DS18B20_Temp();
     Coils[0] = 0;
-    digitalWrite(2, !digitalRead(2));
-    Serial.println("Coil Changed");
   }
-  if (LastHolding = HoldingRegister[0]) {
-    Serial.print("Holding Register Changed: ");
-    Serial.println(HoldingRegister[0]);
-    LastHolding = HoldingRegister[0];
+  else {
+    readDebug();
   }
+  delay(1000);
 }

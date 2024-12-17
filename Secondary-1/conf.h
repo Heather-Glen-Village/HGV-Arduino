@@ -17,6 +17,6 @@
 // Modbus Array configuration (Should Match with Primary)
 
 #define CoilAddress 1 // Number of used Coil Address
-#define DIAddress 5 // Number of used Discrete Inputs Address
+#define DIAddress 4 // Number of used Discrete Inputs Address
 #define HRAddress 1 // Number of used Holding Register Address
 #define IRAddress 6 // Number of used Input Register Address
