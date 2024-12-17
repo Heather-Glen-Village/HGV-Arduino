@@ -28,10 +28,10 @@ float FloatRegisters[NumSecondary][IRAddress/2]={
   char SensorJson[300]; // should be like 10%  bigger then the JSON I Think
 
   // Populate the JSON document
-  for (int s = 1; s < NumSecondary+1; s++)
+  for (int s = 0; s < NumSecondary; s++)
   {
     doc["Primary"] = PrimaryNum;
-    doc["Secondary"] = s;
+    doc["Secondary"] = s+1;
 
     // Add data to the Float FloatRegisters array
     JsonArray FR = doc.createNestedArray("FR");
