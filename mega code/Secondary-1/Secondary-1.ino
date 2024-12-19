@@ -73,6 +73,7 @@ void setup(){
   modbus.configureInputRegisters(InputRegisters,IRAddress);
 
   Serial.begin(baud);
+  RS485Serial.begin(baud);
   modbus.begin(ID, baud);
 
   initializeDS18B20();
@@ -89,8 +90,8 @@ void loop() {
     Serial.println("Sending Data");
   
     FloatRegisters[0] = DS18B20_Temp();
-    FloatRegisters[1] = AM2302_Temp();
-    FloatRegisters[2] = AM2302_Humidity();
+    FloatRegisters[1] = 1;//AM2302_Temp();
+    FloatRegisters[2] = 1;//AM2302_Humidity();
 
     DiscreteInputs[0] = 1; // Motion
     DiscreteInputs[1] = 1; // Water

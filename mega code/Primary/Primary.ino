@@ -128,6 +128,7 @@ void printdata() {
 // ----------Basic Setup and Loop Start Here ----------
 void setup() {
   Serial.begin(baud);
+  RS485Serial.begin(baud);
   modbus.begin(baud);
   pinMode(LED, OUTPUT);
   Serial.println("Primary Board Sketch");
