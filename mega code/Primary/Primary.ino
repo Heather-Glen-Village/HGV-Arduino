@@ -65,44 +65,6 @@ uint16_t InputRegisters[NumSecondary][IRAddress];
 float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
 bool Smoke = 1;
 
-void printdata() {
-  Serial.println("-----Discrete Input-----");
-  for (int i = 0; i < NumSecondary; i++)
-  {
-    for (int z = 0; z < DIAddress; z++)
-    {
-      Serial.print(discreteInputs[i][z]);
-      Serial.print(",");
-      delay(100);
-    }
-    Serial.println();
-  }
-  delay(2000);
-  Serial.println("-----RAW Input Register-----");
-  for (int i = 0; i < NumSecondary; i++)
-  {
-    for (int z = 0; z < IRAddress; z++)
-    {
-      Serial.print(InputRegisters[i][z]);
-      Serial.print(",");
-      delay(100);
-    }
-    Serial.println();
-  }
-  delay(2000);
-  Serial.println("-----Float Register-----");
-  for (int i = 0; i < NumSecondary; i++)
-  {
-    for (int z = 0; z < IRAddress/2; z++)
-    {
-      Serial.print(FloatRegisters[i][z]);
-      Serial.print(",");
-      delay(100);
-    }
-    Serial.println();
-  }
-}
-
 void readSensors() {
   errorCheck(modbus.writeSingleCoil(0,0,1)); //Tells All Secondary to Read Sensors
 
