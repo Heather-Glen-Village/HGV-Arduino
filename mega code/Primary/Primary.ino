@@ -66,6 +66,7 @@ float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegisters; //
 bool Smoke = 1;
 
 void readSensors() {
+  Serial.println("Telling Secondarys to Read Sensors");
   errorCheck(modbus.writeSingleCoil(0,0,1)); //Tells All Secondary to Read Sensors
 
   //NEED to Rethink how Smoke Is being Sent Smoke

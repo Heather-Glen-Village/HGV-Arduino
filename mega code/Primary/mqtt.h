@@ -75,6 +75,7 @@ void sendData(PubSubClient client, bool discreteInputs[NumSecondary][DIAddress],
   StaticJsonDocument<512> doc; // We going to need a bigger Json
   String SensorJson; // should be like 10%  bigger then the JSON I Think
 
+  Serial.println("Sending Data to NodeRed");
   // Create Json for Every Secondary
   for (int s = 0; s < NumSecondary; s++)
   {
