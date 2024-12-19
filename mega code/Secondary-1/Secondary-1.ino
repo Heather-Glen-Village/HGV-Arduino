@@ -25,7 +25,7 @@ Discrete Inputs Address Index
  - (2) Smoke Data (From Primary)
  - (2) Vibration Sensor
 
-Input Register/Float Register Address Index (InputRegister)[FloatRegister]
+Input Register/Float Register Address Index (InputRegisters)[FloatRegisters]
  - (0-1)[0] Temperature from DS18B20 
  - (2-5)[1-2] Temperature and Humidity from AM2302
 
@@ -48,9 +48,9 @@ Input Register/Float Register Address Index (InputRegister)[FloatRegister]
 //Modbus Arrays
 bool Coils[CoilAddress];
 bool DiscreteInputs[DIAddress];
-uint16_t HoldingRegister[HRAddress];
-uint16_t InputRegister[IRAddress];
-float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+uint16_t HoldingRegisters[HRAddress];
+uint16_t InputRegisters[IRAddress];
+float *FloatRegisters = (float*)InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
@@ -69,8 +69,8 @@ void readDebug() {
 void setup(){
   modbus.configureCoils(Coils,CoilAddress);
   modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
-  modbus.configureHoldingRegisters(HoldingRegister,HRAddress);
-  modbus.configureInputRegisters(InputRegister,IRAddress);
+  modbus.configureHoldingRegisters(HoldingRegisters,HRAddress);
+  modbus.configureInputRegisters(InputRegisters,IRAddress);
 
   Serial.begin(baud);
   modbus.begin(ID, baud);
@@ -88,19 +88,42 @@ void loop() {
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     Serial.println("Sending Data");
   
-    FloatRegister[0] = DS18B20_Temp();
-    FloatRegister[1] = AM2302_Temp();
-    FloatRegister[2] = AM2302_Humidity();
+    FloatRegisters[0] = DS18B20_Temp();
+    FloatRegisters[1] = AM2302_Temp();
+    FloatRegisters[2] = AM2302_Humidity();
 
-    DiscreteInputs[0] = 1;
-    DiscreteInputs[1] = 1;
-    DiscreteInputs[2] = 1;
-    DiscreteInputs[3] = 0; //Always Zero As Primary Fills This in
+    DiscreteInputs[0] = 1; // Motion
+    DiscreteInputs[1] = 1; // Water
+    DiscreteInputs[2] = 1; // Vibration
+
+    printdata(); //for debuging
 
     Coils[0] = 0; // Pervent Looping More then 1 Time
-  } 
-  // else {
-  //   readDebug();
-  // }
-  // delay(1000);
+  }
+}
+
+void printdata() {
+  Serial.println("-----Discrete Input-----");
+    for (int z = 0; z < DIAddress; z++) {
+      Serial.print(DiscreteInputs[z]);
+      Serial.print(",");
+      delay(100);
+    }
+  Serial.println();
+  Serial.println("-----RAW Input Register-----");
+    for (int z = 0; z < IRAddress; z++)
+    {
+      Serial.print(InputRegisters[z]);
+      Serial.print(",");
+      delay(100);
+    }
+  Serial.println();
+  Serial.println("-----Float Register-----");
+    for (int z = 0; z < IRAddress/2; z++)
+    {
+      Serial.print(FloatRegisters[z]);
+      Serial.print(",");
+      delay(100);
+    }
+    Serial.println();
 }

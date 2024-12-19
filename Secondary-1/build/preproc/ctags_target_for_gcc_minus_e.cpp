@@ -43,21 +43,21 @@ Coil Address Index
 
 Discrete Inputs Address Index 
 
- - ()
+ - (0) Motion Sensor
+
+ - (1) Water Leak Sensor
+
+ - (2) Smoke Data (From Primary)
+
+ - (2) Vibration Sensor
 
 
 
-Input Register Address Index (InputRegister)[FloatRegister]
+Input Register/Float Register Address Index (InputRegister)[FloatRegister]
 
- - (0-5): Placeholder Datetime Data (Could be remove or add depending on speed of modbus)
+ - (0-1)[0] Temperature from DS18B20 
 
- - (6-9)[4-5] DS18B20 Temperature and Humidity
-
- - (10-13)[6-7] Temperature and Humidity from DHT22
-
-
-
-
+ - (2-5)[1-2] Temperature and Humidity from AM2302
 
 
 
@@ -65,7 +65,7 @@ Input Register Address Index (InputRegister)[FloatRegister]
 
   By Zachary Schultz
 
-
+  Help from Arham Rashad For Sensor Code
 
 */
 # 37 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\Secondary-1.ino"
@@ -84,7 +84,7 @@ Input Register Address Index (InputRegister)[FloatRegister]
 bool Coils[1 /* Number of used Coil Address*/];
 bool DiscreteInputs[4 /* Number of used Discrete Inputs Address*/];
 uint16_t HoldingRegister[1 /* Number of used Holding Register Address*/];
-uint16_t InputRegister[8 /* Number of used Input Register Address*/];
+uint16_t InputRegister[6 /* Number of used Input Register Address*/];
 float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
@@ -92,14 +92,12 @@ ModbusRTUSlave modbus(Serial /* Which Serial Is being Used*/); // No DERE Pins U
 
 void readDebug() {
       Serial.print("DS18B20 Temperature: ");
-      Serial.println( DS18B20_Temp());
-      delay(1000);
+      Serial.println(DS18B20_Temp());
       Serial.print("AM2302 Temperature: ");
       Serial.println(AM2302_Temp());
-      delay(1000);
-      Serial.print("AM2302 Himidity: ");
+      Serial.print("AM2302 Humidity: ");
       Serial.println(AM2302_Humidity());
-      delay(1000);
+      delay(10000);
 }
 
 
@@ -107,7 +105,7 @@ void setup(){
   modbus.configureCoils(Coils,1 /* Number of used Coil Address*/);
   modbus.configureDiscreteInputs(DiscreteInputs,4 /* Number of used Discrete Inputs Address*/);
   modbus.configureHoldingRegisters(HoldingRegister,1 /* Number of used Holding Register Address*/);
-  modbus.configureInputRegisters(InputRegister,8 /* Number of used Input Register Address*/);
+  modbus.configureInputRegisters(InputRegister,6 /* Number of used Input Register Address*/);
 
   Serial.begin(9600);
   modbus.begin(1, 9600);
@@ -126,10 +124,16 @@ void loop() {
     FloatRegister[0] = DS18B20_Temp();
     FloatRegister[1] = AM2302_Temp();
     FloatRegister[2] = AM2302_Humidity();
-    Coils[0] = 0;
+
+    DiscreteInputs[0] = 1;
+    DiscreteInputs[1] = 1;
+    DiscreteInputs[2] = 1;
+    DiscreteInputs[3] = 0; //Always Zero As Primary Fills This in
+
+    Coils[0] = 0; // Pervent Looping More then 1 Time
   }
-  else {
-    readDebug();
-  }
-  delay(1000);
+  // else {
+  //   readDebug();
+  // }
+  // delay(1000);
 }

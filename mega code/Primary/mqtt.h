@@ -44,13 +44,6 @@ void callback(char* topic, byte* message, unsigned int length) {
     if (command == "LED") {
       digitalWrite(LED, !digitalRead(2));
     }
-    // else if (command == "RELAY-ON")
-    // {
-    //   digitalWrite(Relay, HIGH);
-    // }
-    // else if (command == "RELAY-OFF") {
-    //   digitalWrite(Relay, LOW);
-    // }
   }
 
 }

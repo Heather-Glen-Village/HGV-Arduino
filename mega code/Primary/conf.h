@@ -25,7 +25,7 @@
 // General Modbus Configuration
 #define RS485Serial Serial1 // Which Serial Is being Used
 #define baud 9600
-#define NumSecondary 2 // Amount of Secondary Boards Being Used
+#define NumSecondary 1 // Amount of Secondary Boards Being Used
 
 // Modbus Array configuration (Should Match with Secondarys)
 
