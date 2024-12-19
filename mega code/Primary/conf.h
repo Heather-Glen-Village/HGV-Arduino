@@ -17,7 +17,7 @@
 #define MQTTUser "arduino"
 #define MQTTPassword "arduino"
 
-#define SensorTopic "/sensor"
+#define SensorTopic "/sensors"
 #define ArduinoCMD "/CMDArduino"
 #define temprequest "/temprequest/"
 #define bootmessage "/bootmessage"

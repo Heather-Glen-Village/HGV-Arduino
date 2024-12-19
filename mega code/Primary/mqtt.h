@@ -72,8 +72,8 @@ PubSubClient& reconnected(PubSubClient& client) {
 void sendData(PubSubClient client, bool discreteInputs[NumSecondary][DIAddress], float FloatRegisters[NumSecondary][IRAddress/2], bool Smoke) {
   //turn data into a Json and Send it to NodeRed
 
-  StaticJsonDocument<256> doc; // We going to need a bigger Json
-  char SensorJson[300]; // should be like 10%  bigger then the JSON I Think
+  StaticJsonDocument<512> doc; // We going to need a bigger Json
+  String SensorJson; // should be like 10%  bigger then the JSON I Think
 
   // Create Json for Every Secondary
   for (int s = 0; s < NumSecondary; s++)
@@ -95,14 +95,17 @@ void sendData(PubSubClient client, bool discreteInputs[NumSecondary][DIAddress],
 
     // Serialize JSON to a string and print it
     serializeJson(doc, SensorJson);
-    client.publish(SensorTopic,SensorJson);
+    Serial.println(SensorJson);
+    client.publish(SensorTopic,SensorJson.c_str());
     doc.clear();
+    Serial.println(SensorJson);
   }
   // Json for the Primary
   doc["Primary"] = PrimaryNum;
   doc["Smoke"] = Smoke;
 
   serializeJson(doc, SensorJson);
-  client.publish(SensorTopic,SensorJson);
+  Serial.println(SensorJson);
+  client.publish(SensorTopic,SensorJson.c_str());
   doc.clear();
 }
