@@ -22,18 +22,18 @@ Coil Address Index
  - (0) Command to Read Sensors
 
 Discrete Inputs Address Index 
- - ()
+ - (0) Motion Sensor
+ - (1) Water Leak Sensor
+ - (2) Smoke Data (From Primary)
+ - (2) Vibration Sensor
 
-Input Register Address Index (InputRegister)[FloatRegister]
- - (0-5): Placeholder Datetime Data (Could be remove or add depending on speed of modbus)
- - (6-9)[4-5] DS18B20 Temperature and Humidity
- - (10-13)[6-7] Temperature and Humidity from DHT22
-
-
+Input Register/Float Register Address Index (InputRegister)[FloatRegister]
+ - (0-1)[0] Temperature from DS18B20 
+ - (2-5)[1-2] Temperature and Humidity from AM2302
 
   Created on November 11, 2024
   By Zachary Schultz
-
+  Help from Arham Rashad For Sensor Code
 */
 
 // Initializing libraries
@@ -45,6 +45,7 @@ Input Register Address Index (InputRegister)[FloatRegister]
 //Importing .h files
 #include "conf.h"
 #include "DS18B20_Sensor.h"
+#include "AM2302_Sensor.h"
 
 //Modbus Arrays
 bool Coils[CoilAddress];
@@ -56,17 +57,21 @@ float *FloatRegister = (float*)InputRegister; // Turns an array of uint16 into f
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // No DERE Pins Used
 
-#line 57 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void readDebug();
-#line 64 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 69 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void setup();
-#line 81 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 86 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void loop();
-#line 57 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
+#line 58 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\Secondary-2.ino"
 void readDebug() {
       Serial.print("DS18B20 Temperature: ");
-      Serial.println( DS18B20_Temp());
-      delay(1000);
+      Serial.println(DS18B20_Temp());
+      Serial.print("AM2302 Temperature: ");
+      Serial.println(AM2302_Temp());
+      Serial.print("AM2302 Humidity: ");
+      Serial.println(AM2302_Humidity());
+      delay(10000);
 }
 
 
@@ -91,10 +96,18 @@ void loop() {
   modbus.poll(); // Checks for changes
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     FloatRegister[0] = DS18B20_Temp();
-    Coils[0] = 0;
+    FloatRegister[1] = AM2302_Temp();
+    FloatRegister[2] = AM2302_Humidity();
+
+    DiscreteInputs[0] = 1;
+    DiscreteInputs[1] = 1;
+    DiscreteInputs[2] = 1;
+    DiscreteInputs[3] = 0; //Always Zero As Primary Fills This in
+
+    Coils[0] = 0; // Pervent Looping More then 1 Time
   } 
-  else {
-    readDebug();
-  }
-  delay(1000);
+  // else {
+  //   readDebug();
+  // }
+  // delay(1000);
 }

@@ -63,6 +63,7 @@ bool discreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegister[NumSecondary][IRAddress];
 float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+bool smoke = 1;
 
 void readSensors() {
   errorCheck(modbus.writeSingleCoil(0,0,1)); //Tells All Secondary to Read Sensors
@@ -70,7 +71,8 @@ void readSensors() {
   //NEED to Rethink how Smoke Is being Sent Smoke
   // Maybe have A Json just for Primary Data but Idk what else to put there
   // another Opition is to Put in only in the lastJson file or all of them both would have the same effect but one would be faster ig
-  
+  smoke = 1;
+
   delay(5000); //wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
 
   //Read all sensor data from secondary
@@ -101,7 +103,7 @@ void loop(){
   }
   client.loop();
   readSensors();
-  sendData(client, discreteInputs, FloatRegisters);
+  sendData(client, discreteInputs, FloatRegisters, smoke);
   delay(5000);
 }
 
