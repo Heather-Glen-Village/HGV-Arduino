@@ -148,7 +148,7 @@ void loop()
     reconnected(client);
   }
   client.loop();
-  readSensors();
-  sendData(client, DiscreteInputs, FloatRegisters, Smoke);
+  // readSensors();
+  sendData(); // client, DiscreteInputs, FloatRegisters, Smoke
   delay(5000);
 }

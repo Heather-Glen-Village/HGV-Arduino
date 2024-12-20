@@ -81,7 +81,7 @@ PubSubClient &reconnected(PubSubClient &client)
   }
 }
 
-void sendData(PubSubClient client, bool DiscreteInputs[NumSecondary][DIAddress], float FloatRegisters[NumSecondary][IRAddress / 2], bool Smoke)
+void sendData() // PubSubClient client, bool DiscreteInputs[NumSecondary][DIAddress], float FloatRegisters[NumSecondary][IRAddress / 2], bool Smoke
 {
   // turn data into a Json and Send it to NodeRed
 
@@ -98,22 +98,22 @@ void sendData(PubSubClient client, bool DiscreteInputs[NumSecondary][DIAddress],
 
     for (int a = 0; a < IRAddress / 2; a++)
     {
-      doc["FR"][a] = FloatRegisters[s][a];
-      doc["DI"][a] = DiscreteInputs[s][a];
+      doc["FR"][a] = a; // FloatRegisters[s][a];
+      doc["DI"][a] = a; // DiscreteInputs[s][a];
     }
 
     // Serialize JSON to a string and print it
     serializeJson(doc, SensorJson);
     Serial.println(SensorJson.c_str());
-    client.publish(SensorTopic, SensorJson.c_str());
+    // client.publish(SensorTopic, SensorJson.c_str());
     doc.clear();
   }
   // Json for the Primary
   doc["Primary"] = PrimaryNum;
-  doc["Smoke"] = Smoke;
+  doc["Smoke"] = 1; // Smoke;
 
   serializeJson(doc, SensorJson);
   Serial.println(SensorJson.c_str());
-  client.publish(SensorTopic, SensorJson.c_str());
+  // client.publish(SensorTopic, SensorJson.c_str());
   doc.clear();
 }
