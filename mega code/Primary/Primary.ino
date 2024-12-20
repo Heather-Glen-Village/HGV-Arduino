@@ -149,10 +149,10 @@ void loop()
     reconnected(client);
   }
   client.loop();
-  client.publish("test", PrimaryJson(Smoke).c_str());
+  client.publish(SensorTopic, PrimaryJson(Smoke).c_str());
   for (int i = 0; i < NumSecondary; i++)
   {
-    client.publish("test", SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str());
+    client.publish(SensorTopic, SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str());
   }
   delay(5000);
 }
