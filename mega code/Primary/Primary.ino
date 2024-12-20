@@ -149,10 +149,10 @@ void loop()
     reconnected(client);
   }
   client.loop();
-  Serial.println(PrimaryJson(Smoke));
+  client.publish("test", PrimaryJson(Smoke).c_str());
   for (int i = 0; i < NumSecondary; i++)
   {
-    Serial.println(SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]));
+    client.publish("test", SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str());
   }
   delay(5000);
 }
