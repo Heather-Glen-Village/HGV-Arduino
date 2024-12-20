@@ -24,16 +24,16 @@ Coil Address Index
  - (0) Command to Read Sensors
 
 Input Register/Float Register Address Index (InputRegister)[FloatRegister]
- - (0-1)[0] Temperature from DS18B20 
+ - (0-1)[0] Temperature from DS18B20
  - (2-5)[1-2] Temperature and Humidity from AM2302
 
-Discrete Inputs Address Index 
+Discrete Inputs Address Index
  - (0) Motion Sensor
  - (1) Water Leak Sensor
  - (2) Vibration Sensor
 
 Data from Primary
-  - Smoke Alarm 
+  - Smoke Alarm
   - Water?
   - Set Temp?
 
@@ -48,7 +48,7 @@ Data from Primary
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
-//Importing .h files
+// Importing .h files
 #include "conf.h"
 #include "errorcheck.h"
 #include "mqtt.h"
@@ -57,43 +57,47 @@ ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
 EthernetClient ethClient;
 PubSubClient client(server, port, callback, ethClient);
 
-//Modbus Arrays
+// Modbus Arrays
 bool Coils[NumSecondary][CoilAddress];
-bool discreteInputs[NumSecondary][DIAddress];
+bool DiscreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegisters[NumSecondary][IRAddress];
-float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
+float (*FloatRegisters)[IRAddress / 2] = (float (*)[IRAddress / 2]) InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
 bool Smoke = 1;
 
-void readSensors() {
+void readSensors()
+{
   Serial.println("Telling Secondarys to Read Sensors");
-  errorCheck(modbus.writeSingleCoil(0,0,1)); //Tells All Secondary to Read Sensors
+  errorCheck(modbus.writeSingleCoil(0, 0, 1)); // Tells All Secondary to Read Sensors
 
-  //NEED to Rethink how Smoke Is being Sent Smoke
-  // Maybe have A Json just for Primary Data but Idk what else to put there
-  // another Opition is to Put in only in the lastJson file or all of them both would have the same effect but one would be faster ig
+  // NEED to Rethink how Smoke Is being Sent Smoke
+  //  Maybe have A Json just for Primary Data but Idk what else to put there
+  //  another Opition is to Put in only in the lastJson file or all of them both would have the same effect but one would be faster ig
   Smoke = 1;
 
-  delay(5000); //wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
+  delay(5000); // wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
 
-  //Read all sensor data from secondary
-  for (int i = 0; i < NumSecondary; i++) { 
-    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress));
+  // Read all sensor data from secondary
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    errorCheck(modbus.readDiscreteInputs(i + 1, 0, DiscreteInputs[i], DIAddress));
     delay(100);
   }
-  for (int i = 0; i < NumSecondary; i++) {
-    errorCheck(modbus.readInputRegisters(i+1,0,InputRegisters[i],IRAddress));
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    errorCheck(modbus.readInputRegisters(i + 1, 0, InputRegisters[i], IRAddress));
     delay(100);
   }
 }
 
-void printdata() {
+void printdata()
+{
   Serial.println("-----Discrete Input-----");
   for (int i = 0; i < NumSecondary; i++)
   {
     for (int z = 0; z < DIAddress; z++)
     {
-      Serial.print(discreteInputs[i][z]);
+      Serial.print(DiscreteInputs[i][z]);
       Serial.print(",");
       delay(100);
     }
@@ -115,7 +119,7 @@ void printdata() {
   Serial.println("-----Float Register-----");
   for (int i = 0; i < NumSecondary; i++)
   {
-    for (int z = 0; z < IRAddress/2; z++)
+    for (int z = 0; z < IRAddress / 2; z++)
     {
       Serial.print(FloatRegisters[i][z]);
       Serial.print(",");
@@ -126,7 +130,8 @@ void printdata() {
 }
 
 // ----------Basic Setup and Loop Start Here ----------
-void setup() {
+void setup()
+{
   Serial.begin(baud);
   RS485Serial.begin(baud);
   modbus.begin(baud);
@@ -134,14 +139,16 @@ void setup() {
   Serial.println("Primary Board Sketch");
   EthConnect();
   delay(1000);
-  }
+}
 
-void loop() {
-  if (!client.connected()) { // Reconnected if Connection is Lost, Should do the same with ethernet?
+void loop()
+{
+  if (!client.connected())
+  { // Reconnected if Connection is Lost, Should do the same with ethernet?
     reconnected(client);
   }
   client.loop();
   readSensors();
-  sendData(client, discreteInputs, FloatRegisters, Smoke);
+  sendData(client, DiscreteInputs, FloatRegisters, Smoke);
   delay(5000);
 }

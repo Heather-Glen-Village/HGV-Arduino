@@ -13,7 +13,7 @@ bool smoke = 1;
 void sendData(bool discreteInputs[2][3], float FloatRegisters[2][6 / 2], bool Smoke)
 {
     JsonDocument doc;
-    char SerialJson;
+    char SerialJson[512];
 
     doc["Primary"] = 1;
     doc["Secondary"] = 2;
@@ -28,6 +28,7 @@ void sendData(bool discreteInputs[2][3], float FloatRegisters[2][6 / 2], bool Sm
 
     serializeJson(doc, SerialJson);
     Serial.println(SerialJson);
+    doc.clear();
 }
 void setup()
 {
