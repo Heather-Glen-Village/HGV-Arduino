@@ -152,7 +152,7 @@ void loop()
   Serial.println(PrimaryJson(Smoke));
   for (int i = 0; i < NumSecondary; i++)
   {
-    Serial.println(SecondaryJson(i, DiscreteInputs, FloatRegisters));
+    Serial.println(SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]));
   }
   delay(5000);
 }

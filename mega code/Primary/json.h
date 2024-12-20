@@ -15,15 +15,15 @@ String PrimaryJson(bool Smoke)
     return SensorJson;
 }
 
-String SecondaryJson(int SecondaryNum, bool DiscreteInputs[NumSecondary][DIAddress], float FloatRegisters[NumSecondary][IRAddress / 2])
+String SecondaryJson(int SecondaryNum, bool DiscreteInputs[NumSecondary], float FloatRegisters[NumSecondary])
 {
     doc["Primary"] = PrimaryNum;
     doc["Secondary"] = SecondaryNum;
 
     for (int a = 0; a < IRAddress / 2; a++)
     {
-        doc["FR"][a] = FloatRegisters[SecondaryNum][a];
-        doc["DI"][a] = DiscreteInputs[SecondaryNum][a];
+        doc["FR"][a] = FloatRegisters[a];
+        doc["DI"][a] = DiscreteInputs[a];
     }
 
     serializeJson(doc, SensorJson);
