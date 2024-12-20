@@ -23,7 +23,7 @@
     - D16(A2) SoftRX
     - D17(A3) SoftTX
 
-  Created on November 11, 2024
+  Created on November 20, 2024
   By Zachary Schultz
 
 */
@@ -31,6 +31,7 @@
 #include <SoftwareSerial.h>
 #include <ArduinoRS485.h>
 #include <ArduinoModbus.h>
+#include <SPI.h>
 #include <Ethernet.h>
 // #include <ModbusRTUServer.h>
 // #include <ModbusServer.h>
@@ -41,16 +42,21 @@
 #define rxPin 16 // A2
 #define txPin 17 // A3
 #define LED 2
+// Initializing the uses of SoftwareSerial
+// SoftwareSerial modbusSerial(rxPin, txPin); // RX TX
 
-SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
-
-#line 45 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 46 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 void setup();
-#line 49 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 55 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 void loop();
-#line 45 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
+#line 46 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino"
 void setup()
 {
+  Serial.begin(9600);               // for Debug
+  RS485.setPins(txPin, rxPin, LED); // Board don't Use RE pin so set it to LED so it lights up while Sending
+  if (!ModbusRTUServer.begin(1, 9600))
+  {
+  }
 }
 
 void loop()

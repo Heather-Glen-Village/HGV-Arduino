@@ -43,7 +43,7 @@
 
 
 
-  Created on November 11, 2024
+  Created on November 20, 2024
 
   By Zachary Schultz
 
@@ -56,6 +56,7 @@
 # 31 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
 # 32 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
 # 33 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
+# 34 "D:\\Github\\HGV\\rems006-Arduino\\Primary\\Primary.ino" 2
 // #include <ModbusRTUServer.h>
 // #include <ModbusServer.h>
 // #include <ModbusTCPServer.h>
@@ -65,11 +66,16 @@
 
 
 
-
-SoftwareSerial RS485Serial(SoftRO, SoftDI); // RX TX
+// Initializing the uses of SoftwareSerial
+// SoftwareSerial modbusSerial(rxPin, txPin); // RX TX
 
 void setup()
 {
+  Serial.begin(9600); // for Debug
+  RS485.setPins(17 /* A3*/, 16 /* A2*/, 2); // Board don't Use RE pin so set it to LED so it lights up while Sending
+  if (!ModbusRTUServer.begin(1, 9600))
+  {
+  }
 }
 
 void loop()
