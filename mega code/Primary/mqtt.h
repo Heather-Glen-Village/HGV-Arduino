@@ -86,7 +86,7 @@ void sendData(PubSubClient client, bool DiscreteInputs[NumSecondary][DIAddress],
   // turn data into a Json and Send it to NodeRed
 
   JsonDocument doc;
-  char SensorJson[512];
+  String SensorJson;
 
   Serial.println("Sending Data to NodeRed");
 
@@ -104,8 +104,8 @@ void sendData(PubSubClient client, bool DiscreteInputs[NumSecondary][DIAddress],
 
     // Serialize JSON to a string and print it
     serializeJson(doc, SensorJson);
-    Serial.println(SensorJson);
-    client.publish(SensorTopic, SensorJson);
+    Serial.println(SensorJson.c_str());
+    client.publish(SensorTopic, SensorJson.c_str());
     doc.clear();
   }
   // Json for the Primary
@@ -113,7 +113,7 @@ void sendData(PubSubClient client, bool DiscreteInputs[NumSecondary][DIAddress],
   doc["Smoke"] = Smoke;
 
   serializeJson(doc, SensorJson);
-  Serial.println(SensorJson);
-  client.publish(SensorTopic, SensorJson);
+  Serial.println(SensorJson.c_str());
+  client.publish(SensorTopic, SensorJson.c_str());
   doc.clear();
 }
