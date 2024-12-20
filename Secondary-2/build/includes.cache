@@ -11,11 +11,6 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
-    "Include": "SoftwareSerial.h",
-    "Includepath": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src"
-  },
-  {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
     "Include": "ModbusRTUSlave.h",
     "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUSlave\\src"
   },
@@ -31,16 +26,21 @@
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
-    "Include": "ModbusRTUMaster.h",
-    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src"
+    "Include": "OneWire.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_OneWire"
   },
   {
     "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
-    "Include": "",
-    "Includepath": null
+    "Include": "DallasTemperature.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_DallasTemp"
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SoftwareSerial\\src\\SoftwareSerial.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
+    "Include": "DHT.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-2\\build\\sketch\\Secondary-2.ino.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -60,7 +60,32 @@
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\ModbusRTUMaster\\src\\ModbusRTUMaster.cpp",
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_OneWire\\OneWire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\MAX31850_DallasTemp\\DallasTemperature.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp",
+    "Include": "Adafruit_Sensor.h",
+    "Includepath": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\DHT_sensor_library\\DHT_U.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Zach_\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor\\Adafruit_Sensor.cpp",
     "Include": "",
     "Includepath": null
   }

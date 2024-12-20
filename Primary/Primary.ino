@@ -1,57 +1,144 @@
-
-
 /*
   Primary Arduino Control
 
   This sketch is the Code That lets the Priamry Act as a RTC Master, TCP Server, and Control All Sensor and System Connected
 
   Pin List
+    - D0 RX
+    - D1 TX
     - D2 LED
     - D3 Smoke
     - D4 Heat On
     - D5 Water Off
     - D6 Power Off
     - D7 Cool On
-    - D8 Eth-Int?
-    - D9 Dere Power (Unused)
+    - D8 Eth-Int
     - D10 Eth-CSN
     - D11 Eth-MOSI
     - D12 Eth-MISO
     - D13 Eth-SCK
-    - D16(A2) SoftRX
-    - D17(A3) SoftTX
+
+
+Modbus Address
+Coil Address Index
+ - (0) Command to Read Sensors
+
+Input Register/Float Register Address Index (InputRegister)[FloatRegister]
+ - (0-1)[0] Temperature from DS18B20 
+ - (2-5)[1-2] Temperature and Humidity from AM2302
+
+Discrete Inputs Address Index 
+ - (0) Motion Sensor
+ - (1) Water Leak Sensor
+ - (2) Vibration Sensor
+
+Data from Primary
+  - Smoke Alarm 
+  - Water?
+  - Set Temp?
 
   Created on November 20, 2024
   By Zachary Schultz
-
 */
+
 // Initializing libraries
-#include <SoftwareSerial.h>
-#include <ArduinoRS485.h>
-#include <ArduinoModbus.h>
 #include <SPI.h>
 #include <Ethernet.h>
-// #include <ModbusRTUServer.h>
-// #include <ModbusServer.h>
-// #include <ModbusTCPServer.h>
+#include <ModbusRTUMaster.h>
+#include <PubSubClient.h>
+#include <ArduinoJson.h>
 
-// Initializing pins
+//Importing .h files
+#include "conf.h"
+#include "errorcheck.h"
+#include "mqtt.h"
 
-#define rxPin 16 // A2
-#define txPin 17 // A3
-#define LED 2
-// Initializing the uses of SoftwareSerial
-// SoftwareSerial modbusSerial(rxPin, txPin); // RX TX
+ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
+EthernetClient ethClient;
+PubSubClient client(server, port, callback, ethClient);
 
-void setup()
-{
-  Serial.begin(9600);               // for Debug
-  RS485.setPins(txPin, rxPin, LED); // Board don't Use RE pin so set it to LED so it lights up while Sending
-  if (!ModbusRTUServer.begin(1, 9600))
-  {
+//Modbus Arrays
+bool Coils[NumSecondary][CoilAddress];
+bool discreteInputs[NumSecondary][DIAddress];
+uint16_t HoldingRegisters[NumSecondary][HRAddress];
+uint16_t InputRegister[NumSecondary][IRAddress];
+float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+
+void readSensors() {
+  errorCheck(modbus.writeSingleCoil(0,0,1)); //Tells All Secondary to Read Sensors
+
+  //NEED to Rethink how Smoke Is being Sent Smoke
+  // Maybe have A Json just for Primary Data but Idk what else to put there
+  // another Opition is to Put in only in the lastJson file or all of them both would have the same effect but one would be faster ig
+  
+  delay(5000); //wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
+
+  //Read all sensor data from secondary
+  for (int i = 0; i < NumSecondary; i++) { 
+    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress));
+    delay(100);
+  }
+  for (int i = 0; i < NumSecondary; i++) {
+    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress));
+    delay(100);
   }
 }
 
-void loop()
-{
+// ----------Basic Setup and Loop Start Here ----------
+void setup() {
+  Serial.begin(baud);
+  modbus.begin(baud);
+  pinMode(LED, OUTPUT);
+  Serial.println("Primary Board Sketch");
+  
+  delay(1000);
+  EthConnect();
+  }
+
+void loop(){
+  if (!client.connected()) { // Reconnected if Connection is Lost, Should do the same with ethernet?
+    reconnected(client);
+  }
+  client.loop();
+  readSensors();
+  sendData(client, discreteInputs, FloatRegisters);
+  delay(5000);
+}
+
+void printdata() {
+  Serial.println("-----Discrete Input-----");
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    for (int z = 0; z < DIAddress; z++)
+    {
+      Serial.print(discreteInputs[i][z]);
+      Serial.print(",");
+      delay(100);
+    }
+    Serial.println();
+  }
+  delay(2000);
+  Serial.println("-----RAW Input Register-----");
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    for (int z = 0; z < IRAddress; z++)
+    {
+      Serial.print(InputRegister[i][z]);
+      Serial.print(",");
+      delay(100);
+    }
+    Serial.println();
+  }
+  delay(2000);
+  Serial.println("-----Float Register-----");
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    for (int z = 0; z < IRAddress/2; z++)
+    {
+      Serial.print(FloatRegisters[i][z]);
+      Serial.print(",");
+      delay(100);
+    }
+    Serial.println();
+  }
 }
