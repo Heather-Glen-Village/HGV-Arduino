@@ -149,6 +149,7 @@ void loop()
     reconnected(client);
   }
   client.loop();
+  readSensors();
   client.publish(SensorTopic, PrimaryJson(Smoke).c_str());
   for (int i = 0; i < NumSecondary; i++)
   {
