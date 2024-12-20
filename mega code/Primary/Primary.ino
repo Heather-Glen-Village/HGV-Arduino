@@ -52,6 +52,7 @@ Data from Primary
 #include "conf.h"
 #include "errorcheck.h"
 #include "mqtt.h"
+#include "json.h"
 
 ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
 EthernetClient ethClient;
@@ -148,7 +149,10 @@ void loop()
     reconnected(client);
   }
   client.loop();
-  // readSensors();
-  sendData(); // client, DiscreteInputs, FloatRegisters, Smoke
+  Serial.println(PrimaryJson(Smoke));
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    Serial.println(SecondaryJson(i, DiscreteInputs, FloatRegisters));
+  }
   delay(5000);
 }

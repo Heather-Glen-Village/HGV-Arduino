@@ -1,7 +1,6 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <PubSubClient.h>
-#include <ArduinoJson.h>
 #include "conf.h"
 
 void EthConnect()
@@ -79,41 +78,4 @@ PubSubClient &reconnected(PubSubClient &client)
       delay(5000);
     }
   }
-}
-
-void sendData() // PubSubClient client, bool DiscreteInputs[NumSecondary][DIAddress], float FloatRegisters[NumSecondary][IRAddress / 2], bool Smoke
-{
-  // turn data into a Json and Send it to NodeRed
-
-  JsonDocument doc;
-  String SensorJson;
-
-  Serial.println("Sending Data to NodeRed");
-
-  // Create Json for Every Secondary
-  for (int s = 0; s < NumSecondary; s++)
-  {
-    doc["Primary"] = PrimaryNum;
-    doc["Secondary"] = s + 1;
-
-    for (int a = 0; a < IRAddress / 2; a++)
-    {
-      doc["FR"][a] = a; // FloatRegisters[s][a];
-      doc["DI"][a] = a; // DiscreteInputs[s][a];
-    }
-
-    // Serialize JSON to a string and print it
-    serializeJson(doc, SensorJson);
-    Serial.println(SensorJson.c_str());
-    // client.publish(SensorTopic, SensorJson.c_str());
-    doc.clear();
-  }
-  // Json for the Primary
-  doc["Primary"] = PrimaryNum;
-  doc["Smoke"] = 1; // Smoke;
-
-  serializeJson(doc, SensorJson);
-  Serial.println(SensorJson.c_str());
-  // client.publish(SensorTopic, SensorJson.c_str());
-  doc.clear();
 }
