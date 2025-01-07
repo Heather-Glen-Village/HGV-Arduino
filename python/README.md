@@ -1,0 +1,2 @@
+# Python Code
+most of this code is either some test code for Ethenet communication which isn't in use anymore (Changed from ModbusTCP to MQTT) or some Testing for the Website. both isn't really needed anymore and are just here for archiving purposes.

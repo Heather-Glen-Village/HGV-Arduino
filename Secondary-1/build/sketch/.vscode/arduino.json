@@ -1,9 +1,0 @@
-#line 1 "C:\\Users\\Zach_\\Documents\\Code\\HGV-Coop\\Rems006\\Secondary-1\\.vscode\\arduino.json"
-{
-    "sketch": "Secondary-1.ino",
-    "output": "build",
-    "configuration": "cpu=atmega328",
-    "board": "arduino:avr:nano",
-    "programmer": "avrisp",
-    "port": "COM5"
-}
