@@ -1,4 +1,4 @@
-# Primary 1
+# Secondary 1
 In this Folder is all the code that is used in the all the Secondary Arduino, the Main file is the Secondary-1.ino with extra files used for organiztion and act like you just put all of the code into the Main file.
 ## What Each File Does
 ### Secondary-1.ino
