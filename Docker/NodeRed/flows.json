@@ -1,0 +1,902 @@
+[
+    {
+        "id": "f2d57d377a625325",
+        "type": "tab",
+        "label": "MQTT Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e5f5dfcaf6359406",
+        "type": "subflow",
+        "name": "Prometheus Format",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 260,
+                "wires": [
+                    {
+                        "id": "e23db888e69f0cab"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "5d1a9e3c3af6c5dc",
+        "type": "subflow",
+        "name": "WebSocket",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "e42cbbab88cdb06b"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "52eec844ad3f4038",
+        "type": "group",
+        "z": "e5f5dfcaf6359406",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "721810802d7ab049",
+            "83aae2fcc054cdfd",
+            "17afa7457514dabd",
+            "323d3db208681dd8",
+            "41783406d9bb58d1",
+            "eb02a6575f29de44",
+            "f6df6203ccc5eb8e"
+        ],
+        "x": 334,
+        "y": 79,
+        "w": 312,
+        "h": 402
+    },
+    {
+        "id": "04934d1def7d0849",
+        "type": "group",
+        "z": "e5f5dfcaf6359406",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "b3d646b67d8145c0",
+            "d6b6bebf83e5a0cb",
+            "18d5020de794ccf4",
+            "370699f4e23fb8f3",
+            "4dc9a936270ce685",
+            "e591016f00e6bdee",
+            "0b7894d6da2a0c19"
+        ],
+        "x": 714,
+        "y": 79,
+        "w": 272,
+        "h": 402
+    },
+    {
+        "id": "e6df60cf6ff106dc",
+        "type": "mqtt-broker",
+        "name": "MQTT REMS006",
+        "broker": "192.168.3.126",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "de24e12520154048",
+        "type": "prometheus-metric-config",
+        "name": "AM2302_Temperature",
+        "help": "Temperature Data from the AM2302 Sensor",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "e2894396cdd90c84",
+        "type": "prometheus-metric-config",
+        "name": "AM2302_Humidity",
+        "help": "Humidity Data from the AM2302 Sensor",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "ae5fa04a9b37849c",
+        "type": "prometheus-metric-config",
+        "name": "DS18B20_Temperature",
+        "help": "Temperature Data from the DS18B20 Sensor",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "97213ee6b7984393",
+        "type": "prometheus-metric-config",
+        "name": "AM2302_Humidity",
+        "help": "Humidity Data from the AM2302 Sensor",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "b244177c0470ae2c",
+        "type": "prometheus-metric-config",
+        "name": "Motion",
+        "help": "Motion Data Read from HC505 Sensor",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "36e206c79179c8e4",
+        "type": "prometheus-metric-config",
+        "name": "Smoke",
+        "help": "If the Smoke Detectors has Gone Off ",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "4125243316a40df4",
+        "type": "prometheus-metric-config",
+        "name": "Water_Leak",
+        "help": "Water_Leak Data from the __ Sensor",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "07e90e062c4b0bd4",
+        "type": "prometheus-metric-config",
+        "name": "Vibration",
+        "help": "Vibration From the ___ Sensor",
+        "labels": "Primary, Secondary",
+        "mtype": "gauge"
+    },
+    {
+        "id": "65ebc8072057e48f",
+        "type": "websocket-listener",
+        "z": "5d1a9e3c3af6c5dc",
+        "path": "/ws/temp",
+        "wholemsg": "false"
+    },
+    {
+        "id": "4b5d312277d2fc73",
+        "type": "comment",
+        "z": "e5f5dfcaf6359406",
+        "name": "",
+        "info": "DS18B20_temperature\nAM2302_temperature\nAM2302_humidity\n\nmotion\nwaterLeak\nvibration \n\nsmoke",
+        "x": 340,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "721810802d7ab049",
+        "type": "change",
+        "z": "e5f5dfcaf6359406",
+        "g": "52eec844ad3f4038",
+        "name": "DS18B20_Temperature Format",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"op\": \"set\",\t  \"val\": msg.payload.FR[0],\t  \"labels\": {\t    \"Primary\": msg.payload.Primary, \"Secondary\": msg.payload.Secondary\t  }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 120,
+        "wires": [
+            [
+                "b3d646b67d8145c0"
+            ]
+        ]
+    },
+    {
+        "id": "83aae2fcc054cdfd",
+        "type": "change",
+        "z": "e5f5dfcaf6359406",
+        "g": "52eec844ad3f4038",
+        "name": " AM2302_Humidity Format",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"op\": \"set\",\t  \"val\": msg.payload.FR[2],\t  \"labels\": {\t    \"Primary\": msg.payload.Primary, \"Secondary\": msg.payload.Secondary\t  }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "d6b6bebf83e5a0cb"
+            ]
+        ]
+    },
+    {
+        "id": "17afa7457514dabd",
+        "type": "change",
+        "z": "e5f5dfcaf6359406",
+        "g": "52eec844ad3f4038",
+        "name": "AM2302_Temperature Format",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"op\": \"set\",\t  \"val\": msg.payload.FR[1],\t  \"labels\": {\t    \"Primary\": msg.payload.Primary, \"Secondary\": msg.payload.Secondary\t  }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 160,
+        "wires": [
+            [
+                "18d5020de794ccf4"
+            ]
+        ]
+    },
+    {
+        "id": "323d3db208681dd8",
+        "type": "change",
+        "z": "e5f5dfcaf6359406",
+        "g": "52eec844ad3f4038",
+        "name": "Motion Format",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"op\": \"set\",\t  \"val\": msg.payload.DI[0],\t  \"labels\": {\t    \"Primary\": msg.payload.Primary, \"Secondary\": msg.payload.Secondary\t  }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 260,
+        "wires": [
+            [
+                "0b7894d6da2a0c19"
+            ]
+        ]
+    },
+    {
+        "id": "41783406d9bb58d1",
+        "type": "change",
+        "z": "e5f5dfcaf6359406",
+        "g": "52eec844ad3f4038",
+        "name": "Water_Leak Format",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"op\": \"set\",\t  \"val\": msg.payload.DI[1],\t  \"labels\": {\t    \"Primary\": msg.payload.Primary, \"Secondary\": msg.payload.Secondary\t  }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "370699f4e23fb8f3"
+            ]
+        ]
+    },
+    {
+        "id": "eb02a6575f29de44",
+        "type": "change",
+        "z": "e5f5dfcaf6359406",
+        "g": "52eec844ad3f4038",
+        "name": "Vibration Format",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"op\": \"set\",\t  \"val\": msg.payload.DI[2],\t  \"labels\": {\t    \"Primary\": msg.payload.Primary, \"Secondary\": msg.payload.Secondary\t  }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 340,
+        "wires": [
+            [
+                "4dc9a936270ce685"
+            ]
+        ]
+    },
+    {
+        "id": "f6df6203ccc5eb8e",
+        "type": "change",
+        "z": "e5f5dfcaf6359406",
+        "g": "52eec844ad3f4038",
+        "name": "Smoke Format",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t  \"op\": \"set\",\t  \"val\": msg.payload.Smoke,\t  \"labels\": {\t    \"Primary\": msg.payload.Primary\t  }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 440,
+        "wires": [
+            [
+                "e591016f00e6bdee"
+            ]
+        ]
+    },
+    {
+        "id": "b3d646b67d8145c0",
+        "type": "prometheus-exporter",
+        "z": "e5f5dfcaf6359406",
+        "g": "04934d1def7d0849",
+        "name": "DS18B20_Temperature",
+        "metric": "ae5fa04a9b37849c",
+        "x": 850,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d6b6bebf83e5a0cb",
+        "type": "prometheus-exporter",
+        "z": "e5f5dfcaf6359406",
+        "g": "04934d1def7d0849",
+        "name": "AM2302_Humidity",
+        "metric": "97213ee6b7984393",
+        "x": 830,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "18d5020de794ccf4",
+        "type": "prometheus-exporter",
+        "z": "e5f5dfcaf6359406",
+        "g": "04934d1def7d0849",
+        "name": "AM2302_Temperature",
+        "metric": "de24e12520154048",
+        "x": 840,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "370699f4e23fb8f3",
+        "type": "prometheus-exporter",
+        "z": "e5f5dfcaf6359406",
+        "g": "04934d1def7d0849",
+        "name": "Water_Leak",
+        "metric": "4125243316a40df4",
+        "x": 810,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4dc9a936270ce685",
+        "type": "prometheus-exporter",
+        "z": "e5f5dfcaf6359406",
+        "g": "04934d1def7d0849",
+        "name": "Vibration",
+        "metric": "07e90e062c4b0bd4",
+        "x": 800,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e591016f00e6bdee",
+        "type": "prometheus-exporter",
+        "z": "e5f5dfcaf6359406",
+        "g": "04934d1def7d0849",
+        "name": "Smoke",
+        "metric": "36e206c79179c8e4",
+        "x": 800,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "0b7894d6da2a0c19",
+        "type": "prometheus-exporter",
+        "z": "e5f5dfcaf6359406",
+        "g": "04934d1def7d0849",
+        "name": "Motion",
+        "metric": "b244177c0470ae2c",
+        "x": 790,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e23db888e69f0cab",
+        "type": "switch",
+        "z": "e5f5dfcaf6359406",
+        "name": "Sort Messages",
+        "property": "payload.Secondary",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "721810802d7ab049",
+                "17afa7457514dabd",
+                "83aae2fcc054cdfd",
+                "323d3db208681dd8",
+                "41783406d9bb58d1",
+                "eb02a6575f29de44"
+            ],
+            [
+                "f6df6203ccc5eb8e"
+            ]
+        ]
+    },
+    {
+        "id": "be695ee18e6d90d0",
+        "type": "websocket out",
+        "z": "5d1a9e3c3af6c5dc",
+        "name": "Temp",
+        "server": "65ebc8072057e48f",
+        "client": "",
+        "x": 650,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ec8a1e358dcd74b2",
+        "type": "change",
+        "z": "5d1a9e3c3af6c5dc",
+        "name": "Pull DS18B20 Value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.FR[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "be695ee18e6d90d0",
+                "be829e48a3ef95a0"
+            ]
+        ]
+    },
+    {
+        "id": "bc8f8979dc01011e",
+        "type": "join",
+        "z": "5d1a9e3c3af6c5dc",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 190,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0457ea9fce81259f",
+        "type": "switch",
+        "z": "5d1a9e3c3af6c5dc",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "be829e48a3ef95a0",
+        "type": "debug",
+        "z": "5d1a9e3c3af6c5dc",
+        "name": "what being sent to websocket",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e42cbbab88cdb06b",
+        "type": "switch",
+        "z": "5d1a9e3c3af6c5dc",
+        "name": "Sort Messages",
+        "property": "payload.Secondary",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 200,
+        "y": 200,
+        "wires": [
+            [
+                "ec8a1e358dcd74b2"
+            ]
+        ]
+    },
+    {
+        "id": "637da6621844e010",
+        "type": "mqtt in",
+        "z": "f2d57d377a625325",
+        "name": "Sensors Data",
+        "topic": "/sensors",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "e6df60cf6ff106dc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "86aaf705e1971af7",
+                "af6c7f03db9d477d",
+                "20c4addc496d512a"
+            ]
+        ]
+    },
+    {
+        "id": "86aaf705e1971af7",
+        "type": "debug",
+        "z": "f2d57d377a625325",
+        "name": "debug Input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "counter",
+        "x": 550,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "af6c7f03db9d477d",
+        "type": "subflow:e5f5dfcaf6359406",
+        "z": "f2d57d377a625325",
+        "name": "",
+        "x": 580,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "20c4addc496d512a",
+        "type": "subflow:5d1a9e3c3af6c5dc",
+        "z": "f2d57d377a625325",
+        "name": "",
+        "x": 550,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "a8d03c9c69056d2b",
+        "type": "comment",
+        "z": "f2d57d377a625325",
+        "name": "How the Secondary Json Is Formated",
+        "info": "{\n    \"Primary\": \"Primary/Room Num\",\n    \"Secondary\": \"Secondary Num\",\n    \"FR\": [\n        DS18B20_Temperature,\n        AM2302_Temperature,\n        AM2302_Humidity\n    ],\n    \"DI\": [\n        Motion,\n        WaterLeak,\n        Vibration\n    ]\n}\n\n\n\n\n\n\n\n ",
+        "x": 190,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a112de10c016b7ca",
+        "type": "comment",
+        "z": "f2d57d377a625325",
+        "name": "How the Primary Json Is Formated",
+        "info": "{\n    \"Primary\": Primary/Room Num,\n    \"Smoke\": Smoke\n}",
+        "x": 180,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "1289ea45b1b0317d",
+        "type": "function",
+        "z": "f2d57d377a625325",
+        "name": "Fake Data Maker",
+        "func": "// Generate random float between min and max\nfunction getRandomFloat(min, max) {\n    return parseFloat((Math.random() * (max - min) + min).toFixed(2));\n}\n\n// Generate random boolean (0 or 1)\nfunction getRandomBool() {\n    return Math.random() < 0.5 ? 0 : 1;\n}\n\n// Create the test JSON object\nlet testJson = {\n    \"Primary\": \"1\",\n    \"Secondary\": msg.payload.s,\n    \"FR\": [\n        getRandomFloat(0, 40),  // Adjust the range as needed\n        getRandomFloat(0, 40),\n        getRandomFloat(0, 100),\n    ],\n    \"DI\": [\n        getRandomBool(),\n        getRandomBool(),\n        getRandomBool()\n    ]\n};\n\n// Return the generated JSON object\nmsg.payload = testJson;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 460,
+        "wires": [
+            [
+                "20c4addc496d512a",
+                "af6c7f03db9d477d",
+                "86aaf705e1971af7"
+            ]
+        ]
+    },
+    {
+        "id": "fd071243b926d136",
+        "type": "inject",
+        "z": "f2d57d377a625325",
+        "name": "S1",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"s\": \"1\"\t}",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "1289ea45b1b0317d"
+            ]
+        ]
+    },
+    {
+        "id": "affa01f1d060ded0",
+        "type": "inject",
+        "z": "f2d57d377a625325",
+        "name": "S2",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"s\": \"2\"\t}",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "1289ea45b1b0317d"
+            ]
+        ]
+    },
+    {
+        "id": "607e8a80428e833e",
+        "type": "inject",
+        "z": "f2d57d377a625325",
+        "name": "S3",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"s\": \"3\"\t}",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 480,
+        "wires": [
+            [
+                "1289ea45b1b0317d"
+            ]
+        ]
+    },
+    {
+        "id": "9812a1ef0b653543",
+        "type": "inject",
+        "z": "f2d57d377a625325",
+        "name": "S4",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"s\": \"4\"\t}",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "1289ea45b1b0317d"
+            ]
+        ]
+    },
+    {
+        "id": "04d871715330ec7f",
+        "type": "inject",
+        "z": "f2d57d377a625325",
+        "name": "P1",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"p\": \"1\"\t}",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 580,
+        "wires": [
+            [
+                "ba3e59d13f81e6fd"
+            ]
+        ]
+    },
+    {
+        "id": "ba3e59d13f81e6fd",
+        "type": "function",
+        "z": "f2d57d377a625325",
+        "name": "Fake Data Maker",
+        "func": "// Generate random float between min and max\nfunction getRandomFloat(min, max) {\n    return parseFloat((Math.random() * (max - min) + min).toFixed(2));\n}\n\n// Generate random boolean (0 or 1)\nfunction getRandomBool() {\n    return Math.random() < 0.5 ? 0 : 1;\n}\n\n// Create the test JSON object\nlet testJson = {\n    \"Primary\": msg.payload.p,\n    \"Smoke\": getRandomBool()\n};\n\n// Return the generated JSON object\nmsg.payload = testJson;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 580,
+        "wires": [
+            [
+                "86aaf705e1971af7",
+                "af6c7f03db9d477d",
+                "20c4addc496d512a"
+            ]
+        ]
+    }
+]
