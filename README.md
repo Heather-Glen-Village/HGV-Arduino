@@ -34,6 +34,11 @@ Ethernet Port,
 [NodeRed](https://nodered.org/), 
 [Prometheus](https://prometheus.io/), 
 [Grafana](https://grafana.com/)
+
+### Other
+Some extra tools and resources That I used and could be helpful 
+- [Circuitstate Doc on Modbus Communication](https://www.circuitstate.com/tutorials/what-is-modbus-communication-protocol-and-how-to-implement-modbus-rtu-with-arduino/)
+- [Arduino Community Edition Plug-in](https://marketplace.visualstudio.com/items?itemName=vscode-arduino.vscode-arduino-community) 
 ## Installation
 ### Local
 To Download all the Code Locally Open a Terminal and cd into a directory you wish to Download all of this  
