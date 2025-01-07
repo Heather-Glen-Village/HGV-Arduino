@@ -1,55 +1,69 @@
 
 # HGV Project REMS006 
+A Folder of all the Code Created during my time working at on the HGV Project. ALl the code is organize into folders with ReadMe in each explaning what each file does. 
 
+Most of the code here is either just for testing hardware with only a few file being used in the final Arduino Code. All Docker Container Should already be running on REMS006 so there isn't a need to reinstall them.
+
+The Main files for the Project Can be found in Primary and Secondarys Folders. Backup Docker Compose files and Conf can be found in the Docker Folder.
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- RS485 Communications via ModbusRTU
+- Module Sensor Addition 
+- MQTT Messaging 
+- NodeRed Setup
+- Prometheus + Grafana
 
 
-## Tech Stack
+## Tech Used
+All Items are link to Either the Main Page of the Item or Useful Resources
 
-**Client:** React, Redux, TailwindCSS
+**Hardware:** 
+[RS485](www.circuitstate.com/tutorials/what-is-rs-485-how-to-use-max485-with-arduino-for-reliable-long-distance-serial-communication/), 
+Ethernet Port, 
+(All The Sensors) 
 
-**Server:** Node, Express
+**Arduino Library:** 
+[SPI](https://docs.arduino.cc/learn/communication/spi/), 
+[Ethernet](https://docs.arduino.cc/libraries/ethernet/), 
+[ModbusRTUMaster](https://github.com/CMB27/ModbusRTUMaster), [ModbusRTUSlave](https://github.com/CMB27/ModbusRTUSlave), [PubSubClient](https://github.com/knolleary/pubsubclient), 
+[ArduinoJson](https://arduinojson.org/), 
+(All the Sensor Library)
 
-
+**Docker Container:** 
+[Mosquitto](https://github.com/sukesh-ak/setup-mosquitto-with-docker), 
+[NodeRed](https://nodered.org/), 
+[Prometheus](https://prometheus.io/), 
+[Grafana](https://grafana.com/)
 ## Installation
-
-Install my-project with npm
+### Local
+To Download all the Code Locally Open a Terminal and cd into a directory you wish to Download all of this  
 
 ```bash
-  npm install my-project
-  cd my-project
+  git clone https://github.com/TriforceGB/rems006-Arduino.git
 ```
-    
-## FAQ
 
-#### Question 1
+### On REMS006
+most if not all of this Repo should already be download onto rems006 but if not then your can run the command above or if it just not updated then you can run 
 
-Answer 1
+```bash
+  git pull
+```
+in the folder or use the .sh command that should be already on REMS006 and just cancel befrore it start to upload to the Arduino 
+## Things Left to Work on
 
-#### Question 2
+- All Sensors being Intergrated
 
-Answer 2
+- Cleaning up the Code
 
+- Primary Code Seem to Frezze After a While
 
-## Screenshots
+- Adding RTA/Home Intergartion (Changing Tempature)
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-
-## Roadmap
-
-- Additional browser support
-
-- Add more integrations
+- Adding Abilty to Read Primary Sensors (Smoke)
 
 
 ## Related Repository
-Here are some Repo from Other Students that work on the HGV at the Same Time I did
+Here are some Repo from other students that work on the HGV at the Sametime I did
 
 [Arham's REMS005](https://github.com/HammyTheWammy/rems005)
 
@@ -61,8 +75,17 @@ Here are some Repo from Other Students that work on the HGV at the Same Time I d
 
 [Custom .sh Shortcuts](https://github.com/TriforceGB/custom.sh-shortcuts)
 
+
 ## Project Flow Chart
 A Guide to the Rest of the HGV Project, Each Colour Shows what REMS Computers Each Node is Running/Being Working on
+
+
+| Computers     | Colour        |
+| ------------- |:-------------:|
+| REMS005       | Blue          |
+| REMS006       | Purple        |
+| REMS007       | Red           |
+| REMS008       | Green         |
  
 ```mermaid
 ---
