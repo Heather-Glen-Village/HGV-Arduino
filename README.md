@@ -102,7 +102,7 @@ config:
 flowchart BT
     Sen1["**Sensors**<br>• DS18B20<br>• AM2302<br>• Motion<br>• Water Leak<br>• Vibration"] -.-> Sec("Secondary Arduino")
     Sec -- ModbusRTU ---> Pri("**Primary Arduino**")
-    Room["**Room Sensors/RTA**<br>• Heater Control <br>• Smoke<br>• ???"] <-...-> Pri
+    Room["**Room Sensors/RTA**<br>• Heater Control <br>• Smoke Detector<br>"] <-...-> Pri
     Pri <== MQTT ====> Mos["**Mosquitto**<br>• Broker for MQTT messages"]
     Mos ---> NR["**NodeRed**<br>• Formats Data"]
     NR -- HTTP ---> Pro["**Prometheus**<br>• Metrics collection"]
