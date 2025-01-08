@@ -1,3 +1,5 @@
+// Used to turn error codes into readable messages
+// Messages from Library Repo
 bool errorCheck(uint8_t errorCode) {
     if (errorCode == 0){return true;}
     else {

@@ -11,3 +11,6 @@ The Ports you should know
 | NodeRed       | :1880         |
 | Prometheus    | :9090         |
 | Grafana       | :3000         |
+
+## Passwords 
+Passwords for some of the containers can be found either on the Discord or REMS006 in the Password Manager

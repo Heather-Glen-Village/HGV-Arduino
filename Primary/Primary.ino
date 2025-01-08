@@ -1,7 +1,7 @@
 /*
   Primary Arduino Control
 
-  This sketch is the Code That lets the Priamry Act as a RTC Master, TCP Server, and Control All Sensor and System Connected
+  This sketch is the Code That lets the Priamry Act as a ModbusRTC Master which gather data from other Arduino and send them to a Another Service using MQTT. this Arduino should also be able to take in message from a webapp and being able to control the temperature of the room.
 
   Pin List
     - D0 RX
@@ -24,20 +24,20 @@ Coil Address Index
  - (0) Command to Read Sensors
 
 Input Register/Float Register Address Index (InputRegister)[FloatRegister]
- - (0-1)[0] Temperature from DS18B20 
+ - (0-1)[0] Temperature from DS18B20
  - (2-5)[1-2] Temperature and Humidity from AM2302
 
-Discrete Inputs Address Index 
+Discrete Inputs Address Index
  - (0) Motion Sensor
  - (1) Water Leak Sensor
  - (2) Vibration Sensor
 
 Data from Primary
-  - Smoke Alarm 
+  - Smoke Alarm
   - Water?
   - Set Temp?
 
-  Created on November 20, 2024
+  Created on November 11, 2024
   By Zachary Schultz
 */
 
@@ -48,70 +48,59 @@ Data from Primary
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
-//Importing .h files
+// Importing .h files
 #include "conf.h"
 #include "errorcheck.h"
 #include "mqtt.h"
+#include "json.h"
 
-ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
+//Basic init for Commuination Library
+ModbusRTUMaster modbus(RS485Serial); // DERE Pins aren't used with our RS485 so they do not have to be define 
 EthernetClient ethClient;
 PubSubClient client(server, port, callback, ethClient);
 
-//Modbus Arrays
+// Modbus Arrays Numbers come from conf.h
 bool Coils[NumSecondary][CoilAddress];
-bool discreteInputs[NumSecondary][DIAddress];
+bool DiscreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
-uint16_t InputRegister[NumSecondary][IRAddress];
-float (*FloatRegisters)[IRAddress/2] = (float(*)[IRAddress/2])InputRegister; // Turns an array of uint16 into floats by taking array in pairs
+uint16_t InputRegisters[NumSecondary][IRAddress];
+float (*FloatRegisters)[IRAddress / 2] = (float (*)[IRAddress / 2]) InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
 
-void readSensors() {
-  errorCheck(modbus.writeSingleCoil(0,0,1)); //Tells All Secondary to Read Sensors
+//Temp Varable until we get real smoke data
+bool Smoke = 1;
 
-  //NEED to Rethink how Smoke Is being Sent Smoke
-  // Maybe have A Json just for Primary Data but Idk what else to put there
-  // another Opition is to Put in only in the lastJson file or all of them both would have the same effect but one would be faster ig
-  
-  delay(5000); //wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
+void readSensors()
+{
+  Serial.println("Telling Secondarys to Read Sensors");
+  errorCheck(modbus.writeSingleCoil(0, 0, 1)); // Tells All Secondary to Read Sensors
 
-  //Read all sensor data from secondary
-  for (int i = 0; i < NumSecondary; i++) { 
-    errorCheck(modbus.readDiscreteInputs(i+1,0,discreteInputs[i],DIAddress));
+  // Temp Primary Senors until really ones get added
+  Smoke = 1;
+
+  delay(5000); // wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
+
+  // Collects All Sensor Data from Secondary
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    errorCheck(modbus.readDiscreteInputs(i + 1, 0, DiscreteInputs[i], DIAddress));
     delay(100);
   }
-  for (int i = 0; i < NumSecondary; i++) {
-    errorCheck(modbus.readInputRegisters(i+1,0,InputRegister[i],IRAddress));
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    errorCheck(modbus.readInputRegisters(i + 1, 0, InputRegisters[i], IRAddress));
     delay(100);
   }
 }
 
-// ----------Basic Setup and Loop Start Here ----------
-void setup() {
-  Serial.begin(baud);
-  modbus.begin(baud);
-  pinMode(LED, OUTPUT);
-  Serial.println("Primary Board Sketch");
-  
-  delay(1000);
-  EthConnect();
-  }
-
-void loop(){
-  if (!client.connected()) { // Reconnected if Connection is Lost, Should do the same with ethernet?
-    reconnected(client);
-  }
-  client.loop();
-  readSensors();
-  sendData(client, discreteInputs, FloatRegisters);
-  delay(5000);
-}
-
-void printdata() {
+void printdata()
+{
+  //Used just for Debug really isn't needed and could be remove
   Serial.println("-----Discrete Input-----");
   for (int i = 0; i < NumSecondary; i++)
   {
     for (int z = 0; z < DIAddress; z++)
     {
-      Serial.print(discreteInputs[i][z]);
+      Serial.print(DiscreteInputs[i][z]);
       Serial.print(",");
       delay(100);
     }
@@ -123,7 +112,7 @@ void printdata() {
   {
     for (int z = 0; z < IRAddress; z++)
     {
-      Serial.print(InputRegister[i][z]);
+      Serial.print(InputRegisters[i][z]);
       Serial.print(",");
       delay(100);
     }
@@ -133,7 +122,7 @@ void printdata() {
   Serial.println("-----Float Register-----");
   for (int i = 0; i < NumSecondary; i++)
   {
-    for (int z = 0; z < IRAddress/2; z++)
+    for (int z = 0; z < IRAddress / 2; z++)
     {
       Serial.print(FloatRegisters[i][z]);
       Serial.print(",");
@@ -141,4 +130,35 @@ void printdata() {
     }
     Serial.println();
   }
+}
+
+// ----------Basic Setup and Loop Start Here ----------
+void setup()
+{
+  // Starts all Serial and Modbus Communication
+  Serial.begin(baud); 
+  RS485Serial.begin(baud); // Only Needed if using Software Serial or have 2 Serial Terminals
+  modbus.begin(baud); 
+  pinMode(LED, OUTPUT);
+  Serial.println("Primary Board Sketch");
+  EthConnect();
+  delay(1000);
+  
+}
+
+void loop()
+{
+  if (!client.connected())
+  { // Reconnected if Connection is Lost to MQTT, Should do the same with ethernet?
+    reconnected(client);
+  }
+  client.loop(); // check MQTT for messages
+  readSensors(); // gather data
+  client.publish(SensorTopic, PrimaryJson(Smoke).c_str()); // Send MQTT message with Primary Data
+  //Send a Json for Every Secondary Read from
+  for (int i = 0; i < NumSecondary; i++)
+  {
+    client.publish(SensorTopic, SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str()); 
+  }
+  delay(5000);
 }

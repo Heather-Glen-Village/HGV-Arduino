@@ -7,6 +7,8 @@ is the Main file that Initializing all the Libraries Needed as well Importing al
 This file contains all the information for the modules attached to the Arduino and their pin number so that in the Main Code you can Just right the Name of the Sensor and it will replace it with the right number. In the conf you can also find General Serial Modbus,Ethernet, and MQTT configuration. Note the Modbus Array configuration should match the Modbus Array configuration in the Secondary Conf.
 ### mqtt.h
 Is that code that is used to communicate with MQTT. It contains both the initialization for MQTT and also the ability to turn a 2D Array into a Json that can be send to NodeRed.  
+### json.h
+Take Data gather from Secondary and Primary and formats into a Json that can be send to NodeRed 
 ### errorcheck.h
 This code will take an error code from the ModbusRTUMaster Libary and turn into something that I can understand 
 

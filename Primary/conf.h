@@ -6,32 +6,32 @@
 #define PowerOFF 6
 #define CoolON 7
 
-// Ethernet Configuration
-#define MAC_ADDRESS {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF}
-#define server { 192, 168, 3, 126 }
+// Ethernet/MQTT Broker Configuration
+#define MAC_ADDRESS {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF} 
+#define server { 192, 168, 3, 126 } // IP Address of MQTT Broker Running on REMS006
 #define port 1883
 
 
 //MQTT Config
-#define PrimaryNum 1 //Uused to Idenity Primary Might want to use Room Number Later
+#define PrimaryNum 1 //Used to Idenity Primary Might want to use Room Number Later
 #define MQTTUser "arduino"
 #define MQTTPassword "arduino"
 
-#define SensorTopic "/sensor"
-#define ArduinoCMD "/CMDArduino"
-#define temprequest "/temprequest/"
+#define SensorTopic "/sensors" //topic all Sensor Json get sent to
+#define ArduinoCMD "/CMDArduino" //currently unused
+#define temprequest "/temprequest/" 
 #define bootmessage "/bootmessage"
 
 // General Modbus Configuration
-#define RS485Serial Serial // Which Serial Is being Used
+#define RS485Serial Serial1 // Which Serial Is being Used
 #define baud 9600
-#define NumSecondary 4 // Amount of Secondary Boards Being Used
+#define NumSecondary 1 // Amount of Secondary Boards Being Used
 
-// Modbus Array configuration (Should Match with Secondarys)
+// Modbus Array configuration <--(Should Match with Secondarys)--/>
 
 #define CoilAddress 1 // Number of used Coil Address
 #define DIAddress 3 // Number of used Discrete Inputs Address
 #define HRAddress 1 // Number of used Holding Register Address
-#define IRAddress 8 // Number of used Input Register Addresss
+#define IRAddress 6 // Number of used Input Register Addresss
 
 

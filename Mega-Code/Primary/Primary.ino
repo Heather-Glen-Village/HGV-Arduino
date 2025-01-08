@@ -1,7 +1,7 @@
 /*
   Primary Arduino Control
 
-  This sketch is the Code That lets the Priamry Act as a RTC Master, TCP Server, and Control All Sensor and System Connected
+  This sketch is the Code That lets the Priamry Act as a ModbusRTC Master which gather data from other Arduino and send them to a Another Service using MQTT. this Arduino should also be able to take in message from a webapp and being able to control the temperature of the room.
 
   Pin List
     - D0 RX
@@ -54,16 +54,19 @@ Data from Primary
 #include "mqtt.h"
 #include "json.h"
 
-ModbusRTUMaster modbus(RS485Serial); // No DERE Pins Used
+//Basic init for Commuination Library
+ModbusRTUMaster modbus(RS485Serial); // DERE Pins aren't used with our RS485 so they do not have to be define 
 EthernetClient ethClient;
 PubSubClient client(server, port, callback, ethClient);
 
-// Modbus Arrays
+// Modbus Arrays Numbers come from conf.h
 bool Coils[NumSecondary][CoilAddress];
 bool DiscreteInputs[NumSecondary][DIAddress];
 uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegisters[NumSecondary][IRAddress];
 float (*FloatRegisters)[IRAddress / 2] = (float (*)[IRAddress / 2]) InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
+
+//Temp Varable until we get real smoke data
 bool Smoke = 1;
 
 void readSensors()
@@ -71,14 +74,12 @@ void readSensors()
   Serial.println("Telling Secondarys to Read Sensors");
   errorCheck(modbus.writeSingleCoil(0, 0, 1)); // Tells All Secondary to Read Sensors
 
-  // NEED to Rethink how Smoke Is being Sent Smoke
-  //  Maybe have A Json just for Primary Data but Idk what else to put there
-  //  another Opition is to Put in only in the lastJson file or all of them both would have the same effect but one would be faster ig
+  // Temp Primary Senors until really ones get added
   Smoke = 1;
 
   delay(5000); // wait for Sensors to Read and Serial to Clear (COULD BE SHORTEN/REMOVED IF NEEDED)
 
-  // Read all sensor data from secondary
+  // Collects All Sensor Data from Secondary
   for (int i = 0; i < NumSecondary; i++)
   {
     errorCheck(modbus.readDiscreteInputs(i + 1, 0, DiscreteInputs[i], DIAddress));
@@ -93,6 +94,7 @@ void readSensors()
 
 void printdata()
 {
+  //Used just for Debug really isn't needed and could be remove
   Serial.println("-----Discrete Input-----");
   for (int i = 0; i < NumSecondary; i++)
   {
@@ -133,27 +135,30 @@ void printdata()
 // ----------Basic Setup and Loop Start Here ----------
 void setup()
 {
-  Serial.begin(baud);
-  RS485Serial.begin(baud);
-  modbus.begin(baud);
+  // Starts all Serial and Modbus Communication
+  Serial.begin(baud); 
+  RS485Serial.begin(baud); // Only Needed if using Software Serial or have 2 Serial Terminals
+  modbus.begin(baud); 
   pinMode(LED, OUTPUT);
   Serial.println("Primary Board Sketch");
   EthConnect();
   delay(1000);
+  
 }
 
 void loop()
 {
   if (!client.connected())
-  { // Reconnected if Connection is Lost, Should do the same with ethernet?
+  { // Reconnected if Connection is Lost to MQTT, Should do the same with ethernet?
     reconnected(client);
   }
-  client.loop();
-  readSensors();
-  client.publish(SensorTopic, PrimaryJson(Smoke).c_str());
+  client.loop(); // check MQTT for messages
+  readSensors(); // gather data
+  client.publish(SensorTopic, PrimaryJson(Smoke).c_str()); // Send MQTT message with Primary Data
+  //Send a Json for Every Secondary Read from
   for (int i = 0; i < NumSecondary; i++)
   {
-    client.publish(SensorTopic, SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str());
+    client.publish(SensorTopic, SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str()); 
   }
   delay(5000);
 }
