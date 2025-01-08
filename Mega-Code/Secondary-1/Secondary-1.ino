@@ -116,12 +116,12 @@ void loop() {
   if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
     Serial.println("Sending Data");
   
-    FloatRegisters[0] = DS18B20_Temp();
-    FloatRegisters[1] = 1;//AM2302_Temp();
-    FloatRegisters[2] = 1;//AM2302_Humidity();
+    FloatRegisters[0] = 19.4;  //DS18B20_Temp();
+    FloatRegisters[1] = 20.6;//AM2302_Temp();
+    FloatRegisters[2] = 40.3;//AM2302_Humidity();
 
     DiscreteInputs[0] = 1; // Motion
-    DiscreteInputs[1] = 1; // Water
+    DiscreteInputs[1] = 0; // Water
     DiscreteInputs[2] = 1; // Vibration
 
     printdata(); //for debuging
