@@ -23,11 +23,11 @@
 #define bootmessage "/bootmessage"
 
 // General Modbus Configuration
-#define RS485Serial Serial // Which Serial Is being Used
+#define RS485Serial Serial1 // Which Serial Is being Used
 #define baud 9600
 #define NumSecondary 1 // Amount of Secondary Boards Being Used
 
-// Modbus Array configuration <--(Should Match with Secondarys)--/>
+// Modbus Array Configuration <--(Should Match with Secondarys)--/>
 
 #define CoilAddress 1 // Number of used Coil Address
 #define DIAddress 3 // Number of used Discrete Inputs Address

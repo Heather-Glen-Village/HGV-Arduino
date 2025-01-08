@@ -92,9 +92,10 @@ void readSensors()
   }
 }
 
+//Used just for Debug really isn't needed and could be remove
 void printdata()
 {
-  //Used just for Debug really isn't needed and could be remove
+  
   Serial.println("-----Discrete Input-----");
   for (int i = 0; i < NumSecondary; i++)
   {
@@ -148,8 +149,9 @@ void setup()
 
 void loop()
 {
+  // Reconnected if Connection is Lost to MQTT, Should do the same with ethernet?
   if (!client.connected())
-  { // Reconnected if Connection is Lost to MQTT, Should do the same with ethernet?
+  { 
     reconnected(client);
   }
   client.loop(); // check MQTT for messages

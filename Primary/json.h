@@ -4,22 +4,22 @@
 JsonDocument doc;
 String SensorJson;
 
+// Creates Json with Information that they Primary has 
 String PrimaryJson(bool Smoke)
 { 
-// Creates Json with Information that they Primary has 
-// add more stuff later
+
     doc["Primary"] = PrimaryNum;
     doc["Smoke"] = Smoke;
-
+// add more stuff later
     serializeJson(doc, SensorJson); // Turn Json into something that can be send via Serial
     doc.clear(); // clears memeory so that this info doesn't show when creating another Json
     Serial.println(SensorJson); // Debug
     return SensorJson;
 }
 
+// Creates Json with Information that a Secondary has 
 String SecondaryJson(int SecondaryNum, bool DiscreteInputs[NumSecondary], float FloatRegisters[NumSecondary])
 {
-// Creates Json with Information that a Secondary has 
     doc["Primary"] = PrimaryNum;
     doc["Secondary"] = SecondaryNum;
 
