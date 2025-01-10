@@ -109,7 +109,10 @@ void setup()
   modbus.begin(ID, baud);
 
   // Initializing Sensors
+  initializeAM2302();
   initializeDS18B20();
+  initializeHC505();
+  initializeSW420();
 
   Serial.println("Secondary Board Sketch");
   Serial.print("Board ID: ");
@@ -125,12 +128,12 @@ void loop()
     Serial.println("Sending Data");
 
     FloatRegisters[0] = DS18B20_Temp();
-    FloatRegisters[1] = 1; // AM2302_Temp();
-    FloatRegisters[2] = 1; // AM2302_Humidity();
+    FloatRegisters[1] = AM2302_Temp();
+    FloatRegisters[2] = AM2302_Humidity();
 
-    DiscreteInputs[0] = 1; // Motion
+    DiscreteInputs[0] = DetectMotion();
     DiscreteInputs[1] = 1; // Water
-    DiscreteInputs[2] = 1; // Vibration
+    DiscreteInputs[2] = DetectVibration();
 
     printdata(); // for debuging
 
