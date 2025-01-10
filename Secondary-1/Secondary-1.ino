@@ -27,7 +27,7 @@ Input Register/Float Register Address Index (InputRegister)[FloatRegister]
 Discrete Inputs Address Index
  - (0) Motion Data from HC-SR505
  - (1) Water Leak Sensor
- - (2) Vibration Sensor
+ - (2) Vibration Sensor from SW420
 
   Created on November 11, 2024
   By Zachary Schultz
