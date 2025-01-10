@@ -7,9 +7,9 @@
     - D0 RX
     - D1 TX
     - D2 LED
-    - D4 AM2302 Heat/DHT221
-    - D5 SR-HC 50x Motion
-    - D6 SW-1815P Vibration Sensor
+    - D4 AM2302 Heat/Humidity
+    - D5 SHC-SR505 Motion
+    - D6 SW420 Vibration Sensor
     - D7 DS18B20 Heat
     - D14/A0 Water Leak Set 1 (Digital)
     - D15/A1 Water Leak Set 2 (Digital)
@@ -25,7 +25,7 @@ Input Register/Float Register Address Index (InputRegister)[FloatRegister]
  - (2-5)[1-2] Temperature and Humidity from AM2302
 
 Discrete Inputs Address Index
- - (0) Motion Sensor
+ - (0) Motion Data from HC-SR505
  - (1) Water Leak Sensor
  - (2) Vibration Sensor
 
@@ -40,91 +40,99 @@ Discrete Inputs Address Index
 #include <DallasTemperature.h>
 #include <DHT.h>
 
-//Importing .h files
+// Importing .h files
 #include "conf.h"
-#include "DS18B20_Sensor.h"
-#include "AM2302_Sensor.h"
+#include "Sensor_AM2302.h"
+#include "Sensor_DS18B20.h"
+#include "Sensor_HC505.h"
+#include "Sensor_SW420.h"
 
-//Modbus Arrays Numbers come from conf.h
+// Modbus Arrays Numbers come from conf.h
 bool Coils[CoilAddress];
 bool DiscreteInputs[DIAddress];
 uint16_t HoldingRegisters[HRAddress];
 uint16_t InputRegisters[IRAddress];
-float *FloatRegisters = (float*)InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
+float *FloatRegisters = (float *)InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
 
 // Creating Modbus Connection
 ModbusRTUSlave modbus(RS485Serial); // DERE Pins aren't used with our RS485 so they do not have to be define
 
-//Read all Sensors to test if they are working
-void readDebug() {
-      Serial.print("DS18B20 Temperature: ");
-      Serial.println(DS18B20_Temp());
-      Serial.print("AM2302 Temperature: ");
-      Serial.println(AM2302_Temp());
-      Serial.print("AM2302 Humidity: ");
-      Serial.println(AM2302_Humidity());
+// Read all Sensors to test if they are working
+void readDebug()
+{
+  Serial.print("DS18B20 Temperature: ");
+  Serial.println(DS18B20_Temp());
+  Serial.print("AM2302 Temperature: ");
+  Serial.println(AM2302_Temp());
+  Serial.print("AM2302 Humidity: ");
+  Serial.println(AM2302_Humidity());
 }
 // used for debuging modbus arrays can be remove if needed
-void printdata() {
+void printdata()
+{
   Serial.println("-----Discrete Input-----");
-    for (int z = 0; z < DIAddress; z++) {
-      Serial.print(DiscreteInputs[z]);
-      Serial.print(",");
-      delay(100);
-    }
+  for (int z = 0; z < DIAddress; z++)
+  {
+    Serial.print(DiscreteInputs[z]);
+    Serial.print(",");
+    delay(100);
+  }
   Serial.println();
   Serial.println("-----RAW Input Register-----");
-    for (int z = 0; z < IRAddress; z++)
-    {
-      Serial.print(InputRegisters[z]);
-      Serial.print(",");
-      delay(100);
-    }
+  for (int z = 0; z < IRAddress; z++)
+  {
+    Serial.print(InputRegisters[z]);
+    Serial.print(",");
+    delay(100);
+  }
   Serial.println();
   Serial.println("-----Float Register-----");
-    for (int z = 0; z < IRAddress/2; z++)
-    {
-      Serial.print(FloatRegisters[z]);
-      Serial.print(",");
-      delay(100);
-    }
-    Serial.println();
+  for (int z = 0; z < IRAddress / 2; z++)
+  {
+    Serial.print(FloatRegisters[z]);
+    Serial.print(",");
+    delay(100);
+  }
+  Serial.println();
 }
 
 // ----------Basic Setup and Loop Start Here ----------
-void setup(){
-  modbus.configureCoils(Coils,CoilAddress);
-  modbus.configureDiscreteInputs(DiscreteInputs,DIAddress);
-  modbus.configureHoldingRegisters(HoldingRegisters,HRAddress);
-  modbus.configureInputRegisters(InputRegisters,IRAddress);
+void setup()
+{
+  modbus.configureCoils(Coils, CoilAddress);
+  modbus.configureDiscreteInputs(DiscreteInputs, DIAddress);
+  modbus.configureHoldingRegisters(HoldingRegisters, HRAddress);
+  modbus.configureInputRegisters(InputRegisters, IRAddress);
 
   Serial.begin(baud);
   RS485Serial.begin(baud); // Only Needed if using Software Serial or have 2 Serial Terminals
   modbus.begin(ID, baud);
 
-// Initializing Sensors
+  // Initializing Sensors
   initializeDS18B20();
 
   Serial.println("Secondary Board Sketch");
-  Serial.print("Board ID: "); 
+  Serial.print("Board ID: ");
   Serial.println(ID);
   delay(1000);
 }
 
-void loop() {    
+void loop()
+{
   modbus.poll(); // Checks for request on Modbus
-  if (Coils[0] == 1) { // Read Data Only When Primary Tells it To
+  if (Coils[0] == 1)
+  { // Read Data Only When Primary Tells it To
     Serial.println("Sending Data");
-  
+
     FloatRegisters[0] = DS18B20_Temp();
-    FloatRegisters[1] = 1;//AM2302_Temp();
-    FloatRegisters[2] = 1;//AM2302_Humidity();
+    FloatRegisters[1] = 1; // AM2302_Temp();
+    FloatRegisters[2] = 1; // AM2302_Humidity();
 
     DiscreteInputs[0] = 1; // Motion
     DiscreteInputs[1] = 1; // Water
     DiscreteInputs[2] = 1; // Vibration
 
-    printdata(); //for debuging
+    printdata(); // for debuging
 
     Coils[0] = 0; // Pervent Looping More then 1 Time
   }

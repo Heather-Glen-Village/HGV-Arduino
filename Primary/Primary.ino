@@ -28,7 +28,7 @@ Input Register/Float Register Address Index (InputRegister)[FloatRegister]
  - (2-5)[1-2] Temperature and Humidity from AM2302
 
 Discrete Inputs Address Index
- - (0) Motion Sensor
+ - (0) Motion Data from HC-SR505
  - (1) Water Leak Sensor
  - (2) Vibration Sensor
 
@@ -54,8 +54,8 @@ Data from Primary
 #include "mqtt.h"
 #include "json.h"
 
-//Basic init for Commuination Library
-ModbusRTUMaster modbus(RS485Serial); // DERE Pins aren't used with our RS485 so they do not have to be define 
+// Basic init for Commuination Library
+ModbusRTUMaster modbus(RS485Serial); // DERE Pins aren't used with our RS485 so they do not have to be define
 EthernetClient ethClient;
 PubSubClient client(server, port, callback, ethClient);
 
@@ -66,7 +66,7 @@ uint16_t HoldingRegisters[NumSecondary][HRAddress];
 uint16_t InputRegisters[NumSecondary][IRAddress];
 float (*FloatRegisters)[IRAddress / 2] = (float (*)[IRAddress / 2]) InputRegisters; // Turns an array of uint16 into floats by taking array in pairs
 
-//Temp Varable until we get real smoke data
+// Temp Varable until we get real smoke data
 bool Smoke = 1;
 
 void readSensors()
@@ -92,10 +92,10 @@ void readSensors()
   }
 }
 
-//Used just for Debug really isn't needed and could be remove
+// Used just for Debug really isn't needed and could be remove
 void printdata()
 {
-  
+
   Serial.println("-----Discrete Input-----");
   for (int i = 0; i < NumSecondary; i++)
   {
@@ -137,30 +137,29 @@ void printdata()
 void setup()
 {
   // Starts all Serial and Modbus Communication
-  Serial.begin(baud); 
+  Serial.begin(baud);
   RS485Serial.begin(baud); // Only Needed if using Software Serial or have 2 Serial Terminals
-  modbus.begin(baud); 
+  modbus.begin(baud);
   pinMode(LED, OUTPUT);
   Serial.println("Primary Board Sketch");
   EthConnect();
   delay(1000);
-  
 }
 
 void loop()
 {
   // Reconnected if Connection is Lost to MQTT, Should do the same with ethernet?
   if (!client.connected())
-  { 
+  {
     reconnected(client);
   }
-  client.loop(); // check MQTT for messages
-  readSensors(); // gather data
+  client.loop();                                           // check MQTT for messages
+  readSensors();                                           // gather data
   client.publish(SensorTopic, PrimaryJson(Smoke).c_str()); // Send MQTT message with Primary Data
-  //Send a Json for Every Secondary Read from
+  // Send a Json for Every Secondary Read from
   for (int i = 0; i < NumSecondary; i++)
   {
-    client.publish(SensorTopic, SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str()); 
+    client.publish(SensorTopic, SecondaryJson(i + 1, DiscreteInputs[i], FloatRegisters[i]).c_str());
   }
   delay(5000);
 }
