@@ -33,7 +33,6 @@ void setup()
     DS18B20.begin();
 
     unsigned status = bme.begin(0x76);
-    ;
 
     Serial.println("Mega Sensor Test");
 }

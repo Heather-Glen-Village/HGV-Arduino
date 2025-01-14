@@ -1,7 +1,7 @@
 #include <DHT.h>
 #include "conf.h"
 
-DHT AM2302(AM2302_PIN, DHT22);
+DHT AM2302(AM2302_PIN, AM2302_SensorType);
 
 // Function to initialize the sensor with a specified pin
 void initializeAM2302()

@@ -23,6 +23,7 @@ Coil Address Index
 Input Register/Float Register Address Index (InputRegister)[FloatRegister]
  - (0-1)[0] Temperature from DS18B20
  - (2-5)[1-2] Temperature and Humidity from AM2302
+ - (6-13)[3-6] BME280 Temperature, Humidity, Pressure and Altitude
 
 Discrete Inputs Address Index
  - (0) Motion Data from HC-SR505
@@ -39,11 +40,16 @@ Discrete Inputs Address Index
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <DHT.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
 
 // Importing .h files
 #include "conf.h"
 #include "Sensor_AM2302.h"
 #include "Sensor_DS18B20.h"
+#include "Sensor_BME280.h"
 #include "Sensor_HC505.h"
 #include "Sensor_SW420.h"
 
@@ -61,7 +67,7 @@ ModbusRTUSlave modbus(RS485Serial); // DERE Pins aren't used with our RS485 so t
 void readDebug()
 {
   Serial.print("DS18B20 Temperature: ");
-  Serial.println(DS18B20_Temp());
+  Serial.println(DS18B20_Temp(0));
   Serial.print("AM2302 Temperature: ");
   Serial.println(AM2302_Temp());
   Serial.print("AM2302 Humidity: ");
@@ -111,6 +117,7 @@ void setup()
   // Initializing Sensors
   initializeAM2302();
   initializeDS18B20();
+  initializeBME280();
   initializeHC505();
   initializeSW420();
 
@@ -127,9 +134,13 @@ void loop()
   { // Read Data Only When Primary Tells it To
     Serial.println("Sending Data");
 
-    FloatRegisters[0] = DS18B20_Temp();
+    FloatRegisters[0] = DS18B20_Temp(0);
     FloatRegisters[1] = AM2302_Temp();
     FloatRegisters[2] = AM2302_Humidity();
+    FloatRegisters[3] = BME280_Temp();
+    FloatRegisters[4] = BME280_Humidity();
+    FloatRegisters[5] = BME280_Altitude();
+    FloatRegisters[6] = BME280_Pressure();
 
     DiscreteInputs[0] = DetectMotion();
     DiscreteInputs[1] = 1; // Water
