@@ -10,6 +10,7 @@ ModbusRTUSlave modbus(RS485Serial);
 uint16_t HoldingRegisters[1];
 uint16_t InputRegisters[1] = {Secondary};
 uint16_t OldHolding = 0;
+
 ModbusRTUSlave modbus(RS485Serial);
 
 void setup()
