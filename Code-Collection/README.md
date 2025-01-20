@@ -16,3 +16,5 @@ A bunch of different Modbus Code testing a bunch of different situation. the Cod
 Testing MQTT using the PubSubClient Library 
 ### Relaytest
 Testing if I was able to change a Relay which made it so another 2 board could or couldn't Commuitate with RS485 (Don't Believe it every work due to Hardware)
+### system-checks
+Basic Code to test if most of the major systems are working such as Modbus and all major Secondary Sensors
