@@ -56,11 +56,7 @@ most if not all of this Repo should already be download onto rems006 but if not 
 in the folder or use the .sh command that should be already on REMS006 and just cancel befrore it start to upload to the Arduino 
 ## Things Left to Work on
 
-- All Sensors being Intergrated
-
-- Cleaning up the Code
-
-- Primary Code Seem to Frezze After a While
+- A Working RS485 Conntion
 
 - Adding RTA/Home Intergartion (Changing Tempature)
 
