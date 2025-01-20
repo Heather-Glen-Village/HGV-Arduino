@@ -1,11 +1,13 @@
 #include <ModbusRTUMaster.h>
+#include <SoftwareSerial.h>
 
 // Settings you need to Change
 #define NumSecondary 1 // Amount of Secondary Boards Being Used
 // Don't Touch
-#define RS485Serial Serial // Which Serial Is being Used
+#define RS485Serial SoftSerial // Which Serial Is being Used
 #define baud 9600
 
+SoftwareSerial SoftSerial(8, 9); // D8 Tx D9 Rx
 ModbusRTUMaster modbus(RS485Serial);
 uint16_t DiscreteInputs[1];
 uint16_t RandomNum;

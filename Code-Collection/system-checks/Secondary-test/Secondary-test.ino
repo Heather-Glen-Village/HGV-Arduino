@@ -1,11 +1,13 @@
 #include <ModbusRTUSlave.h>
+#include <SoftwareSerial.h>
 
 // Settings you need to Change
 #define Secondary 1 // Which Secondary This is
 // Don't Touch
-#define RS485Serial Serial // Which Serial Is being Used
+#define RS485Serial SoftSerial // Which Serial Is being Used
 #define baud 9600
 
+SoftwareSerial SoftSerial(8, 9); // D8 Tx D9 Rx
 ModbusRTUSlave modbus(RS485Serial);
 uint16_t HoldingRegisters[1];
 uint16_t InputRegisters[1] = {Secondary};
