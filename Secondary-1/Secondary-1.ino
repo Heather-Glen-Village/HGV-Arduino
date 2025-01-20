@@ -1,7 +1,7 @@
 /*
   Secondary Sensors Sender
 
-  The Skectch Made for Secondarys that Collect Data from Sensors and Send them to the Primany Arduino to be send to other locations. All Secondary used the same code with different ID per system
+  The Sketch Made for Secondary's that Collect Data from Sensors and Send them to the Primany Arduino to be send to other locations. All Secondary used the same code with different ID per system
 
   Pin List
     - D0 RX
@@ -148,6 +148,6 @@ void loop()
 
     printdata(); // for debuging
 
-    Coils[0] = 0; // Pervent Looping More then 1 Time
+    Coils[0] = 0; // Prevents Looping More then 1 Time
   }
 }

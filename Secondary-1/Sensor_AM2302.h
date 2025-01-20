@@ -9,7 +9,7 @@ void initializeAM2302()
   AM2302.begin();
 }
 
-// Function to get the temperavture
+// Function to get the Temperature
 float AM2302_Temp()
 {
   return AM2302.readTemperature();
