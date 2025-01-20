@@ -21,7 +21,7 @@ void setup()
     Serial.println("Secondary Board Modbus Test");
     Serial.print("Secondary Board: ");
     Serial.println(Secondary);
-    Serial.println("Will Only Print Messages on Step 2 if gettings a Message");
+    Serial.println("Will Only Print Messages on Step 2 if Getting a Message");
     delay(1000);
 }
 

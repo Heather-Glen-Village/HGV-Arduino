@@ -29,7 +29,7 @@ bool errorCheck(uint8_t errorCode)
         }
         else if (errorCode == 3)
         {
-            Serial.println("Invalid quntity");
+            Serial.println("Invalid quantity");
         }
         else if (errorCode == 4)
         {
@@ -95,7 +95,7 @@ void setup()
 
 void loop()
 {
-    Serial.println("Step 1: Reading Message from Secondarys");
+    Serial.println("Step 1: Reading Message from Secondary's");
     for (int i = 1; i < NumSecondary + 1; i++)
     {
         Serial.print("Reading from Secondary ");
@@ -113,7 +113,7 @@ void loop()
         }
         delay(1000);
     }
-    Serial.println("Step 2: Writing Random Number to Secondarys");
+    Serial.println("Step 2: Writing Random Number to Secondary's");
     for (int i = 1; i < NumSecondary + 1; i++)
     {
         RandomNum = random(0, 1000);
@@ -129,7 +129,7 @@ void loop()
         }
         else
         {
-            Serial.print("Failed to Write Random Number to Secondary ");
+            Serial.print("May have Failed to Write to Secondary, Check Secondary Terminal to Confirm");
             Serial.println(i);
         }
         delay(1000);
