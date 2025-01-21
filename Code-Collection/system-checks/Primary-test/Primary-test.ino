@@ -101,7 +101,8 @@ void loop()
         Serial.print("Reading from Secondary ");
         Serial.println(i);
         delay(1000);
-        if (errorCheck(modbus.readInputRegisters(i, 0, DiscreteInputs, 1)))
+        int IR = errorCheck(modbus.readInputRegisters(i, 0, DiscreteInputs, 1));
+        if (IR == i)
         {
             Serial.print("Was Able to Read a Message from Secondary ");
             Serial.println(i);
