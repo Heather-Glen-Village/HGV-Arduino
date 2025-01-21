@@ -95,9 +95,11 @@ void setup()
 
 void loop()
 {
+    Serial.println("=====================================================================");
     Serial.println("Step 1: Reading Message from Secondary's");
     for (int i = 1; i < NumSecondary + 1; i++)
     {
+        Serial.println("======================================");
         Serial.print("Reading from Secondary ");
         Serial.println(i);
         delay(1000);
@@ -114,9 +116,11 @@ void loop()
         }
         delay(1000);
     }
+    Serial.println("=====================================================================");
     Serial.println("Step 2: Writing Random Number to Secondary's");
     for (int i = 1; i < NumSecondary + 1; i++)
     {
+        Serial.println("======================================");
         RandomNum = random(0, 1000);
         Serial.print("Sending Random Number: ");
         Serial.print(RandomNum);
@@ -131,7 +135,6 @@ void loop()
         else
         {
             Serial.print("May have Failed to Write to Secondary, Check Secondary Terminal to Confirm");
-            Serial.println(i);
         }
         delay(1000);
     }
