@@ -134,7 +134,7 @@ void loop()
         }
         else
         {
-            Serial.print("May have Failed to Write to Secondary, Check Secondary Terminal to Confirm");
+            Serial.println("May have Failed to Write to Secondary, Check Secondary Terminal to Confirm");
         }
         delay(1000);
     }
