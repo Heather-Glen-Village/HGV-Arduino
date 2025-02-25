@@ -4,7 +4,7 @@ A folder of all the code created during my time working at on the HGV Project. A
 
 Most of the code here is either just for testing hardware with only a few file being used in the final Arduino Code. All Docker Container should already be running on REMS006 so there isn't a need to reinstall them. asdfasd
 
-The Main files for the Project Can be found in Primary and Secondarys Folders. Backup Docker Compose files and Conf can be found in the Docker Folder. asdfasdf
+The Main files for the Project Can be found in Primary and Secondarys Folders. Backup Docker Compose files and Conf can be found in the Docker Folder.
 ## Features
 
 - RS485 Communications via ModbusRTU
