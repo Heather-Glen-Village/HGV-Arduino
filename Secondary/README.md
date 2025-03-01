@@ -18,8 +18,7 @@ This is all the Code for the Sensors that are attach to the Secondary. Each Sens
 
 ## Secondary Flow Chart
 
-![image](https://github.com/user-attachments/assets/a29f9918-9f8a-46a3-ba9b-2d8d43d42cb9)
-
+![image](https://github.com/user-attachments/assets/cdc51c08-c170-4f26-9f52-5bc347abee84)
 
 ## Note about Multiple Files
 
