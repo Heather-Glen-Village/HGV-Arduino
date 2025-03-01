@@ -45,4 +45,4 @@ This portion of repository has only 1 Goal
 - Any other sensors we want to add
 
 ## Project Flow Chart
-![image](https://github.com/user-attachments/assets/a748c5ee-fd2a-4c56-9946-f58240079507)
+![image](https://github.com/user-attachments/assets/66b08bec-683c-459b-b8fa-ee63cef260bb)
