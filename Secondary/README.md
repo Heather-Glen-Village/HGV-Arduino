@@ -17,8 +17,8 @@ This file contains all the information for the modules attached to the Arduino a
 This is all the Code for the Sensors that are attach to the Secondary. Each Sensors has it own file with code that is Made by other students and edited by Me to work with the Secondary.
 
 ## Secondary Flow Chart
+![image](https://github.com/user-attachments/assets/f62850a2-2bc3-42e3-8a44-4624476ce10a)
 
-![image](https://github.com/user-attachments/assets/cdc51c08-c170-4f26-9f52-5bc347abee84)
 
 ## Note about Multiple Files
 
