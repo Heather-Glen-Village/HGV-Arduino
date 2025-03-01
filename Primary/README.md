@@ -6,7 +6,7 @@ In this Folder is all the code that is used in the all the Primary Arduino, the 
 
 ### Primary.ino
 
-is the Main file that Initializing all the Libraries Needed as well Importing all the code from the other files. From there it will initialize Modbus and MQTT and start the main loop. The Code will request Sensors data from all the Secondary Arduino Attach as well Sensor Attach to the Primary Board, from there it will send that information to NodeRed via MQTT then repeat after 5 Seconds. Later it will also receive messages and interact with the Room/RTA to set the Heater.
+Is the Main file that Initializing all the Libraries Needed as well Importing all the code from the other files. From there it will initialize Modbus and MQTT and start the main loop. The Code will request Sensors data from all the Secondary Arduino Attach as well Sensor Attach to the Primary Board, from there it will send that information to NodeRed via MQTT then repeat after 5 Seconds. Later it will also receive messages and interact with the Room/RTA to set the Heater.
 
 ### conf.h
 
@@ -22,8 +22,14 @@ Take Data gather from Secondary and Primary and formats into a Json that can be 
 
 ### errorcheck.h
 
-This code will take an error code from the ModbusRTUMaster library and turn into something that I can understand
+This code will take an error code from the ModbusRTUMaster library and turn into something that you can understand
+
+### Primary Flow Chart
+
+![image](https://github.com/user-attachments/assets/7f2a8d3b-fa60-4d68-9d77-f19a001d8eac)
+
+
 
 ## Note about Multiple Files
 
-I Believed in C++ Coding this isn't the correct way to split code into multiple files but Its works for me, if you want to fix this then good luck.
+I Believed in C++ Coding this isn't the correct way to split code into multiple files but Its works for me, if you want to fix this then good luck. - Zach

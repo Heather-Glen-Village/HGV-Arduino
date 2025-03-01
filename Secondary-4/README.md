@@ -1,2 +1,0 @@
-# Secondary 4
-This code is the same as Primary 1 except in the conf.h, the ID has Changed to 4. this Folder only exists so that I don't need to Manilly change the ID every time I want to upload to all the Arduino. for More information about the Code go to [Secondary 1](https://github.com/TriforceGB/rems006-Arduino/tree/main/Secondary-1)
